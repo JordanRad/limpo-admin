@@ -12,11 +12,11 @@ Software product for a cleaning company startup which aims to automate some busi
 ## Project Strcuture 
 This project has 2 main repositories:
 - *Limpo Admin Panel* -  where you can find the client application (this repository) 
-- *Limpo Order Service* - where you can find the API (link to admin)[https://github.com/JordanRad/limpo-order-service.git]
+- *Limpo Order Service* - where you can find the API [link to admin](https://github.com/JordanRad/limpo-order-service.git)
 
 
  
 ## API Development Stack
-- Java Spring-boot
-- Gradle
-- H2 file database
+- React JS
+- Material UI
+- (chart library)
