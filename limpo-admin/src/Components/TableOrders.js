@@ -24,7 +24,7 @@ const columns = [
       }`,
   },
   {
-    field: 'age',
+    field: 'price',
     headerName: 'Цена',
     type: 'number',
     width: 200,
