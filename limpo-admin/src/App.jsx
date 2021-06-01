@@ -12,11 +12,12 @@ import DashboardPage from "./pages/DashboardPage.jsx";
 function App() {
   return (
     <Router>
-    <ThemeProvider theme={theme}>
+    
       <Switch>
         <Route path="/login">
+        <ThemeProvider theme={theme}>
          <LogIn />
-         
+         </ThemeProvider>
         </Route>
         
         <Route path="/dashboard">
@@ -26,8 +27,7 @@ function App() {
           <Redirect to="/login" />
         </Route>
       </Switch>
-      </ThemeProvider>
-      
+    
     </Router>
   );
 }
