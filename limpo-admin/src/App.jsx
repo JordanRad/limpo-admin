@@ -4,6 +4,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import PlaceOrderPage from './pages/PlaceOrderPage'
 function App() {
   return (
     <Router>
@@ -13,6 +14,9 @@ function App() {
         </Route>
         <Route path="/dashboard">
           <div>Dashboard</div>
+        </Route>
+        <Route path="/place-order">
+          <PlaceOrderPage/>
         </Route>
         <Route path="/*">
           <Redirect to="/login" />
