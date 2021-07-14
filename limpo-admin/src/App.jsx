@@ -9,6 +9,7 @@ import theme from './config/theme-config.js';
 
 import LogIn from './pages/LogIn'
 import DashboardPage from "./pages/DashboardPage.jsx";
+import PlaceOrderPage from './pages/PlaceOrderPage'
 function App() {
   return (
     <Router>
@@ -22,6 +23,9 @@ function App() {
         
         <Route path="/dashboard">
           <DashboardPage />
+        </Route>
+        <Route path="/place-order">
+          <PlaceOrderPage/>
         </Route>
         <Route path="/*">
           <Redirect to="/login" />
