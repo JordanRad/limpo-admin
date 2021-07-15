@@ -7,8 +7,7 @@ import {
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './config/theme-config.js';
 import LogIn from './pages/LogIn'
-import DashboardPage from "./pages/DashboardPage.jsx";
-import PlaceOrderPage from './pages/PlaceOrderPage'
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -19,13 +18,13 @@ function App() {
           </Route>
 
           <Route path="/dashboard">
-            <DashboardPage />
+            <h1>dashboard</h1>
           </Route>
 
           <Route path="/place-order">
-            <PlaceOrderPage />
+            <h2>place order</h2>
           </Route>
-          
+
           <Route path="/*">
             <Redirect to="/login" />
           </Route>

@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-
   root: {
     height: '100vh',
   },
@@ -48,17 +46,17 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     marginBottom: '2em',
   },
-  logoText: {
-    fontWeight: 'bold'
-  },
-  error: {
-    color: 'red'
-  },
-  input: {
-    "&.Mui-checked": {
-      color: "yellow"
-    }
-  }
+  
+  button: {
+    backgroundColor: theme.palette.primary.dark,
+    color: "white",
+    "&:hover": {
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.dark
+    },
+    margin: "10px",
+    marginLeft: "auto"
+}
 }));
 
 export default function SignInSide() {
@@ -111,7 +109,7 @@ export default function SignInSide() {
               fullWidth
               variant="contained"
               color="secondary"
-              className={classes.submit}
+              className={classes.button}
             >
               Продължи
             </Button>
