@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';
-import SearchInput from './SearchInput';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -19,8 +18,7 @@ const columns = [
     sortable: false,
     width: 160,
     valueGetter: (params) =>
-      `${params.getValue(params.id, 'firstName') || ''} ${
-        params.getValue(params.id, 'lastName') || ''
+      `${params.getValue(params.id, 'firstName') || ''} ${params.getValue(params.id, 'lastName') || ''
       }`,
   },
   {
@@ -43,19 +41,12 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export default function DataGridDemo() {
+export default function OrdersTable() {
   return (
-      <div>
-   
-   <SearchInput />
-      <center>
-     
-    <div style={{ height: 400, width: '50%' }}>
-    
-      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-     
-    </div>
-    </center>
+    <div>
+      <div style={{ height: 400, width: '50%' }}>
+        <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+      </div>
     </div>
   );
 }

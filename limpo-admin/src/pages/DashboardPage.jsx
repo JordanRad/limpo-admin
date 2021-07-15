@@ -1,12 +1,11 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import SearchInput from '../components/SearchInput'
+import OrdersTable from '../components/OrdersTable'
+
 
 export default function DashboardPage() {
     return (
         <div>
-            <Navbar />
-       
+            <OrdersTable/>
         </div>
     )
 }

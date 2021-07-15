@@ -1,6 +1,5 @@
 import React from 'react'
-// import Navbar from '../Components/Navbar'
-import PlaceOrderForm from '../Components/PlaceOrderForm'
+import PlaceOrderForm from '../components/PlaceOrderForm'
 
 const PlaceOrderPage = (props) => {
 
@@ -8,8 +7,7 @@ const PlaceOrderPage = (props) => {
 
     return (
         <div>
-            {/* <Navbar /> */}
-            <PlaceOrderForm/>
+            <PlaceOrderForm />
         </div>
     )
 

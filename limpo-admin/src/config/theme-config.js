@@ -1,15 +1,15 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-  typography: {
-    fontFamily: 'Roboto',
-  },
   palette: {
       primary: {
-        main: '#033449'
+        main: '#b8e6f9',
+        dark: "#033449",
+        light: "#5ac4f2"
       },
       secondary: {
-        main: '#5AC4F2',
+        main: '#f2f2f2',
+        light:"#b8f9dd"
       }
   },
 });

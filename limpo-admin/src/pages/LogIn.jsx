@@ -11,12 +11,58 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-//import { makeStyles } from '@material-ui/core/styles';
-import useStyles from '../config/theme-login.js';
-import Copyright from '../components/Copyright.js';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+
+  root: {
+    height: '100vh',
+  },
+  image: {
+    backgroundImage: 'url(https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080&utm_source=unsplash_source&utm_medium=referral&utm_campaign=api-credit)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.primary.dark,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    backgroundColor: theme.palette.primary.dark,
+    margin: theme.spacing(3, 0, 2),
+    color: 'white'
+  },
+  logo: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '2em',
+  },
+  logoText: {
+    fontWeight: 'bold'
+  },
+  error: {
+    color: 'red'
+  },
+  input: {
+    "&.Mui-checked": {
+      color: "yellow"
+    }
+  }
+}));
 
 export default function SignInSide() {
+
   const classes = useStyles();
 
   return (
@@ -55,6 +101,8 @@ export default function SignInSide() {
               autoComplete="current-password"
             />
             <FormControlLabel
+              className={classes.input}
+              color={classes.input}
               control={<Checkbox value="remember" color="primary" />}
               label="Запомни"
             />
@@ -62,25 +110,12 @@ export default function SignInSide() {
               type="submit"
               fullWidth
               variant="contained"
-              color= "secondary"
+              color="secondary"
               className={classes.submit}
             >
               Продължи
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
             <Box mt={5}>
-              <Copyright />
             </Box>
           </form>
         </div>
