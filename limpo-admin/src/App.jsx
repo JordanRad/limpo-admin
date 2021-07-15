@@ -56,7 +56,7 @@ function App() {
     <Typography 
     //className={classes.title} 
     variant="h6" noWrap>
-            Limpo Admin
+            Limpo Admin v1.0
           </Typography>
   <Button color="inherit"></Button>
     </Toolbar>
