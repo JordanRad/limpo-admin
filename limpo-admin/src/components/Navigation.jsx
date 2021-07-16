@@ -2,7 +2,7 @@ import React from 'react'
 import { Drawer, List, ListItem, ListItemText, Badge } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
-
+import CloseIcon from '@material-ui/icons/Close';
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: "250px",
@@ -27,6 +27,9 @@ export default function Navigation(props) {
   return (
     <Drawer open={drawerOpen}>
       <List className={classes.root}>
+        <ListItem key="Затвори" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
+          <CloseIcon/>
+        </ListItem>
         <ListItem key="Архив поръчки" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <ListItemText>Архив поръчки</ListItemText>
         </ListItem>
