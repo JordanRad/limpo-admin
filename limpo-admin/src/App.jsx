@@ -11,6 +11,7 @@ import Navigation from "./components/Navigation.jsx";
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState } from 'react';
+import Dashboard from "./pages/Dashboard.jsx";
 
 const getUser = () => {
   return JSON.parse(localStorage.getItem("user"));
@@ -32,7 +33,7 @@ function App() {
           </Route>
 
           <Route path="/dashboard">
-            <h1>dashboard</h1>
+            <Dashboard/>
           </Route>
 
           <Route path="/place-order">

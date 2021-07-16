@@ -15,6 +15,15 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
+    "& .Mui-checked": {
+      color: theme.palette.primary.dark,
+    },
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: theme.palette.primary.dark,
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+      color: theme.palette.primary.dark
+    }
   },
   image: {
     backgroundImage: 'url(https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080&utm_source=unsplash_source&utm_medium=referral&utm_campaign=api-credit)',
@@ -46,17 +55,17 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     marginBottom: '2em',
   },
-  
+
   button: {
     backgroundColor: theme.palette.primary.dark,
     color: "white",
     "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-        color: theme.palette.primary.dark
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.dark
     },
     margin: "10px",
     marginLeft: "auto"
-}
+  }
 }));
 
 export default function SignInSide() {
