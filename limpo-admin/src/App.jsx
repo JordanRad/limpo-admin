@@ -11,6 +11,7 @@ import Navigation from "./components/Navigation.jsx";
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState } from 'react';
+import NewOrderDialog from "./components/NewOrderDialog.jsx";
 
 const getUser = () => {
   return JSON.parse(localStorage.getItem("user"));
@@ -60,6 +61,7 @@ function App() {
             <Button color="inherit"></Button>
           </Toolbar>
         </AppBar>
+        <NewOrderDialog newOrderOpen={true}/>
       </Router>
     </ThemeProvider>
   );
