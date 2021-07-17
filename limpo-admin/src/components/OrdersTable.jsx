@@ -40,10 +40,10 @@ const orderFilter = (filterType, orders) => {
             (a.client).localeCompare(b.client);
     })
 }
-let orders = [{ orderNumber: "111", client: "Йордан Радушев", date: "23.05.2021", status: "ПРИЕТА" },
-{ orderNumber: "222", client: "Бисер Бисквитката", date: "12.04.2021", status: "ПРИЕТА" },
-{ orderNumber: "333", client: "Мони Манолов", date: "24.07.2021", status: "НОВА" },
-{ orderNumber: "444", client: "Иван Маринчев", date: "29.01.2021", status: "ПРИЕТА" }]
+let orders = [{ orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "ПРИЕТА" },
+{ orderNumber: "22222222", client: "Бисер Бисквитката", date: "12.04.2021", status: "ПРИЕТА" },
+{ orderNumber: "33333333", client: "Мони Манолов", date: "24.07.2021", status: "НОВА" },
+{ orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "ПРИЕТА" }]
 
 const OrdersTable = (props) => {
     const classes = useStyles()
@@ -58,7 +58,9 @@ const OrdersTable = (props) => {
             {/*Table Head */}
             <List className={classes.head}>
                 <ListItem key="Номер на поръчка">
-                    <ListItemText>Номер на поръчка</ListItemText>
+                    <ListItemText>
+                        Номер на поръчка
+                    </ListItemText>
                 </ListItem>
                 <ListItem key="Име на клиент">
                     <ListItemText>Име на клиент</ListItemText>
