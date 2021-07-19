@@ -12,10 +12,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
-import {FormControl,InputLabel,Input,FormHelperText} from '@material-ui/core'
+import {FormControl,InputLabel,Input,FormHelperText, ListItemSecondaryAction} from '@material-ui/core'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import OrderRow from './OrderRow';
+import NewServiceDialog from './NewItemDialog'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -40,6 +41,7 @@ export default function NewOrderDialog(props) {
   const [open, setOpen] = React.useState(newOrderOpen);
   const [data,setData]= React.useState({})
   const [orderItems,setOrderItems]=React.useState([])
+  const [newServiceDialogOpen,setNewServiceDialogOpen]=React.useState(false)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,10 +53,17 @@ export default function NewOrderDialog(props) {
   const handleChange=()=>{
       return null
   }
+  const saveData=(data)=>{
+      
+      console.log(data)
+      let old=orderItems
+      old.push(data)
+      setOrderItems([...old])
+  }
 
   return (
     <div>
-      
+      <NewServiceDialog open={newServiceDialogOpen} setOpen={setNewServiceDialogOpen} saveData={saveData}/>
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -102,20 +111,22 @@ export default function NewOrderDialog(props) {
         <FormHelperText id="component-helper-text"></FormHelperText>
       </FormControl>
       <FormControl className={classes.inl}>
-      <IconButton color="primary" aria-label="add to shopping cart">
+      <IconButton color="primary" aria-label="add to shopping cart" onClick={()=>{
+          setNewServiceDialogOpen(true)
+      }}>
         <AddShoppingCartIcon />
       </IconButton>
       </FormControl>
-      <OrderRow data={{}}/>
       <List>
-          <ListItem button>
-              <ListItemText primary="Услугата 1" secondary ="1x23.00 лв."/>
-          </ListItem>
-      </List>
-      <List>
-          <ListItem button>
-              <ListItemText primary="Услугата 2" secondary ="1x23.00 лв."/>
-          </ListItem>
+      {orderItems.map((el,idx)=>{
+          return(
+            <ListItem button key={idx}>
+            <ListItemText primary={el.serviceType} secondary ={`${el.serviceQty} x ${el.servicePrice} лв.`}/>
+        </ListItem>
+          )
+      })}
+      
+          
       </List>
       
       
