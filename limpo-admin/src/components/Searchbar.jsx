@@ -9,16 +9,20 @@ import StatusButtonsContainer from './StatusButtonsContainer';
 const useStyles = makeStyles(theme => ({
     input: {
         width: "45%",
-        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.palette.primary.dark,
-            color: "green"
-        },
+
     },
     root: {
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        "& .MuiFormLabel-root.Mui-focused": {
+            borderColor: theme.palette.primary.dark,
+            color: theme.palette.primary.dark
+        },
+        "& .MuiInput-underline:after": {
+            borderColor: theme.palette.primary.dark,
+        }
     },
     side: {
         display: "flex",
@@ -26,7 +30,7 @@ const useStyles = makeStyles(theme => ({
         height: "40%",
         marginLeft: "auto",
         justifyContent: "flex-end",
-        
+
     },
     underline: {
         borderBottom: "4px solid",
@@ -34,7 +38,11 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         cursor: "pointer"
-    }
+    },
+    "& .MuiFormLabel-root.Mui-focused": {
+        color: theme.palette.primary.dark
+    },
+
 }));
 
 const statusFilters = ["all", "new", "pending", "approved"]

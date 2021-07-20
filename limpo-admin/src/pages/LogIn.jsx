@@ -18,15 +18,15 @@ const useStyles = makeStyles(theme => ({
     "& .Mui-checked": {
       color: theme.palette.primary.dark,
     },
-    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: theme.palette.primary.dark,
-    },
     "& .MuiFormLabel-root.Mui-focused": {
       color: theme.palette.primary.dark
+    },
+    "& .MuiInput-underline:after": {
+      borderColor: theme.palette.primary.dark,
     }
   },
   image: {
-    backgroundImage: 'url(https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080&utm_source=unsplash_source&utm_medium=referral&utm_campaign=api-credit)',
+    backgroundImage: "url('./login.jpg')",
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -74,7 +74,7 @@ export default function SignInSide() {
 
   return (
     <Grid container component="main" className={classes.root}>
-      <CssBaseline />
+      
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -86,7 +86,6 @@ export default function SignInSide() {
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
-              variant="outlined"
               margin="normal"
               required
               fullWidth
@@ -97,7 +96,6 @@ export default function SignInSide() {
               autoFocus
             />
             <TextField
-              variant="outlined"
               margin="normal"
               required
               fullWidth
