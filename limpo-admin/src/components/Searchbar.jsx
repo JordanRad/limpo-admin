@@ -4,46 +4,83 @@ import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import StatusButton from './fragments/StatusButton'
+import StatusButtonsContainer from './StatusButtonsContainer';
 const useStyles = makeStyles(theme => ({
     input: {
-        width: "30em",
+        width: "45%",
         "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.palette.primary.dark,
-            color:"green"
+            color: "green"
         },
     },
+    root: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+    },
+    side: {
+        display: "flex",
+        width: "40%",
+        height: "40%",
+        marginLeft: "auto",
+        justifyContent: "flex-end",
+        
+    },
+    underline: {
+        borderBottom: "4px solid",
+        borderColor: theme.palette.primary.dark,
+    },
+    button: {
+        cursor: "pointer"
+    }
 }));
+
+const statusFilters = ["all", "new", "pending", "approved"]
+const buttonLabels = ["Всички", "Нови", "Чакащи", "Одобрени"]
+
 const Searchbar = (props) => {
     const [input, setInput] = useState("")
-
+    const [status, setStatus] = useState("all")
     const classes = useStyles();
 
     const onChangeHandler = (e) => {
         setInput(e.target.value)
     }
 
+
+    const onStatusFilterChange = (id) => {
+        setStatus(id)
+    }
     console.log("INPUT: " + input)
+    console.log("STATUS: " + status)
     return (
-
-        <TextField
-            className={classes.input}
-            label="Търси по номер на поръчка, име на клиент или дата"
-            id="searchbar"
-            variant="outlined"
-            size="small"
-            onChange={onChangeHandler}
-            InputProps={{
-                endAdornment: (
-                    <InputAdornment>
-                        <IconButton>
-                            <SearchIcon />
-                        </IconButton>
-                    </InputAdornment>
-                )
-            }}
-        />
-
-
+        <div className={classes.root}>
+            <TextField
+                className={classes.input}
+                label="Търси по номер на поръчка, име на клиент или дата"
+                id="searchbar"
+                size="small"
+                onChange={onChangeHandler}
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment>
+                            <IconButton>
+                                <SearchIcon />
+                            </IconButton>
+                        </InputAdornment>
+                    )
+                }}
+            />
+            <div className={classes.side}>
+                <StatusButtonsContainer
+                    buttonLabels={buttonLabels}
+                    statusFilters={statusFilters}
+                    active={status}
+                    onClick={onStatusFilterChange} />
+            </div>
+        </div>
 
     )
 }

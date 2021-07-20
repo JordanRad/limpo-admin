@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drawer, List, ListItem, ListItemText, Badge } from '@material-ui/core'
+import { Drawer, List, ListItem, ListItemText, Badge, Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
@@ -9,15 +9,12 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
-    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.dark,
     color: theme.palette.primary.dark,
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
-      color: "white"
+      color: theme.palette.secondary.main,
     },
-    margin: "12px",
-    width: "175px",
-    textAlign: "center",
   }
 
 }));
@@ -28,7 +25,7 @@ export default function Navigation(props) {
     <Drawer open={drawerOpen}>
       <List className={classes.root}>
         <ListItem key="Затвори" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
-          <CloseIcon/>
+          <CloseIcon />
         </ListItem>
         <ListItem key="Архив поръчки" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <ListItemText>Архив поръчки</ListItemText>
@@ -41,8 +38,8 @@ export default function Navigation(props) {
             <ListItemText>Нови поръчки &nbsp;</ListItemText>
           </Badge>
         </ListItem>
-        <ListItem className={classes.button} key="Добави поръчка" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
-          <ListItemText>Добави поръчка</ListItemText>
+        <ListItem key="Добави поръчка" component={Link} to="/dashboard">
+          <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави поръчка</Button>
         </ListItem>
       </List>
     </Drawer>

@@ -14,11 +14,11 @@ const useStyles = makeStyles(theme => ({
         height: "40px"
     },
     button: {
-        backgroundColor: theme.palette.primary.dark,
-        color: "white",
+        borderColor: theme.palette.primary.dark,
+        color: theme.palette.primary.dark,
         "&:hover": {
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.dark,
+            backgroundColor: theme.palette.primary.dark,
+            color: theme.palette.secondary.main,
         },
         textAlign: "center",
     },
@@ -26,12 +26,12 @@ const useStyles = makeStyles(theme => ({
 
 const OrdersTableRow = (props) => {
     const classes = useStyles()
-    let { order } = props
+    let { order, index } = props
     const onClickHandler = (e) => {
         console.log(e)
     }
     return (
-        <List className={classes.row}>
+        <List key={index} className={classes.row}>
             <ListItem key="1">
                 <ListItemText><strong>{order.orderNumber}</strong></ListItemText>
             </ListItem>
