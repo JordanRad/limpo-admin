@@ -32,16 +32,15 @@ const OrdersTable = (props) => {
     const classes = useStyles()
     const [nameFilter, setNameFilter] = useState(false)
 
-
     orders = orderFilter(nameFilter ? "ASC" : "DESC", orders)
     console.log("FILTER: " + nameFilter)
 
-    let TableRows = orders.map((order, index) => <OrdersTableRow key={index} order={order} />)
+    let TableRows = orders.map((order, index) => <OrdersTableRow closeDetails={nameFilter} index={index+1} order={order} />)
     
     if (orders.length === 0) {
         TableRows.push(
-            <List key='12' className={classes.row}>
-                <ListItem key="1">
+            <List key='err' className={classes.row}>
+                <ListItem>
                     <ListItemText><strong>Няма вписани поръчки по зададен критерии</strong></ListItemText>
                 </ListItem>
             </List>)

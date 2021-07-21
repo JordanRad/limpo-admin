@@ -42,7 +42,7 @@ const OrdersTableHead = (props) => {
                 <ListItemText>Статус</ListItemText>
             </ListItem>
             <ListItem key="-">
-                <ListItemText>-</ListItemText>
+                <ListItemText>Детайли</ListItemText>
             </ListItem>
         </List>
     );

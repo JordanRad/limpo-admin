@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemText, Button, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+
 const useStyles = makeStyles(theme => ({
     row: {
         display: "flex",
@@ -22,37 +23,59 @@ const useStyles = makeStyles(theme => ({
         },
         textAlign: "center",
     },
+    accordion: {
+        width: "100%"
+    },
+    secondary: {
+        backgroundColor: theme.palette.secondary.light
+    },
+    hide: {
+        display: 'none'
+    }
 }));
 
 const OrdersTableRow = (props) => {
     const classes = useStyles()
 
-    let { order, index } = props
-    
+    const [isShown, setIsShown] = useState(false)
+    let { order, index, closeDetails } = props
+
+    useEffect(() => {
+        setIsShown(false)
+    }, [props])
     const onClickHandler = (e) => {
-        console.log(e)
+        setIsShown(!isShown)
+        console.log(e.target)
     }
 
     return (
-        <List key={index} className={classes.row}>
-            <ListItem key="1">
-                <ListItemText><strong>{order.orderNumber}</strong></ListItemText>
-            </ListItem>
-            <ListItem className={classes.bold} key="Име на клиент">
-                <ListItemText>{order.client}</ListItemText>
-            </ListItem>
-            <ListItem key="Дата">
-                <ListItemText>{order.date}</ListItemText>
-            </ListItem>
-            <ListItem key="Статус">
-                <ListItemText>{order.status}</ListItemText>
-            </ListItem>
-            <ListItem key="-">
-                <ListItemText id={order.orderNumber} onClick={onClickHandler}>
-                    <Button className={classes.button} variant="outlined">Детайли</Button>
-                </ListItemText>
-            </ListItem>
-        </List>
+        <div>
+            <List key={index * 100} className={`${classes.row} ${index % 2 === 0 ? classes.secondary : ""}`}>
+                <ListItem key={`${index * 11.1}a1a`}>
+                    <ListItemText><strong>{order.orderNumber}</strong></ListItemText>
+                </ListItem>
+                <ListItem className={classes.bold} key={`${index * 22.2}b1b`}>
+                    <ListItemText>{order.client}</ListItemText>
+                </ListItem>
+                <ListItem key={`${index * 33.3}c1c`}>
+                    <ListItemText>{order.date}</ListItemText>
+                </ListItem>
+                <ListItem key={`${index * 44.4}d1d`}>
+                    <ListItemText>{order.status}</ListItemText>
+                </ListItem>
+                <ListItem key={`${index * 55.5}e1e`}>
+                    <Button
+                        id={order.orderNumber}
+                        onClick={onClickHandler}
+                        className={`${classes.button}`} variant="outlined">{isShown ? "Скрий" : "Виж"}</Button>
+                </ListItem>
+            </List>
+            <List key={index * 2.1 + "details"} className={`${classes.row} ${index % 2 === 0 ? classes.secondary : ""} ${isShown ? "" : classes.hide}`}>
+                <ListItem key={index * 65.1 + "details"}>
+                    <ListItemText>Детайли</ListItemText>
+                </ListItem>
+            </List>
+        </div>
     );
 
 }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-export default class RESTService {
+export default class OrderService {
 
     static URL = 'http://localhost:8080/order-service/'
 
