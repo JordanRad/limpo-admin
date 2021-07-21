@@ -31,7 +31,7 @@ const OrdersTableHead = (props) => {
             </ListItem>
             <ListItem key="Име на клиент">
                 <ListItemText>Име на клиент</ListItemText>
-                <Button className={classes.icon} onClick={(e) => props.setNameFilter(!nameFilter)} className={classes.icon}>
+                <Button className={classes.icon} onClick={(e) => props.setNameFilter(!nameFilter)}>
                     {nameFilter ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
                 </Button>
             </ListItem>

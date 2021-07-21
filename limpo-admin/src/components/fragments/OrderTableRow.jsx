@@ -26,10 +26,13 @@ const useStyles = makeStyles(theme => ({
 
 const OrdersTableRow = (props) => {
     const classes = useStyles()
+
     let { order, index } = props
+    
     const onClickHandler = (e) => {
         console.log(e)
     }
+
     return (
         <List key={index} className={classes.row}>
             <ListItem key="1">
@@ -51,6 +54,7 @@ const OrdersTableRow = (props) => {
             </ListItem>
         </List>
     );
+
 }
 
 export default OrdersTableRow;

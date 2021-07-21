@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Drawer, List, ListItem, ListItemText, Badge, Button, ListSubheader } from '@material-ui/core'
+import { List, ListItem, ListItemText, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import OrdersTableRow from './fragments/OrderTableRow';
 import Skeleton from '@material-ui/lab/Skeleton';
 import OrdersTableHead from './fragments/OrderTableHead';
@@ -28,7 +26,7 @@ let orders = [{ orderNumber: "11111111", client: "Йордан Радушев", 
 { orderNumber: "22222222", client: "Бисер Бисквитката", date: "12.04.2021", status: "ПРИЕТА" },
 { orderNumber: "33333333", client: "Мони Манолов", date: "24.07.2021", status: "НОВА" },
 { orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "ПРИЕТА" }]
-// let orders =[]
+//let orders = []
 
 const OrdersTable = (props) => {
     const classes = useStyles()
@@ -39,9 +37,16 @@ const OrdersTable = (props) => {
     console.log("FILTER: " + nameFilter)
 
     let TableRows = orders.map((order, index) => <OrdersTableRow key={index} order={order} />)
-    if (TableRows.length == 0) {
-        TableRows.push("Няма вписани поръчки по зададен критерии")
+    
+    if (orders.length === 0) {
+        TableRows.push(
+            <List key='12' className={classes.row}>
+                <ListItem key="1">
+                    <ListItemText><strong>Няма вписани поръчки по зададен критерии</strong></ListItemText>
+                </ListItem>
+            </List>)
     }
+
     return (
         <List className={classes.root}>
             <OrdersTableHead
