@@ -3,12 +3,15 @@ import ProductItem from './fragments/ProductItem';
 
 const ProductItemList = (props) => {
     let { items } = props
-    console.log(items)
-    let ItemList = items.map((item, index) => {
-        return <ProductItem item={item} index={index} />
-    })
-    console.log(ItemList)
-    return (ItemList)
+
+    let ItemList = items.map((item, index) => <ProductItem item={item} index={index} />)
+
+    return (
+        <div style={{ width: "100%" }}>
+            <div><u>Включени услуги:</u></div>
+            {ItemList}
+        </div>
+    )
 }
 
 export default ProductItemList;

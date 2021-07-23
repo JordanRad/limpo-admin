@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemText, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import ProductItemList from '../ProductItemList';
+import OrderActions from './OrderActions';
+import ClientInfo from './ClientInfo';
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -24,14 +26,14 @@ const useStyles = makeStyles(theme => ({
         },
         textAlign: "center",
     },
-    details:{
-        display:"flex",
-        flex:1,
-        flexDirection:'column',
-        justifyContent:"center",
-        borderBottom:"2px solid black"
+    details: {
+        display: "flex",
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: "center",
+        borderBottom: "2px solid black"
     },
-    primary:{
+    primary: {
         backgroundColor: theme.palette.primary.light
     },
     secondary: {
@@ -40,7 +42,16 @@ const useStyles = makeStyles(theme => ({
     hide: {
         display: 'none'
     },
-    
+    orderDetails: {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+    },
+    total: {
+        alignSelf: "flex-end",
+        marginLeft:"auto"
+    }
+
 }));
 
 const getStatus = (status) => {
@@ -59,7 +70,7 @@ const OrdersTableRow = (props) => {
     const classes = useStyles()
 
     const [isShown, setIsShown] = useState(false)
-    let { order, index, closeDetails } = props
+    let { order, index } = props
     order.productItems = [{
         id: 2,
         product: {
@@ -85,7 +96,7 @@ const OrdersTableRow = (props) => {
 
     const onClickHandler = (e) => setIsShown(!isShown)
 
-    let total = order.productItems.reduce((acc,item)=>acc+(item.price*item.quantity),0)
+    let total = order.productItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     return (
         <div>
             <List key={index * 100} className={`${classes.row} ${index % 2 === 0 ? classes.secondary : classes.primary}`}>
@@ -109,15 +120,14 @@ const OrdersTableRow = (props) => {
                 </ListItem>
             </List>
             <List key={index * 2.1 + "details"} className={`${classes.details} ${index % 2 === 0 ? classes.secondary : classes.primary} ${isShown ? "" : classes.hide}`}>
-                <ListItem key={index * 35.15 + "--details"}>
-                    <ProductItemList items={order.productItems}/>
-                    <ListItemText>ОБЩО: {total} лв.</ListItemText>
+                <ListItem className={classes.orderDetails} key={index * 35.15 + "--details"}>
+                    <ClientInfo/>
+                    <ProductItemList items={order.productItems} />
+                    <ListItemText className={classes.total}>
+                        <strong>ОБЩО: {total} лв.</strong>
+                    </ListItemText>
                 </ListItem>
-                <ListItem className={classes.detailsButtons} key={index*88.8+"actions"}>
-                    <Button variant="outlined">Изтрий </Button>
-                    <p>Впиши поръчка като:</p>
-                    <Button variant="outlined">Приета</Button>
-                </ListItem>
+                <OrderActions order={order} />
             </List>
         </div>
     );

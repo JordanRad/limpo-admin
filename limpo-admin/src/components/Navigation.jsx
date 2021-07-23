@@ -7,6 +7,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: "250px",
+    padding:0
   },
 
   button: {
@@ -19,8 +20,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   li: {
-    margin: "2px 0",
-
+    marginBottom: "4px",
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
       color: theme.palette.secondary.main,
@@ -29,8 +29,6 @@ const useStyles = makeStyles(theme => ({
       borderColor: theme.palette.primary.dark,
     },
   }
-
-
 }));
 export default function Navigation(props) {
   const classes = useStyles();

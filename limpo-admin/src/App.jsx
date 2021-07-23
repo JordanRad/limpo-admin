@@ -48,15 +48,13 @@ function App() {
         <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
         <AppBar style={{ display: !isLoggedIn ? "none" : "block" }}>
           <Toolbar  >
-            <IconButton edge="start"
-              //className={classes.menuButton} 
+            <IconButton edge="start" 
               color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
               <MenuIcon />
             </IconButton>
             <Typography
-              //className={classes.title} 
               variant="h6" noWrap>
-              Limpo Admin v1.0
+              Limpo Admin Panel v1.0.0
             </Typography>
             <Button color="inherit"></Button>
           </Toolbar>
