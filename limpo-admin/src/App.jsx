@@ -22,7 +22,9 @@ function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(user != null)
-
+  const getData=(data)=>{
+    console.log(data)
+  }
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -61,7 +63,7 @@ function App() {
             <Button color="inherit"></Button>
           </Toolbar>
         </AppBar>
-        <NewOrderDialog newOrderOpen={true}/>
+        <NewOrderDialog newOrderOpen={true} passData={getData}/>
       </Router>
     </ThemeProvider>
   );

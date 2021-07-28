@@ -36,7 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function NewOrderDialog(props) {
-    const {newOrderOpen,setNewOrderOpen}=props
+    const {newOrderOpen,setNewOrderOpen,passData}=props
   const classes = useStyles();
   const [open, setOpen] = React.useState(newOrderOpen);
   const [data,setData]= React.useState({})
@@ -47,11 +47,15 @@ export default function NewOrderDialog(props) {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
+     
+     passData(data)
     setOpen(false);
   };
-  const handleChange=()=>{
-      return null
+  const handleChange=(field,value)=>{
+     
+      setData({...data,[field]:value})
+      //console.log(data)
   }
   const saveData=(data)=>{
       
@@ -59,6 +63,7 @@ export default function NewOrderDialog(props) {
       let old=orderItems
       old.push(data)
       setOrderItems([...old])
+      setData({...data,orderItems:[...old]})
   }
 
   return (
@@ -85,7 +90,7 @@ export default function NewOrderDialog(props) {
         <Input
           id="component-helper"
           value={data.name}
-          onChange={handleChange}
+          onChange={(e)=>handleChange('name',e.target.value)}
           aria-describedby="component-helper-text"
         />
         <FormHelperText id="component-helper-text"></FormHelperText>
@@ -95,7 +100,7 @@ export default function NewOrderDialog(props) {
         <Input
           id="component-helper"
           value={data.tel}
-          onChange={handleChange}
+          onChange={(e)=>handleChange('tel',e.target.value)}
           aria-describedby="component-helper-text"
         />
         <FormHelperText id="component-helper-text">телефонът във формат 08******</FormHelperText>
@@ -105,7 +110,7 @@ export default function NewOrderDialog(props) {
         <Input
           id="component-helper"
           value={data.addr}
-          onChange={handleChange}
+          onChange={(e)=>handleChange('addr',e.target.value)}
           aria-describedby="component-helper-text"
         />
         <FormHelperText id="component-helper-text"></FormHelperText>

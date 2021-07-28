@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import {makeStyles,FormControl,Input,InputLabel,FormHelperText} from '@material-ui/core'
+import {makeStyles,FormControl,Input,InputLabel,FormHelperText,Select,MenuItem} from '@material-ui/core'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,23 @@ export default function NewServiceDdialog(props) {
   const [serviceQty,setServiceQty]=React.useState(0)
   const [servicePrice,setServicePrice]=React.useState(0)
 
-  
+  const products=[
+    {id:1,
+    name:'Чистене прозорци',
+    type:'',
+    description:'',
+    price:2.30},
+    {id:2,
+        name:'Чистене етаж',
+        type:'Чистене на вход',
+        description:'',
+        price:15.30},
+        {id:3,
+            name:'Дезинфекция',
+            type:'',
+            description:'',
+            price:32.30},
+]
   const classes = useStyles();
  
   const handleClose = () => {
@@ -75,23 +91,28 @@ export default function NewServiceDdialog(props) {
             Моля изберете услуга за добавяне
           </DialogContentText>
           <div>
-        <FormControl className={classes.inl} >
-        {/* <InputLabel htmlFor="component-type">Вид услуга</InputLabel> */}
-        <TextField
-        //variant="filled"
-        label="Вид услуга"
+       
+        <FormControl className={classes.inl} fullWidth>
+        <InputLabel id="demo-simple-select-label">Избери Услуга</InputLabel>
+        <Select
         error={helpers.type}
         helperText={helpers.type}
-          id="component-type"
-          value={serviceType}
-          defaultValue={''}
-          onChange={(e)=>(setServiceType(e.target.value))}
-          aria-describedby="component-helper-text-type"
-          type="text"
-          autoComplete="off"
-        />
-       
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={serviceType.name}
+          onChange={(e)=>(setServiceType(products[e.target.value]))}
+        >
+           {
+               products.map((el,idx)=>(
+               <MenuItem value={idx}>{el.name}</MenuItem>
+               ))
+           } 
+          
+        </Select>
       </FormControl>
+        
+       
+     
       <FormControl className={classes.inl}>
         {/* <InputLabel htmlFor="component-helper">Брой</InputLabel> */}
         <TextField
