@@ -126,7 +126,7 @@ export default function NewOrderDialog(props) {
       {orderItems.map((el,idx)=>{
           return(
             <ListItem button key={idx}>
-            <ListItemText primary={el.serviceType} secondary ={`${el.serviceQty} x ${el.servicePrice} лв.`}/>
+            <ListItemText primary={el.serviceType.name} secondary ={`${el.serviceQty} x ${el.servicePrice} лв.`}/>
         </ListItem>
           )
       })}

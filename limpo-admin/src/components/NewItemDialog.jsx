@@ -74,7 +74,7 @@ export default function NewServiceDdialog(props) {
             helpers.price=""
           setHelpers({...helpers})
         }
-        if(helpers.price==""&&helpers.qty==""&&helpers.type==""){
+        if(helpers.price===""&&helpers.qty===""&&helpers.type===""){
       saveData({serviceType:serviceType,serviceQty:parseInt(serviceQty)||0,servicePrice:parseFloat(servicePrice)||0})
     handleClose()    
     }
@@ -104,7 +104,7 @@ export default function NewServiceDdialog(props) {
         >
            {
                products.map((el,idx)=>(
-               <MenuItem value={idx}>{el.name}</MenuItem>
+               <MenuItem key={idx} value={idx}>{el.name}</MenuItem>
                ))
            } 
           
