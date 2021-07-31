@@ -11,7 +11,12 @@ import Navigation from "./components/Navigation.jsx";
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState } from 'react';
+
 import Dashboard from "./pages/Dashboard.jsx";
+
+import NewOrderDialog from "./components/NewOrderDialog.jsx";
+import NewLimpoItem from "./components/NewLimpoItem.jsx";
+
 
 const getUser = () => {
   return JSON.parse(localStorage.getItem("user"));
@@ -21,8 +26,12 @@ function App() {
   let user = getUser()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [newLimpoItemOpen,setNewLimpoItemOpen]=useState(false)
+  const [newOrderOpen,setNewOrderOpen]=useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(user != null)
-
+  const getData=(data)=>{
+    console.log(data)
+  }
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -36,10 +45,12 @@ function App() {
             <Dashboard/>
           </Route>
 
-          <Route path="/place-order">
-            <h2>place order</h2>
+          <Route path="/neworder">
+          <NewOrderDialog open={true} passData={getData}/>
           </Route>
-
+          <Route path="/newlimpoitem">
+          <NewLimpoItem open={true} passData={getData}/>
+          </Route>
           <Route path="/*">
             <Redirect to="/login" />
           </Route>
@@ -59,6 +70,8 @@ function App() {
             <Button color="inherit"></Button>
           </Toolbar>
         </AppBar>
+    
+    
       </Router>
     </ThemeProvider>
   );

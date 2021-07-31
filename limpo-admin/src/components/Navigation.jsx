@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Drawer, List, ListItem, ListItemText, Badge, Button } from '@material-ui/core'
 import { Link } from 'react-router-dom'
@@ -9,6 +10,11 @@ const useStyles = makeStyles(theme => ({
     minWidth: "250px",
     padding:0
   },
+
+import React,{useState} from 'react'
+import {Drawer,List,ListItem,ListItemText} from '@material-ui/core'
+import {Link} from 'react-router-dom'
+
 
   button: {
     borderColor: theme.palette.primary.dark,
@@ -34,6 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 export default function Navigation(props) {
+
   const classes = useStyles();
   const { drawerOpen, setDrawerOpen } = props
   return (
@@ -43,6 +50,18 @@ export default function Navigation(props) {
           <CloseIcon />&nbsp;&nbsp;&nbsp;Затвори
         </ListItem>
         <ListItem className={classes.li} key="Архив поръчки" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
+
+const {drawerOpen,setDrawerOpen,linkTo} =props
+
+const getData=(data)=>{
+  console.log(data)
+}
+return(
+  <div>
+<Drawer open={drawerOpen}>
+<List>
+        <ListItem key="Архив поръчки" button onClick={(e)=>setDrawerOpen(false)} component={Link} to="/dashboard"> 
+
           <ListItemText>Архив поръчки</ListItemText>
         </ListItem>
         <ListItem className={classes.li} key="Статистики" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
@@ -59,11 +78,24 @@ export default function Navigation(props) {
         <ListItem key="Добави услуга" component={Link} to="/dashboard">
           <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави услуга</Button>
         </ListItem>
+
         <ListItem className={classes.li} key="Излизане" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <ExitToAppIcon />&nbsp;&nbsp;&nbsp;Излез
+
+        <ListItem key="Добави поръчка" button onClick={(e)=>setDrawerOpen(false)} component={Link} to="/neworder" >
+          <ListItemText>Добави поръчка</ListItemText>
+
+        </ListItem>
+        <ListItem key="Добави услуга" button onClick={(e)=>setDrawerOpen(false)} component={Link} to="/newlimpoitem" >
+          <ListItemText>Добави услуга</ListItemText>
         </ListItem>
       </List>
     </Drawer>
+
   )
+    
+    </div>
+)
+
 
 }
