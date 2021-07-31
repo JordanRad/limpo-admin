@@ -36,7 +36,7 @@ const OrdersTable = (props) => {
     orders = orderFilter(nameFilter ? "ASC" : "DESC", orders)
     console.log("FILTER: " + nameFilter)
 
-    let TableRows = orders.map((order, index) => <OrdersTableRow closeDetails={nameFilter} index={index+1} order={order} />)
+    let TableRows = orders.map((order, index) => <OrdersTableRow key={index*3.14} closeDetails={nameFilter} index={index+1} order={order} />)
     
     if (orders.length === 0) {
         TableRows.push(

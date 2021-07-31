@@ -1,15 +1,12 @@
 import React from 'react';
-import { Button, Divider, ListItem } from '@material-ui/core';
+import { Button, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     row: {
         display: "flex",
         flex: 1,
         justifyContent: "space-between",
-        paddingBottom: 0,
-        paddingTop: 0,
-        marginBottom: -10,
-        marginTop: 0
+        marginLeft: "12px"
     },
     error: {
         backgroundColor: theme.palette.error.main,
@@ -41,18 +38,20 @@ const getPromoteStatus = (status) => {
             return "Одобрена"
         case "APPROVED":
             return "Завършена"
+        default:
+            return "Чакаща"
     }
 }
 const OrderActions = (props) => {
     const classes = useStyles()
     let { order } = props
     return (
-        <ListItem className={classes.row} key={"--/" + Math.random()}>
-            <Button className={classes.error} variant="outlined">Изтрий </Button>
+        <Container className={classes.row}>
+            <p><Button className={classes.error} variant="outlined">Изтрий</Button></p>
             <div>&nbsp;</div>
             <div>&nbsp;</div>
             <p>Запиши поръчката като: &nbsp; <Button className={classes.save} variant="outlined">{getPromoteStatus(order.status)}</Button></p>
-        </ListItem>
+        </Container>
     );
 }
 

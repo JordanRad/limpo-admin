@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
       borderBottom: "0.5px solid",
       borderColor: theme.palette.primary.dark,
     },
+  },
+  icon:{
+    color:theme.palette.primary.dark
   }
 }));
 export default function Navigation(props) {
@@ -52,6 +55,9 @@ export default function Navigation(props) {
         </ListItem>
         <ListItem key="Добави поръчка" component={Link} to="/dashboard">
           <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави поръчка</Button>
+        </ListItem>
+        <ListItem key="Добави услуга" component={Link} to="/dashboard">
+          <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави услуга</Button>
         </ListItem>
         <ListItem className={classes.li} key="Излизане" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <ExitToAppIcon />&nbsp;&nbsp;&nbsp;Излез

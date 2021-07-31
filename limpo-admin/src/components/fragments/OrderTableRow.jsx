@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemText, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import ProductItemList from '../ProductItemList';
 import OrderActions from './OrderActions';
 import ClientInfo from './ClientInfo';
+import LimpoUnitList from '../LimpoUnitList';
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -99,7 +99,7 @@ const OrdersTableRow = (props) => {
     let total = order.productItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     return (
         <div>
-            <List key={index * 100} className={`${classes.row} ${index % 2 === 0 ? classes.secondary : classes.primary}`}>
+            <List className={`${classes.row} ${index % 2 === 0 ? classes.secondary : classes.primary}`}>
                 <ListItem key={`${index * 11.1}a1a`}>
                     <ListItemText><strong>{order.orderNumber}</strong></ListItemText>
                 </ListItem>
@@ -119,10 +119,10 @@ const OrdersTableRow = (props) => {
                         className={`${classes.button}`} variant="outlined">{isShown ? "Скрий" : "Виж"}</Button>
                 </ListItem>
             </List>
-            <List key={index * 2.1 + "details"} className={`${classes.details} ${index % 2 === 0 ? classes.secondary : classes.primary} ${isShown ? "" : classes.hide}`}>
-                <ListItem className={classes.orderDetails} key={index * 35.15 + "--details"}>
+            <List className={`${classes.details} ${index % 2 === 0 ? classes.secondary : classes.primary} ${isShown ? "" : classes.hide}`}>
+                <ListItem className={classes.orderDetails}>
                     <ClientInfo/>
-                    <ProductItemList items={order.productItems} />
+                    <LimpoUnitList items={order.productItems} />
                     <ListItemText className={classes.total}>
                         <strong>ОБЩО: {total} лв.</strong>
                     </ListItemText>

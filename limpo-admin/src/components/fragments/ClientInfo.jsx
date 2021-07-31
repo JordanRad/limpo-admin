@@ -1,14 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { ListItem, ListItemText ,List} from '@material-ui/core';
+import { Typography, Container } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     row: {
         display: "flex",
-        flexDirection:"column",
-        width:"100%"
+        flexDirection: "column",
+        width: "100%",
+        marginBottom: "8px"
     },
-    clientDetails:{
-        paddingLeft: "0",
+    line: {
+        margin: "8px 0"
+    },
+    main:{
+        display:"flex",
+        justifyContent:"space-between",
+        margin:"8px 0",
+        padding:0
     }
 }));
 
@@ -17,22 +24,31 @@ let client =
     firstName: "Йордан",
     lastName: "Радушев",
     phone: "+35988491569",
-    bulstat: "",
-    type: "Некорпоративен",
+    bulstat: "460y4hi4h649",
+    type: "Корпоративен",
     email: "dani.radushev@gmail.com",
-    VATNumber: "",
+    VATNumber: "0359y509309",
     address: "София, ул. Козяк 47"
 }
 const ClientInfo = (props) => {
     const classes = useStyles()
+    let corporateClientDetails;
+    if (client.type === "Корпоративен") {
+        corporateClientDetails =
+            [<Typography key="Bulstat" className={classes.line}><strong>Булстат:</strong> {client.bulstat}</Typography>,
+            <Typography key="VAT" className={classes.line}><strong>VAT Номер:</strong> {client.VATNumber}</Typography>]
+    }
     return (
-        <List className={classes.row}>
-            <div><u>Информация за клиент:</u></div>
-            <ListItem className={classes.clientDetails} key={Math.random() * 35.15 + "client-details"}>
-                Тип: 
-            </ListItem>
-           
-        </List>
+        <Container className={classes.row}>
+            <Typography><u>Информация за {client.type.toLowerCase()} клиент:</u></Typography>
+            <Container className={classes.main}>
+                <Typography><strong>Име:</strong> {client.firstName+" "+client.lastName}</Typography> 
+                <Typography><strong>Имейл:</strong> {client.email}</Typography>
+                <Typography><strong>Телефон:</strong> {client.phone}</Typography>
+            </Container>
+            <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
+            {corporateClientDetails}
+        </Container>
     );
 }
 
