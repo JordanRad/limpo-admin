@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { List, ListItem, ListItemText, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import OrdersTableRow from './fragments/OrderTableRow';
-import Skeleton from '@material-ui/lab/Skeleton';
 import OrdersTableHead from './fragments/OrderTableHead';
 const useStyles = makeStyles(theme => ({
     root: {

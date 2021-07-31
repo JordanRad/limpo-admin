@@ -6,7 +6,8 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flex: 1,
         justifyContent: "space-between",
-        marginLeft: "12px"
+        padding: theme.spacing(0,4),
+        margin:0
     },
     error: {
         backgroundColor: theme.palette.error.main,

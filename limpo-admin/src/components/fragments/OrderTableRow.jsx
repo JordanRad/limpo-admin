@@ -15,7 +15,8 @@ const useStyles = makeStyles(theme => ({
         borderBottom: "2px solid",
         borderColor: theme.palette.primary.dark,
         borderRadius: "inherit",
-        height: "40px"
+        height: "40px",
+        
     },
     button: {
         borderColor: theme.palette.primary.dark,
@@ -49,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     },
     total: {
         alignSelf: "flex-end",
-        marginLeft:"auto"
+        padding: theme.spacing(0,2),
     }
 
 }));

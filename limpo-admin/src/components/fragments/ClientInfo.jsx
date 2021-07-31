@@ -6,15 +6,16 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        marginBottom: "8px"
+        marginBottom: theme.spacing(2)
     },
     line: {
-        margin: "8px 0"
+        margin: theme.spacing(1,0)
+    
     },
     main:{
         display:"flex",
         justifyContent:"space-between",
-        margin:"8px 0",
+        margin: theme.spacing(1,0),
         padding:0
     }
 }));

@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import Dashboard from "./pages/Dashboard.jsx";
 
 import NewOrderDialog from "./components/NewOrderDialog.jsx";
-import NewLimpoItem from "./components/NewLimpoItem.jsx";
+import NewLimpoUnit from "./components/NewLimpoUnit.jsx";
 
 
 const getUser = () => {
@@ -26,8 +26,7 @@ function App() {
   let user = getUser()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [newLimpoItemOpen,setNewLimpoItemOpen]=useState(false)
-  const [newOrderOpen,setNewOrderOpen]=useState(false)
+  
   const [isLoggedIn, setIsLoggedIn] = useState(user != null)
   const getData=(data)=>{
     console.log(data)
@@ -48,8 +47,8 @@ function App() {
           <Route path="/neworder">
           <NewOrderDialog open={true} passData={getData}/>
           </Route>
-          <Route path="/newlimpoitem">
-          <NewLimpoItem open={true} passData={getData}/>
+          <Route path="/newlimpounit">
+          <NewLimpoUnit open={true} passData={getData}/>
           </Route>
           <Route path="/*">
             <Redirect to="/login" />
@@ -57,7 +56,7 @@ function App() {
 
         </Switch>
         <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-        <AppBar style={{ display: !isLoggedIn ? "none" : "block" }}>
+        <AppBar position="fixed" style={{ display: !isLoggedIn ? "none" : "block" }}>
           <Toolbar  >
             <IconButton edge="start" 
               color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
