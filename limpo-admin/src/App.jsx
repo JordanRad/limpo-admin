@@ -11,9 +11,11 @@ import Navigation from "./components/Navigation.jsx";
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState } from 'react';
+
+import Dashboard from "./pages/Dashboard.jsx";
+
 import NewOrderDialog from "./components/NewOrderDialog.jsx";
 import NewLimpoItem from "./components/NewLimpoItem.jsx";
-
 
 
 const getUser = () => {
@@ -40,7 +42,7 @@ function App() {
           </Route>
 
           <Route path="/dashboard">
-            <h1>dashboard</h1>
+            <Dashboard/>
           </Route>
 
           <Route path="/neworder">
@@ -57,15 +59,13 @@ function App() {
         <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
         <AppBar style={{ display: !isLoggedIn ? "none" : "block" }}>
           <Toolbar  >
-            <IconButton edge="start"
-              //className={classes.menuButton} 
+            <IconButton edge="start" 
               color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
               <MenuIcon />
             </IconButton>
             <Typography
-              //className={classes.title} 
               variant="h6" noWrap>
-              Limpo Admin v1.0
+              Limpo Admin Panel v1.0.0
             </Typography>
             <Button color="inherit"></Button>
           </Toolbar>
