@@ -12,6 +12,9 @@ import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/co
 import MenuIcon from '@material-ui/icons/Menu'
 import React, { useState } from 'react';
 import NewOrderDialog from "./components/NewOrderDialog.jsx";
+import NewLimpoItem from "./components/NewLimpoItem.jsx";
+
+
 
 const getUser = () => {
   return JSON.parse(localStorage.getItem("user"));
@@ -21,6 +24,8 @@ function App() {
   let user = getUser()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [newLimpoItemOpen,setNewLimpoItemOpen]=useState(false)
+  const [newOrderOpen,setNewOrderOpen]=useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(user != null)
   const getData=(data)=>{
     console.log(data)
@@ -38,10 +43,12 @@ function App() {
             <h1>dashboard</h1>
           </Route>
 
-          <Route path="/place-order">
-            <h2>place order</h2>
+          <Route path="/neworder">
+          <NewOrderDialog open={true} passData={getData}/>
           </Route>
-
+          <Route path="/newlimpoitem">
+          <NewLimpoItem open={true} passData={getData}/>
+          </Route>
           <Route path="/*">
             <Redirect to="/login" />
           </Route>
@@ -63,7 +70,8 @@ function App() {
             <Button color="inherit"></Button>
           </Toolbar>
         </AppBar>
-        <NewOrderDialog newOrderOpen={true} passData={getData}/>
+    
+    
       </Router>
     </ThemeProvider>
   );

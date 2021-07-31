@@ -36,32 +36,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function NewOrderDialog(props) {
-    const {newOrderOpen,setNewOrderOpen,passData}=props
+    const {open,passData}=props
   const classes = useStyles();
-  const [open, setOpen] = React.useState(newOrderOpen);
+  const [dOpen, setDOpen] = React.useState(open);
   const [data,setData]= React.useState({})
   const [orderItems,setOrderItems]=React.useState([])
   const [newServiceDialogOpen,setNewServiceDialogOpen]=React.useState(false)
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setDOpen(true);
   };
 
   const handleClose = async () => {
      
      passData(data)
-    setOpen(false);
+    setDOpen(false);
   };
   const handleChange=(field,value)=>{
      
       setData({...data,[field]:value})
       //console.log(data)
   }
-  const saveData=(data)=>{
+  const saveData=(datas)=>{
       
       console.log(data)
       let old=orderItems
-      old.push(data)
+      old.push(datas)
       setOrderItems([...old])
       setData({...data,orderItems:[...old]})
   }
@@ -69,7 +69,7 @@ export default function NewOrderDialog(props) {
   return (
     <div>
       <NewServiceDialog open={newServiceDialogOpen} setOpen={setNewServiceDialogOpen} saveData={saveData}/>
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
+      <Dialog fullScreen open={dOpen} onClose={handleClose} TransitionComponent={Transition}>
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
@@ -122,6 +122,10 @@ export default function NewOrderDialog(props) {
         <AddShoppingCartIcon />
       </IconButton>
       </FormControl>
+      <Button variant="contained" color="primary">
+  Добави услуга
+</Button>
+
       <List>
       {orderItems.map((el,idx)=>{
           return(
