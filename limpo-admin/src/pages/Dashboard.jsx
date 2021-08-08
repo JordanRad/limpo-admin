@@ -10,8 +10,8 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        marginRight: "125px",
-        marginLeft: "125px"
+        width:"75%",
+       margin:"auto"
     },
 
 }));

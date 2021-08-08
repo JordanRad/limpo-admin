@@ -6,11 +6,10 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 const useStyles = makeStyles(theme => ({
     head: {
         display: "flex",
-        flex: 1,
-        flexDirection: "row",
         backgroundColor: theme.palette.primary.dark,
         borderRadius: "inherit",
-        color: "white"
+        color: "white",
+        height:"3em"
     },
     icon: {
         width: "1px",

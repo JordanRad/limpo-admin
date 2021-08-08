@@ -64,7 +64,7 @@ function App() {
             </IconButton>
             <Typography
               variant="h6" noWrap>
-              Limpo Admin Panel v1.0.0
+              Limpo Resource Planning Panel v1.0.0
             </Typography>
             <Button color="inherit"></Button>
           </Toolbar>
