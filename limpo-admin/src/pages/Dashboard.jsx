@@ -5,13 +5,12 @@ import OrdersTable from '../components/OrdersTable';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: "100vh",
-        marginTop: "100px",
+        marginTop: theme.spacing(2),
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        width:"75%",
-       margin:"auto"
+        width: "75%",
+        margin: "auto"
     },
 
 }));
@@ -19,7 +18,7 @@ const Dashboard = (props) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Searchbar />
+            <Searchbar placeholder="Търси по номер на поръчка, име на клиент или дата" />
             <br></br>
             <OrdersTable />
         </div>

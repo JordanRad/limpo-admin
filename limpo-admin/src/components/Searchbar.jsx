@@ -48,6 +48,7 @@ const statusFilters = ["all", "new", "pending", "approved"]
 const buttonLabels = ["Всички", "Нови", "Чакащи", "Одобрени"]
 
 const Searchbar = (props) => {
+    let {placeholder} = props
     const [input, setInput] = useState("")
     const [status, setStatus] = useState("all")
     const classes = useStyles();
@@ -66,7 +67,7 @@ const Searchbar = (props) => {
         <div className={classes.root}>
             <TextField
                 className={classes.input}
-                label="Търси по номер на поръчка, име на клиент или дата"
+                label={placeholder}
                 id="searchbar"
                 size="small"
                 onChange={onChangeHandler}

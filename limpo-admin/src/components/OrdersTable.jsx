@@ -5,6 +5,7 @@ import OrdersTableRow from './fragments/OrderTableRow';
 import OrdersTableHead from './fragments/OrderTableHead';
 import OrdersTableFooter from './fragments/OrderTableFooter';
 import LinearProgress from '@material-ui/core/LinearProgress';
+
 const useStyles = makeStyles(theme => ({
     root: {
         width: "100%",

@@ -16,6 +16,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 
 import NewOrderDialog from "./components/NewOrderDialog.jsx";
 import NewLimpoUnit from "./components/NewLimpoUnit.jsx";
+import Services from "./pages/Services.jsx";
 
 
 const getUser = () => {
@@ -26,39 +27,19 @@ function App() {
   let user = getUser()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
-  
+
   const [isLoggedIn, setIsLoggedIn] = useState(user != null)
-  const getData=(data)=>{
+  const getData = (data) => {
     console.log(data)
   }
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Switch>
-
-          <Route path="/login">
-            <LogIn />
-          </Route>
-
-          <Route path="/dashboard">
-            <Dashboard/>
-          </Route>
-
-          <Route path="/neworder">
-          <NewOrderDialog open={true} passData={getData}/>
-          </Route>
-          <Route path="/newlimpounit">
-          <NewLimpoUnit open={true} passData={getData}/>
-          </Route>
-          <Route path="/*">
-            <Redirect to="/login" />
-          </Route>
-
-        </Switch>
-        <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-        <AppBar position="fixed" style={{ display: !isLoggedIn ? "none" : "block" }}>
+      <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+        
+        <AppBar position="sticky" style={{display: !isLoggedIn ? "none" : "block" }}>
           <Toolbar  >
-            <IconButton edge="start" 
+            <IconButton edge="start"
               color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
               <MenuIcon />
             </IconButton>
@@ -69,8 +50,26 @@ function App() {
             <Button color="inherit"></Button>
           </Toolbar>
         </AppBar>
-    
-    
+        <Switch>
+          <Route path="/login">
+            <LogIn />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/services">
+            <Services/>
+          </Route>
+          <Route path="/neworder">
+            <NewOrderDialog open={true} passData={getData} />
+          </Route>
+          <Route path="/newlimpounit">
+            <NewLimpoUnit open={true} passData={getData} />
+          </Route>
+          <Route path="/*">
+            <Redirect to="/login" />
+          </Route>
+        </Switch>
       </Router>
     </ThemeProvider>
   );

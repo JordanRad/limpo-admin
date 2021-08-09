@@ -52,7 +52,7 @@ export default function Navigation(props) {
         <ListItem key="Добави поръчка" component={Link} to="/neworder">
           <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави поръчка</Button>
         </ListItem>
-        <ListItem className={classes.li} key="Услуги" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
+        <ListItem className={classes.li} key="Услуги" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/services">
           <ListItemText>Услуги</ListItemText>
         </ListItem>
         <ListItem key="Добави услуга" component={Link} to="/newlimpounit">

@@ -21,12 +21,12 @@ const OrdersTableFooter = (props) => {
     const classes = useStyles()
 
     const [pageNumber, setPageNumber] = useState(1);
-    const [areDisabled, setAreDisabled] = useState([false,false])
+    const [areDisabled, setAreDisabled] = useState([true,false])
 
-    const onPreviousClickHandler = (e)=>{
+    const onPreviousClickHandler =  async (e)=>{
         setAreDisabled([false,false])
         setPageNumber(pageNumber-1);
-        if(pageNumber <= 1){
+        if(pageNumber-1 <= 1){
             setAreDisabled([true,false])
         }
     }
