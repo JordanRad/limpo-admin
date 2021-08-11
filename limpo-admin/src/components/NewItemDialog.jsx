@@ -12,12 +12,12 @@ import { makeStyles, FormControl, InputLabel, FormHelperText, Select, MenuItem }
 const useStyles = makeStyles((theme) => ({
 
   inl: {
-    marginLeft: theme.spacing(2)
+    margin: theme.spacing(1),
   },
   actions: {
     display: "flex",
     justifyContent: "space-between",
-    padding:theme.spacing(4)
+    padding: theme.spacing(4)
   },
   error: {
     backgroundColor: theme.palette.error.main,
@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.dark,
     },
     textAlign: "center",
+  },
+  "& .MuiInputBase-input:focus": {
+    backgroundColor: theme.palette.primary.dark
   },
 }));
 
@@ -79,7 +82,7 @@ export default function NewItemDialog(props) {
     setServiceQty(0)
     setServicePrice(0)
     setOpen(false);
-  
+
   };
   const handleSave = () => {
     if (serviceType === '') {
@@ -112,78 +115,78 @@ export default function NewItemDialog(props) {
     }
   }
 
-  
-    return (
-      <div>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Добавяне услуга към поръчка</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Моля изберете услуга за добавяне
-            </DialogContentText>
-            <div>
 
-              <FormControl className={classes.inl} fullWidth>
-                <InputLabel id="demo-simple-select-label">Избери Услуга</InputLabel>
-                <Select
-                  error={helpers.type}
-                  helperText={helpers.type}
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={serviceType.name}
-                  onChange={(e) => (setServiceType(products[e.target.value]))}
-                >
-                  {
-                    products.map((el, idx) => (
-                      <MenuItem key={idx} value={idx}>{el.name}</MenuItem>
-                    ))
-                  }
+  return (
+    <div>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Добавяне услуга към поръчка</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Моля изберете услуга за добавяне
+          </DialogContentText>
+          <div>
 
-                </Select>
-              </FormControl>
-              <FormControl className={classes.inl}>
-                <TextField
-                  label="Брой"
-                  error={helpers.qty}
-                  helperText={helpers.qty}
-                  id="component-helper"
-                  value={serviceQty || ""}
+            <FormControl className={classes.inl} fullWidth>
+              <InputLabel id="demo-simple-select-label">Избери Услуга</InputLabel>
+              <Select
+                error={helpers.type}
+                helperText={helpers.type}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={serviceType.name}
+                onChange={(e) => (setServiceType(products[e.target.value]))}
+              >
+                {
+                  products.map((el, idx) => (
+                    <MenuItem key={idx} value={idx}>{el.name}</MenuItem>
+                  ))
+                }
 
-                  onChange={(e) => (setServiceQty(e.target.value))}
-                  aria-describedby="component-helper-text"
-                  type="number"
-                  autoComplete="off"
-                />
-                <FormHelperText id="component-helper-text"></FormHelperText>
-              </FormControl>
-              <FormControl className={classes.inl}>
-                {/* <InputLabel htmlFor="component-helper">Цена</InputLabel> */}
-                <TextField
-                  label="Цена"
-                  error={helpers.price}
-                  helperText={helpers.price}
-                  id="component-helper"
-                  value={servicePrice || ""}
-                  onChange={(e) => (setServicePrice(e.target.value))}
-                  aria-describedby="component-helper-text"
-                  type="number"
-                  autoComplete="off"
-                />
-                {/* <FormHelperText id="component-helper-text">kllklk</FormHelperText> */}
-              </FormControl>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.inl}>
+              <TextField
+                label="Брой"
+                error={helpers.qty}
+                helperText={helpers.qty}
+                id="component-helper"
+                value={serviceQty || ""}
 
-            </div>
-          </DialogContent>
-          <DialogActions className={classes.actions}>
-            <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
-              Откажи
-            </Button>
-            <Button className={classes.save} variant="outlined" onClick={handleSave} color="primary">
-              Запиши
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    );
-  
+                onChange={(e) => (setServiceQty(e.target.value))}
+                aria-describedby="component-helper-text"
+                type="number"
+                autoComplete="off"
+              />
+              <FormHelperText id="component-helper-text"></FormHelperText>
+            </FormControl>
+            <FormControl className={classes.inl}>
+              {/* <InputLabel htmlFor="component-helper">Цена</InputLabel> */}
+              <TextField
+                label="Цена"
+                error={helpers.price}
+                helperText={helpers.price}
+                id="component-helper"
+                value={servicePrice || ""}
+                onChange={(e) => (setServicePrice(e.target.value))}
+                aria-describedby="component-helper-text"
+                type="number"
+                autoComplete="off"
+              />
+              {/* <FormHelperText id="component-helper-text">kllklk</FormHelperText> */}
+            </FormControl>
+
+          </div>
+        </DialogContent>
+        <DialogActions className={classes.actions}>
+          <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
+            Откажи
+          </Button>
+          <Button className={classes.save} variant="outlined" onClick={handleSave} color="primary">
+            Запиши
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+
 }
