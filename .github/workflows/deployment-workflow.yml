@@ -22,8 +22,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Run Application Tests
+    - name: Build the app
       working-directory: ./limpo-admin-web-ui
-      run: npm test
+      run: npm run build
     
    
