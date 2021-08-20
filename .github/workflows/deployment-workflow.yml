@@ -22,6 +22,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Install npm dependencies
+      working-directory: ./limpo-admin-webui
+      run: npm install
     - name: Build the app
       working-directory: ./limpo-admin-webui
       run: npm run build
