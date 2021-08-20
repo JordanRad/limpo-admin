@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,5 +27,15 @@ jobs:
     - name: Build the app
       working-directory: ./limpo-admin-webui
       run: sudo npm run build
+    - name: Deploy to Digital Ocean
+      uses: appleboy/ssh-action@0.1.2
+      with:
+        host: ${{secrets.LINUX_HOST}}
+        key: ${{secrets.LINUX_PRIVATE_KEY}}
+        username: ${{secrets.LINUX_USERNAME}}
+        script: |
+          echo "Conncected to Linux machine"
+          echo "Deployment started"
+          bash /home/jordan/cd-scripts/limpo-admin-webui.sh
     
    
