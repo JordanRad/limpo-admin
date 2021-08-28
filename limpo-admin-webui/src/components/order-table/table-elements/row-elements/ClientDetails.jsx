@@ -61,7 +61,10 @@ const ClientDetails = (props) => {
                     <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
                     {corporateClientDetails}
                 </div>
-                <img alt="data" className={classes.img} height="64em" src="./personal-information.png" />
+                <img alt="data" 
+                className={classes.img} 
+                height={corporateClientDetails?"64em":"32em"}
+                src="./personal-information.png" />
             </Container>
         </Container>
     );
