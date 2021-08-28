@@ -10,7 +10,7 @@ import theme from './config/theme-config.js';
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu'
 import Dashboard from "./pages/Dashboard.jsx";
-import Login from './pages/Login'
+import Login from './pages/Login.jsx'
 import Navigation from "./components/navigation/Navigation.jsx";
 import NewOrderDialog from "./components/new-order/NewOrderDialog.jsx";
 import AddLimpoUnit from "./components/limpo-units/AddLimpoUnit.jsx";
