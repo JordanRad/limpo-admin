@@ -9,15 +9,24 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2)
     },
     line: {
-        margin: theme.spacing(1,0)
-    
+        margin: theme.spacing(1, 0)
+
     },
-    mainContainer:{
-        display:"flex",
-        justifyContent:"space-between",
-        margin: theme.spacing(1,0),
-        padding:0
+    mainContainer: {
+        display: "flex",
+        justifyContent: "space-between",
+        margin: theme.spacing(1, 0,0,0),
+        padding: 0
     },
+    secondaryContainer: {
+        display: "flex",
+        justifyContent: "flex-start",
+        padding: 0
+    },
+    img: {
+        marginLeft: theme.spacing(2),
+        alignSelf:"center"
+    }
 }));
 
 let client =
@@ -25,13 +34,13 @@ let client =
     firstName: "Йордан",
     lastName: "Радушев",
     phone: "+35988491569",
-    bulstat: "460y4hi4h649",
+    bulstat: "460y4hi4h649460y4hi4h649",
     type: "Корпоративен",
     email: "dani.radushev@gmail.com",
     VATNumber: "0359y509309",
     address: "София, ул. Козяк 47"
 }
-const ClientInfo = (props) => {
+const ClientDetails = (props) => {
     const classes = useStyles()
     let corporateClientDetails;
     if (client.type === "Корпоративен") {
@@ -43,14 +52,18 @@ const ClientInfo = (props) => {
         <Container className={classes.row}>
             <Typography><u>Информация за {client.type.toLowerCase()} клиент:</u></Typography>
             <Container className={classes.mainContainer}>
-                <Typography><strong>Име:</strong> {client.firstName+" "+client.lastName}</Typography> 
+                <Typography><strong>Име:</strong> {client.firstName + " " + client.lastName}</Typography>
                 <Typography><strong>Имейл:</strong> {client.email}</Typography>
                 <Typography><strong>Телефон:</strong> {client.phone}</Typography>
             </Container>
-            <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
-            {corporateClientDetails}
+            <Container className={classes.secondaryContainer} style={{ padding: 0 }}>
+                <div className={classes.marginLeft}>
+                    <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
+                    {corporateClientDetails}
+                </div>
+                <img alt="data" className={classes.img} height="64em" src="./personal-information.png" />
+            </Container>
         </Container>
     );
 }
-
-export default ClientInfo;
+export default ClientDetails;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Searchbar from '../components/Searchbar';
-import OrdersTable from '../components/OrdersTable';
+import Searchbar from '../components/searchbar/Searchbar';
+import OrdersTable from '../components/order-table/OrdersTable';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flex: 1,
         flexDirection: "column",
-        width: "75%",
+        width: "80%",
         margin: "auto",
         zIndex: "100",
         position: "relative"
@@ -24,6 +24,7 @@ const Dashboard = (props) => {
             <Searchbar placeholder="Търси по номер на поръчка, име на клиент или дата" />
             <br></br>
             <OrdersTable />
+            
         </div>
     );
 }

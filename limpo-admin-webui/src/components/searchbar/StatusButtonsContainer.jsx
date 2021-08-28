@@ -1,5 +1,5 @@
 import React from 'react';
-import StatusButton from './fragments/StatusButton';
+import StatusButton from './StatusButton';
 
 const StatusButtonsContainer = (props) => {
     let { statusFilters, active, buttonLabels } = props

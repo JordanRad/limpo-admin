@@ -8,36 +8,31 @@ import StatusButtonsContainer from './StatusButtonsContainer';
 const useStyles = makeStyles(theme => ({
     input: {
         width: "45%",
-
     },
     root: {
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "flex-end",
+        alignItems: "center",
         "& .MuiFormLabel-root.Mui-focused": {
             borderColor: theme.palette.primary.dark,
             color: theme.palette.primary.dark
         },
         "& .MuiInput-underline:after": {
             borderColor: theme.palette.primary.dark,
-        }
+        },
+        marginTop:theme.spacing(2)
     },
     side: {
         display: "flex",
+        alignItems:"flex-end",
         width: "40%",
         height: "40%",
         marginLeft: "auto",
         justifyContent: "center",
 
     },
-    underline: {
-        borderBottom: "4px solid",
-        borderColor: theme.palette.primary.dark,
-    },
-    button: {
-        cursor: "pointer"
-    },
+    
     "& .MuiFormLabel-root.Mui-focused": {
         color: theme.palette.primary.dark
     },
@@ -73,11 +68,11 @@ const Searchbar = (props) => {
                 onChange={onChangeHandler}
                 InputProps={{
                     endAdornment: (
-                       
+                        <InputAdornment>
                             <IconButton>
                                 <SearchIcon />
                             </IconButton>
-                       
+                        </InputAdornment>
                     )
                 }}
             />
@@ -87,6 +82,7 @@ const Searchbar = (props) => {
                     statusFilters={statusFilters}
                     active={status}
                     onClick={onStatusFilterChange} />
+                <img alt="businessman" height="50em" src="./businessman.png"/>
             </div>
         </div>
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemText, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import OrderActions from './OrderActions';
-import ClientInfo from './ClientInfo';
-import LimpoUnitList from '../LimpoUnitList';
+import OrderActions from './row-elements/OrderActions';
+import ClientDetails from './row-elements/ClientDetails';
+import OrderItemsList from './row-elements/OrderItemsList';
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -101,6 +101,7 @@ const OrdersTableRow = (props) => {
     let total = order.productItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     return (
         <div>
+            {/* Order Row */}
             <List className={`${classes.row} ${classes.primary}`}>
                 <ListItem key={`${index * 11.1}a1a`}>
                     <ListItemText><strong>{order.orderNumber}</strong></ListItemText>
@@ -121,16 +122,20 @@ const OrdersTableRow = (props) => {
                         className={`${classes.button}`} variant="outlined">{isShown ? "Скрий" : "Виж"}</Button>
                 </ListItem>
             </List>
+            {/* END Order Row */}
+
+            {/* Order Details */}
             <List className={`${classes.details} ${classes.primary} ${isShown ? "" : classes.hide}`}>
                 <ListItem className={classes.orderDetails}>
-                    <ClientInfo/>
-                    <LimpoUnitList items={order.productItems} />
+                    <ClientDetails/>
+                    <OrderItemsList items={order.productItems} />
                     <ListItemText className={classes.total}>
                         <strong>ОБЩО: {total} лв.</strong>
                     </ListItemText>
                 </ListItem>
                 <OrderActions order={order} />
             </List>
+            {/* END Order Details */}
         </div>
     );
 

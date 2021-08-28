@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, FormControl, FormHelperText } from '@material-ui/core'
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +75,7 @@ const limpoUnits = [
   },
 ]
 
-export default function NewLimpoUnit(props) {
+export default function AddLimpoUnit(props) {
   const { open } = props
   const [hasToRedirect, setHasToRedirect] = useState(false)
 
@@ -86,6 +86,8 @@ export default function NewLimpoUnit(props) {
 
 
   const classes = useStyles();
+
+  const history = useHistory()
   const saveData = (data) => {
     console.log(data)
   }
@@ -94,6 +96,7 @@ export default function NewLimpoUnit(props) {
     setLimpoUnitDescription(" ")
     setDialogOpen(false);
     setHasToRedirect(true);
+    history.push("./limpoUnits")
   };
 
   const handleSave = () => {

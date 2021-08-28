@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import {Alert} from '@material-ui/lab'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -44,17 +44,6 @@ const useStyles = makeStyles(theme => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  submit: {
-    backgroundColor: theme.palette.primary.dark,
-    margin: theme.spacing(3, 0, 2),
-    color: 'white'
-  },
-  logo: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '2em',
-  },
-
   button: {
     backgroundColor: theme.palette.primary.dark,
     color: "white",
@@ -67,13 +56,38 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SignInSide() {
+export default function Login() {
 
   const classes = useStyles();
+  const [helpers, setHelpers] = useState([false, false])
+  const [wrongCredentials, setWrongCredentials] = useState(false)
+  const email = useRef("")
+  const password = useRef("")
 
+  const onEmailInputChange = (e) => {
+    email.current = e.target.value
+  }
+
+  const onPasswordInputChange = (e) => {
+    password.current = e.target.value
+  }
+
+  const onSubmitClick = (e) => {
+    e.preventDefault()
+    const updatedHelpers = [false, false]
+    if (email.current.length === 0) {
+      updatedHelpers[0] = true
+    }
+
+    if (password.current.length === 0) {
+      updatedHelpers[1] = true
+    }
+    setHelpers(updatedHelpers)
+    setWrongCredentials(true)
+  }
   return (
     <Grid container component="main" className={classes.root}>
-      
+
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -83,9 +97,16 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Вход
           </Typography>
+          {wrongCredentials ?
+            <Alert variant="outlined" severity="error">
+            Невалиден имейл и/или парола
+          </Alert> : ""}
           <form className={classes.form} noValidate>
             <TextField
               margin="normal"
+              error={helpers[0]}
+              helperText="Полето е задължително"
+              onChange={onEmailInputChange}
               required
               fullWidth
               id="email"
@@ -96,6 +117,9 @@ export default function SignInSide() {
             />
             <TextField
               margin="normal"
+              error={helpers[1]}
+              helperText="Полето е задължително"
+              onChange={onPasswordInputChange}
               required
               fullWidth
               name="password"
@@ -111,16 +135,14 @@ export default function SignInSide() {
               label="Запомни"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="secondary"
               className={classes.button}
+              onClick={onSubmitClick}
             >
               Продължи
             </Button>
-            <Box mt={5}>
-            </Box>
           </form>
         </div>
       </Grid>

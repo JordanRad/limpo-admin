@@ -48,19 +48,18 @@ export default function Navigation(props) {
         <ListItem className={classes.li} key="Затвори" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <CloseIcon />&nbsp; Затвори
         </ListItem>
-        <ListItem className={classes.li} key="Архив поръчки" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
+        <ListItem className={classes.li} key="Текущи поръчки" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
+          <ListItemText>Текущи поръчки</ListItemText>
+        </ListItem>
+        <ListItem className={classes.li} key="Архив поръчки" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/archive">
           <ListItemText>Архив поръчки</ListItemText>
+        </ListItem>
+        <ListItem className={classes.li} key="Услуги" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/limpoUnits">
+          <ListItemText>Услуги</ListItemText>
         </ListItem>
         <ListItem key="Добави поръчка" component={Link} to="/neworder">
           <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави поръчка</Button>
         </ListItem>
-        <ListItem className={classes.li} key="Услуги" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/services">
-          <ListItemText>Услуги</ListItemText>
-        </ListItem>
-        <ListItem key="Добави услуга" component={Link} to="/newlimpounit">
-          <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави услуга</Button>
-        </ListItem>
-       
         <ListItem className={classes.li} key="Излизане" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <ExitToAppIcon />&nbsp;&nbsp;&nbsp;Излез
         </ListItem>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 export default class OrderService {
 
-    static URL = 'http://localhost:8080/order-service/'
+    static URL = 'http://localhost:8080/order-service/api/v1/'
 
     static get(url, header) {
         axios.get()

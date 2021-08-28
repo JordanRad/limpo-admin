@@ -1,11 +1,11 @@
 import { Container, Typography } from '@material-ui/core';
 import React from 'react';
-import LimpoUnit from './fragments/LimpoUnit';
+import OrderItem from './OrderItem';
 
-const LimpoUnitList = (props) => {
+const OrderItemsList = (props) => {
     let { items } = props
 
-    let ItemList = items.map((item, index) => <LimpoUnit item={item} key={index} index={index+1} />)
+    let ItemList = items.map((item, index) => <OrderItem item={item} key={index} index={index+1} />)
 
     return (
         <Container style={{ width: "100%" }}>
@@ -15,4 +15,4 @@ const LimpoUnitList = (props) => {
     )
 }
 
-export default LimpoUnitList;
+export default OrderItemsList;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { List, ListItem, ListItemText, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import OrdersTableRow from './fragments/OrderTableRow';
-import OrdersTableHead from './fragments/OrderTableHead';
-import OrdersTableFooter from './fragments/OrderTableFooter';
+import OrdersTableRow from './table-elements/OrderTableRow';
+import OrdersTableHead from './table-elements/OrderTableHead';
+import OrdersTableFooter from './table-elements/OrderTableFooter';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const useStyles = makeStyles(theme => ({

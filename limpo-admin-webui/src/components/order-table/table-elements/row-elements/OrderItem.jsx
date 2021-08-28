@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const LimpoUnit = (props) => {
+const OrderItem = (props) => {
     const classes = useStyles()
     const { item, index } = props
     
@@ -42,4 +42,4 @@ const LimpoUnit = (props) => {
     );
 }
 
-export default LimpoUnit;
+export default OrderItem;

@@ -36,3 +36,23 @@ code {
   margin-top: -15.35em;
   padding: 0%;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #eef7f2; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #214455 ; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
