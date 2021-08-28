@@ -81,6 +81,7 @@ export default function NewItemDialog(props) {
     setServiceQty(0)
     setServicePrice(0)
     setOpen(false);
+    setHelpers({ type: "", qty: "", price: "" })
 
   };
   const handleSave = () => {
@@ -178,11 +179,11 @@ export default function NewItemDialog(props) {
           </div>
         </DialogContent>
         <DialogActions className={classes.actions}>
-          <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
-            Откажи
-          </Button>
           <Button className={classes.save} variant="outlined" onClick={handleSave} color="primary">
             Запиши
+          </Button>
+          <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
+            Откажи
           </Button>
         </DialogActions>
       </Dialog>

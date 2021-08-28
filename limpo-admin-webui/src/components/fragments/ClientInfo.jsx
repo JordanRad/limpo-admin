@@ -48,7 +48,7 @@ const ClientInfo = (props) => {
                 <Typography><strong>Телефон:</strong> {client.phone}</Typography>
             </Container>
             <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
-            <Typography>{corporateClientDetails}</Typography>
+            {corporateClientDetails}
         </Container>
     );
 }

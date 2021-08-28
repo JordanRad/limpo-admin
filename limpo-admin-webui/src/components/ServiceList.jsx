@@ -9,7 +9,7 @@ const ServiceList = (props) => {
     return (
         <Grid
             container direction="row"
-            justify="space-between">
+            justifyContent="space-between">
             {List}
         </Grid>
 

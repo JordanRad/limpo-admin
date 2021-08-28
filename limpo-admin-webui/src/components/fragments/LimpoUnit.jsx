@@ -1,25 +1,27 @@
 import React from 'react';
 import { Container, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import InfoIcon from '@material-ui/icons/Info';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 const useStyles = makeStyles(theme => ({
     row: {
         paddingLeft: "0",
         display: "flex",
         flex: 1,
         justifyContent: "flex-start",
-        marginBottom: "8px"
+        margin: theme.spacing(1,0)
     },
     icon: {
-        color: theme.palette.primary.dark
+        color: theme.palette.primary.dark,
+        marginRight: theme.spacing(1)
     },
     desc: {
-        width: "50%"
+        width: "40%",
+        display:"flex",
     },
     price: {
         width: "20%",
         display: "flex",
-        justifyContent: "flex-end"
+        justifyContent: "flex-start"
     }
 }));
 
@@ -30,14 +32,12 @@ const LimpoUnit = (props) => {
     return (
         <Container className={classes.row}>
             <Typography className={classes.desc}>
-                Услуга <strong>#{index}</strong>: {item.product.type} - {item.product.name}
-                <InfoIcon className={classes.icon} />
+            <CheckCircleIcon className={classes.icon} />{item.product.type} - {item.product.name}
+                
             </Typography>
             <Typography className={classes.price}>
                 {item.quantity} x {item.price} = {`${item.quantity * item.price} лв.`}
             </Typography>
-            <div style={{ width: "30%" }}>&nbsp;</div>
-            <br></br>
         </Container>
     );
 }

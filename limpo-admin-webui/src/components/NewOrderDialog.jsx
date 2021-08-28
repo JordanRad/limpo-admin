@@ -18,7 +18,6 @@ import NewItemDialog from './NewItemDialog'
 import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-
   root: {
     padding: theme.spacing(5),
     "& .MuiFormLabel-root.Mui-focused": {
@@ -47,6 +46,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     margin: theme.spacing(2, 0)
   },
+  btn: {
+    backgroundColor: theme.palette.primary.dark,
+    color: "white",
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+      color:theme.palette.primary.dark,
+    },
+  }
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -85,7 +92,7 @@ export default function NewOrderDialog(props) {
       <FormHelperText id="component-helper-text"></FormHelperText>
     </FormControl>
   ]
-  
+
   const handleClose = async () => {
 
     passData(data)
@@ -120,7 +127,7 @@ export default function NewOrderDialog(props) {
               <Typography variant="h6" className={classes.title}>
                 Нова Поръчка
               </Typography>
-              <Button autoFocus color="inherit" onClick={handleClose}>
+              <Button className={classes.btn} variant="outlined" autoFocus onClick={handleClose}>
                 Запиши
               </Button>
             </Toolbar>

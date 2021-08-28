@@ -6,12 +6,14 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 const useStyles = makeStyles(theme => ({
     head: {
         display: "flex",
-        backgroundColor: theme.palette.primary.dark,
-        color: "white",
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.dark,
+        marginBottom: theme.spacing(1)
+
     },
     icon: {
         width: "1px",
-        color: "white"
+        color: theme.palette.primary.dark
     }
 }));
 

@@ -32,7 +32,9 @@ const orderFilter = (filterType, orders) => {
 let orders = [{ orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "NEW" },
 { orderNumber: "22222222", client: "Бисер Бисеров", date: "12.04.2021", status: "PENDING" },
 { orderNumber: "33333333", client: "Мони Манолов", date: "24.07.2021", status: "PENDING" },
-{ orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "APPROVED" }]
+{ orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "APPROVED" },
+{ orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "NEW" },
+]
 //let orders = []
 
 const OrdersTable = (props) => {

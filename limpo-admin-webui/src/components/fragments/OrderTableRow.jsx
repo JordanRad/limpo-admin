@@ -10,19 +10,20 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         flex: 1,
         flexDirection: "row",
+        height: "40px",
+        borderLeft:"4px solid",
+        borderColor:theme.palette.primary.dark,
         backgroundColor: theme.palette.primary.light,
         color: theme.palette.primary.dark,
-        borderBottom: "2px solid",
-        borderColor: theme.palette.primary.dark,
-        height: "40px",
-        
+        marginBottom: theme.spacing(1)
+
     },
     button: {
         borderColor: theme.palette.primary.dark,
         color: theme.palette.primary.dark,
         "&:hover": {
             backgroundColor: theme.palette.primary.dark,
-            color: theme.palette.secondary.main,
+            color: "white",
         },
         textAlign: "center",
     },
@@ -31,7 +32,8 @@ const useStyles = makeStyles(theme => ({
         flex: 1,
         flexDirection: 'column',
         justifyContent: "center",
-        borderBottom: "2px solid black"
+        marginBottom:theme.spacing(2),
+        borderLeft:"4px solid black"
     },
     primary: {
         backgroundColor: theme.palette.primary.light
@@ -48,8 +50,8 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column",
     },
     total: {
-        alignSelf: "flex-end",
-        padding: theme.spacing(0,2),
+        alignSelf: "flex-start",
+        padding: theme.spacing(0,3),
     }
 
 }));
@@ -75,7 +77,7 @@ const OrdersTableRow = (props) => {
         id: 2,
         product: {
             id: 3,
-            name: "Чистене на прозорци",
+            name: "Чистене на прозорци Чистене на прозорци Чистене на прозорци Чистене на прозорци",
             type: "Чистене"
         },
         quantity: 2,

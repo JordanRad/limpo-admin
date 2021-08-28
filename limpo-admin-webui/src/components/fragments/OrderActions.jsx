@@ -1,10 +1,14 @@
 import React from 'react';
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     row: {
         display: "flex",
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
+        alignItems: "center",
+        height: "2em",
+        paddingRight:theme.spacing(6),
+        margin:theme.spacing(0,2),
     },
     error: {
         backgroundColor: theme.palette.error.main,
@@ -45,9 +49,21 @@ const OrderActions = (props) => {
     let { order } = props
     return (
         <Container className={classes.row}>
-            <p><Button id={`delete-${order.orderNumber}`} className={classes.error} variant="outlined">Изтрий</Button></p>
-            <p>&nbsp;&nbsp;&nbsp;</p>
-            <p>Запиши поръчката като: &nbsp; <Button className={classes.save} variant="outlined">{getPromoteStatus(order.status)}</Button></p>
+            <Grid container direction="row" justifyContent="flex-start" alignItems="center">
+                <Typography>Запиши поръчката като: &nbsp;</Typography>
+                <Button
+                    className={classes.save}
+                    variant="outlined">
+                    {getPromoteStatus(order.status)}
+                </Button>
+            </Grid>
+            <Button
+                id={`delete-${order.orderNumber}`}
+                className={classes.error}
+                variant="outlined">
+                Изтрий
+            </Button>
+            
         </Container>
     );
 }

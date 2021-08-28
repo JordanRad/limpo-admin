@@ -10,11 +10,14 @@ const useStyles = makeStyles(theme => ({
         flex: 1,
         flexDirection: "column",
         width: "75%",
-        margin: "auto"
+        margin: "auto",
+        zIndex: "100",
+        position: "relative"
     },
 
 }));
 const Dashboard = (props) => {
+
     const classes = useStyles();
     return (
         <div className={classes.root}>

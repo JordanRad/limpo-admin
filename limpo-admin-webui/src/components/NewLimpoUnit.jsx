@@ -160,11 +160,11 @@ export default function NewLimpoUnit(props) {
             </div>
           </DialogContent>
           <DialogActions className={classes.actions}>
-            <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
-              Откажи
-            </Button>
             <Button className={classes.save} variant="outlined" onClick={handleSave} color="primary">
               Запиши
+            </Button>
+            <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
+              Откажи
             </Button>
           </DialogActions>
         </Dialog>

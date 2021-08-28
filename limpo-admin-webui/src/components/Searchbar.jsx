@@ -73,11 +73,11 @@ const Searchbar = (props) => {
                 onChange={onChangeHandler}
                 InputProps={{
                     endAdornment: (
-                        <InputAdornment>
+                       
                             <IconButton>
                                 <SearchIcon />
                             </IconButton>
-                        </InputAdornment>
+                       
                     )
                 }}
             />
