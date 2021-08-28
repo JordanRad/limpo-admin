@@ -7,9 +7,7 @@ const useStyles = makeStyles(theme => ({
     head: {
         display: "flex",
         backgroundColor: theme.palette.primary.dark,
-        borderRadius: "inherit",
         color: "white",
-        height:"3em"
     },
     icon: {
         width: "1px",

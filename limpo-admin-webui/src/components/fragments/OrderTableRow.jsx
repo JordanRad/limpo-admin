@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.primary.dark,
         borderBottom: "2px solid",
         borderColor: theme.palette.primary.dark,
-        borderRadius: "inherit",
         height: "40px",
         
     },
@@ -100,7 +99,7 @@ const OrdersTableRow = (props) => {
     let total = order.productItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     return (
         <div>
-            <List className={`${classes.row} ${index % 2 === 0 ? classes.secondary : classes.primary}`}>
+            <List className={`${classes.row} ${classes.primary}`}>
                 <ListItem key={`${index * 11.1}a1a`}>
                     <ListItemText><strong>{order.orderNumber}</strong></ListItemText>
                 </ListItem>
@@ -120,7 +119,7 @@ const OrdersTableRow = (props) => {
                         className={`${classes.button}`} variant="outlined">{isShown ? "Скрий" : "Виж"}</Button>
                 </ListItem>
             </List>
-            <List className={`${classes.details} ${index % 2 === 0 ? classes.secondary : classes.primary} ${isShown ? "" : classes.hide}`}>
+            <List className={`${classes.details} ${classes.primary} ${isShown ? "" : classes.hide}`}>
                 <ListItem className={classes.orderDetails}>
                     <ClientInfo/>
                     <LimpoUnitList items={order.productItems} />

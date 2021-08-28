@@ -16,6 +16,6 @@ export default class OrderService {
     }
 
     static delete(url, header) {
-        axios.delete
+        axios.delete()
     }
 }

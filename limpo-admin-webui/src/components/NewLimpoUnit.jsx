@@ -125,7 +125,7 @@ export default function NewLimpoUnit(props) {
   } else {
     return (
       <div>
-        <Dialog className={classes.root} open={dialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog disableBackdropClick className={classes.root} open={dialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Нова услуга</DialogTitle>
           <DialogContent>
             <DialogContentText>

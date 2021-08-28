@@ -111,7 +111,7 @@ export default function NewOrderDialog(props) {
     return (
       <div>
         <NewItemDialog open={newServiceDialogOpen} setOpen={setNewServiceDialogOpen} saveData={saveData} />
-        <Dialog className={classes.root} open={dialogOpen} onClose={handleClose} TransitionComponent={Transition}>
+        <Dialog disableBackdropClick className={classes.root} open={dialogOpen} onClose={handleClose} TransitionComponent={Transition}>
           <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
               <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">

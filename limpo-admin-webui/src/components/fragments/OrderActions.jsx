@@ -4,10 +4,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     row: {
         display: "flex",
-        flex: 1,
-        justifyContent: "space-between",
-        padding: theme.spacing(0,4),
-        margin:0
+        justifyContent: "flex-end",
     },
     error: {
         backgroundColor: theme.palette.error.main,
@@ -48,9 +45,8 @@ const OrderActions = (props) => {
     let { order } = props
     return (
         <Container className={classes.row}>
-            <p><Button className={classes.error} variant="outlined">Изтрий</Button></p>
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
+            <p><Button id={`delete-${order.orderNumber}`} className={classes.error} variant="outlined">Изтрий</Button></p>
+            <p>&nbsp;&nbsp;&nbsp;</p>
             <p>Запиши поръчката като: &nbsp; <Button className={classes.save} variant="outlined">{getPromoteStatus(order.status)}</Button></p>
         </Container>
     );

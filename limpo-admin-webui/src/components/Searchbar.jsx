@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: "flex-end",
         "& .MuiFormLabel-root.Mui-focused": {
             borderColor: theme.palette.primary.dark,
             color: theme.palette.primary.dark
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         width: "40%",
         height: "40%",
         marginLeft: "auto",
-        justifyContent: "flex-end",
+        justifyContent: "center",
 
     },
     underline: {

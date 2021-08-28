@@ -8,7 +8,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, FormControl, InputLabel, FormHelperText, Select, MenuItem } from '@material-ui/core'
 
-
 const useStyles = makeStyles((theme) => ({
 
   inl: {
@@ -42,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   "& .MuiInputBase-input:focus": {
     backgroundColor: theme.palette.primary.dark
   },
+  
 }));
 
 export default function NewItemDialog(props) {
@@ -50,7 +50,6 @@ export default function NewItemDialog(props) {
   const [serviceType, setServiceType] = useState('')
   const [serviceQty, setServiceQty] = useState(0)
   const [servicePrice, setServicePrice] = useState(0)
-
 
   const products = [
     {
@@ -118,7 +117,7 @@ export default function NewItemDialog(props) {
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog disableBackdropClick open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Добавяне услуга към поръчка</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -129,6 +128,7 @@ export default function NewItemDialog(props) {
             <FormControl className={classes.inl} fullWidth>
               <InputLabel id="demo-simple-select-label">Избери Услуга</InputLabel>
               <Select
+              style={{width:"30em"}}
                 error={helpers.type}
                 helperText={helpers.type}
                 labelId="demo-simple-select-label"

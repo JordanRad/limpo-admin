@@ -12,12 +12,12 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1,0)
     
     },
-    main:{
+    mainContainer:{
         display:"flex",
         justifyContent:"space-between",
         margin: theme.spacing(1,0),
         padding:0
-    }
+    },
 }));
 
 let client =
@@ -42,13 +42,13 @@ const ClientInfo = (props) => {
     return (
         <Container className={classes.row}>
             <Typography><u>Информация за {client.type.toLowerCase()} клиент:</u></Typography>
-            <Container className={classes.main}>
+            <Container className={classes.mainContainer}>
                 <Typography><strong>Име:</strong> {client.firstName+" "+client.lastName}</Typography> 
                 <Typography><strong>Имейл:</strong> {client.email}</Typography>
                 <Typography><strong>Телефон:</strong> {client.phone}</Typography>
             </Container>
             <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
-            {corporateClientDetails}
+            <Typography>{corporateClientDetails}</Typography>
         </Container>
     );
 }
