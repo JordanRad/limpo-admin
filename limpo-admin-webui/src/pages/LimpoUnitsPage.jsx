@@ -21,18 +21,19 @@ const useStyles = makeStyles(theme => ({
         margin: "auto"
     },
     head: {
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(2),
+        alignItems:"center"
     },
+
     button: {
-        backgroundColor: theme.palette.primary.dark,
-        color: "white",
+        borderColor: theme.palette.primary.dark,
+        color: theme.palette.primary.dark,
         "&:hover": {
-            borderColor: theme.palette.primary.dark,
-            backgroundColor: theme.palette.primary.main,
-            color: theme.palette.primary.dark,
+          backgroundColor: theme.palette.primary.dark,
+          color: "white",
         },
-        textAlign: "center",
-    },
+        height:"35.8px"
+      },
 }));
 const LimpoUnitsPage = () => {
     const classes = useStyles();
@@ -42,7 +43,7 @@ const LimpoUnitsPage = () => {
     return (
         <div className={classes.root}>
             <Grid className={classes.head} container direction="row" justifyContent="space-between">
-                <Typography gutterBottom variant="h4">
+                <Typography gutterBottom variant="h5">
                     Вписани услуги
                 </Typography>
                 <Button onClick={onAddLimpoUnitClick} className={classes.button} variant="outlined">Добави услуга</Button>

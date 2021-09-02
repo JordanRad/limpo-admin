@@ -75,8 +75,8 @@ export default function NewOrderDialog(props) {
       <InputLabel htmlFor="component-helper">Булстат</InputLabel>
       <Input
         id="component-helper"
-        value={data.name}
-        onChange={(e) => handleChange('name', e.target.value)}
+        value={data.bulstat}
+        onChange={(e) => handleChange('bulstat', e.target.value)}
         aria-describedby="component-helper-text"
       />
       <FormHelperText id="component-helper-text"></FormHelperText>
@@ -85,8 +85,8 @@ export default function NewOrderDialog(props) {
       <InputLabel htmlFor="component-helper">VAT Номер</InputLabel>
       <Input
         id="component-helper"
-        value={data.name}
-        onChange={(e) => handleChange('name', e.target.value)}
+        value={data.vatNumber}
+        onChange={(e) => handleChange('vatNumber', e.target.value)}
         aria-describedby="component-helper-text"
       />
       <FormHelperText id="component-helper-text"></FormHelperText>
@@ -94,24 +94,29 @@ export default function NewOrderDialog(props) {
   ]
 
   const handleClose = async () => {
-
     passData(data)
     setDialogOpen(false);
     setHasToRedirect(true)
   };
+
   const handleChange = (field, value) => {
-
     setData({ ...data, [field]: value })
+  }
 
+  const onRemoveItemClick = (deleteIndex)=>{
+    console.log(deleteIndex)
+    let updatedOrderItems = orderItems;
+    updatedOrderItems.splice(deleteIndex,1);
+    setOrderItems(updatedOrderItems)
   }
   const saveData = (datas) => {
-
     console.log(data)
     let old = orderItems
     old.push(datas)
     setOrderItems([...old])
     setData({ ...data, orderItems: [...old] })
   }
+  
   if (hasToRedirect) {
     return <Redirect to={"/dashboard"} />
   } else {
@@ -175,7 +180,6 @@ export default function NewOrderDialog(props) {
                 onClick={() => setNewServiceDialogOpen(true)}
                 variant="outlined"
                 color="primary">
-                <AddShoppingCartIcon />&nbsp;
                 Добави услуга
               </Button>
 
@@ -185,7 +189,7 @@ export default function NewOrderDialog(props) {
                 return (
                   <ListItem key={idx}>
                     <ListItemText primary={el.serviceType.name} secondary={`${el.serviceQty} x ${el.servicePrice} лв.`} />
-                    <Button><DeleteForeverIcon /></Button>
+                    <IconButton onClick={(e)=>onRemoveItemClick(idx)} ><DeleteForeverIcon/></IconButton>
                   </ListItem>
                 )
               })}

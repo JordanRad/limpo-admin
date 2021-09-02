@@ -171,6 +171,7 @@ export default function NewItemDialog(props) {
                 onChange={(e) => (setServicePrice(e.target.value))}
                 aria-describedby="component-helper-text"
                 type="number"
+                step="0.05"
                 autoComplete="off"
               />
               {/* <FormHelperText id="component-helper-text">kllklk</FormHelperText> */}
@@ -179,11 +180,11 @@ export default function NewItemDialog(props) {
           </div>
         </DialogContent>
         <DialogActions className={classes.actions}>
+        <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
+            Откажи
+          </Button>
           <Button className={classes.save} variant="outlined" onClick={handleSave} color="primary">
             Запиши
-          </Button>
-          <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
-            Откажи
           </Button>
         </DialogActions>
       </Dialog>

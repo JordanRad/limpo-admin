@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.primary.dark,
       color: "white",
     },
-    width:"14em"
   },
 
   li: {

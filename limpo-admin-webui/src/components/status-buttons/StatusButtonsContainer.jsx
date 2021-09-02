@@ -2,7 +2,9 @@ import React from 'react';
 import StatusButton from './StatusButton';
 
 const StatusButtonsContainer = (props) => {
-    let { statusFilters, active, buttonLabels } = props
+    const statusFilters = ["all", "new", "pending", "approved"]
+    const buttonLabels = ["Всички", "Нови", "Чакащи", "Одобрени"]
+    let { active } = props
     let Buttons = statusFilters.map((status, index) => {
         return (
             <StatusButton

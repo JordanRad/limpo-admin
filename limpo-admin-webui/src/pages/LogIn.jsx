@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import {useHistory} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -64,6 +65,8 @@ export default function Login() {
   const email = useRef("")
   const password = useRef("")
 
+  const history = useHistory()
+
   const onEmailInputChange = (e) => {
     email.current = e.target.value
   }
@@ -83,7 +86,10 @@ export default function Login() {
       updatedHelpers[1] = true
     }
     setHelpers(updatedHelpers)
-    setWrongCredentials(true)
+    //setWrongCredentials(true)
+
+    localStorage.setItem("user",JSON.stringify({name:""}))
+    history.push("./dashboard")
   }
   return (
     <Grid container component="main" className={classes.root}>

@@ -33,7 +33,8 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         justifyContent: "center",
         marginBottom:theme.spacing(2),
-        borderLeft:"4px solid black"
+        borderLeft:"4px solid",
+        borderColor: theme.palette.primary.dark
     },
     primary: {
         backgroundColor: theme.palette.primary.light
