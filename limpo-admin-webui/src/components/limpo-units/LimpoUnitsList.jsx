@@ -7,9 +7,7 @@ const LimpoUnitsList = (props) => {
     let List = services.map((item, index) => <LimpoUnit key={"service-" + index} name={item.name} description={item.description} />
     )
     return (
-        <Grid
-            container direction="row"
-            justifyContent="space-between">
+        <Grid container spacing={5}>
             {List}
         </Grid>
 

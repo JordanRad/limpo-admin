@@ -51,7 +51,7 @@ const Dashboard = (props) => {
                 <StatusButtonsContainer
                     active={activeStatusButton}
                     onClick={onStatusFilterChange} />
-                <img alt="businessman" height="50em" src="./businessman.png"/>
+                <img alt="businessman" height="50px" src="./businessman.png"/>
                 </div>
             </div>
             <br></br>

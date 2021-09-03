@@ -1,8 +1,11 @@
-import { Button, Typography, Grid } from '@material-ui/core';
+
 import React from 'react';
 import LimpoUnitsList from '../components/limpo-units/LimpoUnitsList';
+import { Button, Typography, Grid, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
+import Searchbar from '../components/searchbar/Searchbar';
+import Heading from '../components/heading/Heading';
 const services = [
     { name: "Почистване на етаж", description: "Услугата включва почистване на 1 бр. етаж в жилищна кооперация.Услугата включва почистване на 1 бр. етаж в жилищна кооперация.Услугата включва почистване на 1 бр. етаж в жилищна кооперация." },
     { name: "Почистване на етаж", description: "Услугата включва почистване на 1 бр. етаж в жилищна кооперация.Услугата включва почистване на 1 бр. етаж в жилищна кооперация." },
@@ -43,12 +46,10 @@ const LimpoUnitsPage = () => {
     return (
         <div className={classes.root}>
             <Grid className={classes.head} container direction="row" justifyContent="space-between">
-                <Typography gutterBottom variant="h5">
-                    Вписани услуги
-                </Typography>
+                <Heading text="Вписани услуги" imageUrl="./cleaning.png"/>
                 <Button onClick={onAddLimpoUnitClick} className={classes.button} variant="outlined">Добави услуга</Button>
             </Grid>
-
+            
             <LimpoUnitsList services={services} />
         </div>
     );

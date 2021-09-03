@@ -21,7 +21,7 @@ code {
 .MuiButton-root{
   border-radius: 0px !important;
 }
-.MuiDialog-scrollPaper{
+.MuiDialog-paperScrollPaper {
   border-radius: 0px !important;
 }
 .MuiSwitch-colorPrimary.Mui-checked{
