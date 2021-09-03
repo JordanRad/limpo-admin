@@ -42,15 +42,6 @@ const Searchbar = (props) => {
                 helperText={placeholder}
                 onChange={onChangeHandler}
                 autoComplete="off"
-                InputProps={{
-                    endAdornment: (
-                        <InputAdornment>
-                            <IconButton>
-                                <SearchIcon />
-                            </IconButton>
-                        </InputAdornment>
-                    )
-                }}
             />
         </div>
 

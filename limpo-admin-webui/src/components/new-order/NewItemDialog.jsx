@@ -119,7 +119,7 @@ export default function NewItemDialog(props) {
   return (
     <div>
       <Dialog disableBackdropClick open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Добавяне услуга към поръчка</DialogTitle>
+        <DialogTitle id="dialog-title">Добавяне услуга към поръчка</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Моля изберете услуга за добавяне
@@ -127,30 +127,28 @@ export default function NewItemDialog(props) {
           <div>
 
             <FormControl className={classes.inl} fullWidth>
-              <InputLabel id="demo-simple-select-label">Избери Услуга</InputLabel>
+              <InputLabel id="dialog-select-label">Избери Услуга</InputLabel>
               <Select
-              style={{width:"30em"}}
-                error={helpers.type}
-                helperText={helpers.type}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={serviceType.name}
-                onChange={(e) => (setServiceType(products[e.target.value]))}
+                style={{width:"30em"}}
+                error={helpers.type!==""}
+                id="dialog-select"
+                value={serviceType.name?serviceType.name:""}
+                onChange={(e) => (setServiceType(products.find(el=>el.name===e.target.value)))}
               >
                 {
                   products.map((el, idx) => (
-                    <MenuItem key={idx} value={idx}>{el.name}</MenuItem>
+                    <MenuItem key={idx} value={el.name}>{el.name}</MenuItem>
                   ))
                 }
 
               </Select>
+              <FormHelperText>{helpers.type}</FormHelperText>
             </FormControl>
             <FormControl className={classes.inl}>
               <TextField
                 label="Брой"
-                error={helpers.qty}
-                helperText={helpers.qty}
-                id="component-helper"
+                error={helpers.qty!==""}
+                id="number-helper"
                 value={serviceQty || ""}
 
                 onChange={(e) => (setServiceQty(e.target.value))}
@@ -158,15 +156,14 @@ export default function NewItemDialog(props) {
                 type="number"
                 autoComplete="off"
               />
-              <FormHelperText id="component-helper-text"></FormHelperText>
+              <FormHelperText id="helper-text">{helpers.qty}</FormHelperText>
             </FormControl>
             <FormControl className={classes.inl}>
               {/* <InputLabel htmlFor="component-helper">Цена</InputLabel> */}
               <TextField
                 label="Цена"
-                error={helpers.price}
-                helperText={helpers.price}
-                id="component-helper"
+                error={helpers.price!==""}
+                id="price-helper"
                 value={servicePrice || ""}
                 onChange={(e) => (setServicePrice(e.target.value))}
                 aria-describedby="component-helper-text"
@@ -174,7 +171,7 @@ export default function NewItemDialog(props) {
                 step="0.05"
                 autoComplete="off"
               />
-              {/* <FormHelperText id="component-helper-text">kllklk</FormHelperText> */}
+              <FormHelperText id="component-helper-text">{helpers.price}</FormHelperText>
             </FormControl>
 
           </div>

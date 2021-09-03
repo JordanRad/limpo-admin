@@ -10,10 +10,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
 import { FormControl, FormControlLabel, InputLabel, Input, FormHelperText, Switch } from '@material-ui/core'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import NewItemDialog from './NewItemDialog'
 import { Redirect } from 'react-router-dom';
 
@@ -56,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function NewOrderDialog(props) {
   const { open, passData } = props
@@ -74,7 +69,7 @@ export default function NewOrderDialog(props) {
     <FormControl key="cc-1" fullWidth>
       <InputLabel htmlFor="component-helper">Булстат</InputLabel>
       <Input
-        id="component-helper"
+        id="bulstat"
         value={data.bulstat}
         onChange={(e) => handleChange('bulstat', e.target.value)}
         aria-describedby="component-helper-text"
@@ -84,7 +79,7 @@ export default function NewOrderDialog(props) {
     <FormControl key="cc-2" fullWidth>
       <InputLabel htmlFor="component-helper">VAT Номер</InputLabel>
       <Input
-        id="component-helper"
+        id="vat"
         value={data.vatNumber}
         onChange={(e) => handleChange('vatNumber', e.target.value)}
         aria-describedby="component-helper-text"
@@ -93,10 +88,11 @@ export default function NewOrderDialog(props) {
     </FormControl>
   ]
 
-  const handleClose = async () => {
+  const handleClose = async (e,reason) => {
     passData(data)
     setDialogOpen(false);
     setHasToRedirect(true)
+    console.log(reason)
   };
 
   const handleChange = (field, value) => {
@@ -123,7 +119,7 @@ export default function NewOrderDialog(props) {
     return (
       <div>
         <NewItemDialog open={newServiceDialogOpen} setOpen={setNewServiceDialogOpen} saveData={saveData} />
-        <Dialog disableBackdropClick className={classes.root} open={dialogOpen} onClose={handleClose} TransitionComponent={Transition}>
+        <Dialog disableBackdropClick className={classes.root} open={dialogOpen} onClose={handleClose}>
           <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
               <IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
@@ -146,7 +142,7 @@ export default function NewOrderDialog(props) {
             <FormControl fullWidth>
               <InputLabel htmlFor="component-helper">Имена на клиента</InputLabel>
               <Input
-                id="component-helper"
+                id="names"
                 value={data.name}
                 onChange={(e) => handleChange('name', e.target.value)}
                 aria-describedby="component-helper-text"
@@ -156,7 +152,7 @@ export default function NewOrderDialog(props) {
             <FormControl fullWidth>
               <InputLabel htmlFor="component-helper">Телефон</InputLabel>
               <Input
-                id="component-helper"
+                id="phone"
                 value={data.tel}
                 onChange={(e) => handleChange('tel', e.target.value)}
                 aria-describedby="component-helper-text"
@@ -166,7 +162,7 @@ export default function NewOrderDialog(props) {
             <FormControl fullWidth>
               <InputLabel htmlFor="component-helper">Адрес за изпълнение поръчката</InputLabel>
               <Input
-                id="component-helper"
+                id="address"
                 value={data.addr}
                 onChange={(e) => handleChange('addr', e.target.value)}
                 aria-describedby="component-helper-text"

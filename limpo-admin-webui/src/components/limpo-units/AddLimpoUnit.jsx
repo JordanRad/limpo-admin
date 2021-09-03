@@ -155,7 +155,7 @@ export default function AddLimpoUnit(props) {
                   id="standard-multiline-flexible"
                   label="Описание"
                   multiline
-                  rowsMax={3}
+                  maxRows={3}
                   value={LimpoUnitDescription || ""}
                   onChange={(e) => (setLimpoUnitDescription(e.target.value))}
                 />
