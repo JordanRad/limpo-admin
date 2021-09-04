@@ -6,9 +6,9 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        height: "2em",
-        paddingRight:theme.spacing(6),
+        height: "4em",
         margin:theme.spacing(0,2),
+        paddingRight:theme.spacing(6)
     },
     error: {
         backgroundColor: theme.palette.error.main,

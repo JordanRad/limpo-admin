@@ -39,10 +39,10 @@ const useStyles = makeStyles(theme => ({
 export default function Navigation(props) {
 
   const classes = useStyles();
-  const { drawerOpen, setDrawerOpen } = props
+  const { drawerOpen, setDrawerOpen,ref } = props
 
   return (
-    <Drawer open={drawerOpen}>
+    <Drawer ref={ref} open={drawerOpen}>
       <List className={classes.root}>
         <ListItem className={classes.li} key="Затвори" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
           <CloseIcon />&nbsp; Затвори

@@ -8,7 +8,8 @@ const OrderItemsList = (props) => {
     let ItemList = items.map((item, index) => <OrderItem item={item} key={index} index={index+1} />)
 
     return (
-        <Container style={{ width: "100%" }}>
+        <Container style={{ width: "100%",overflowY:"auto",
+        height:"150px" }}>
             <Typography><u>Включени услуги:</u></Typography>
             {ItemList}
         </Container>

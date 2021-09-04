@@ -35,21 +35,21 @@ function App() {
       <Router>
         <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
         <AppBar position="sticky" style={{ display: !isLoggedIn ? "none" : "block" }}>
-          <Toolbar  >
+          <Toolbar>
             <IconButton edge="start"
               color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
               <MenuIcon />
             </IconButton>
             <Typography
               variant="h6" noWrap>
-              Limpo Resource Planning Panel v1.0.0
+              Limpo Resource Planning System v1.0.0
             </Typography>
             <Button color="inherit"></Button>
           </Toolbar>
         </AppBar>
         <Switch>
           <Route path="/login">
-            <Login />
+            {isLoggedIn?<Redirect to="/dashboard" />:<Login />}
           </Route>
           <Route path="/dashboard">
             <Dashboard />

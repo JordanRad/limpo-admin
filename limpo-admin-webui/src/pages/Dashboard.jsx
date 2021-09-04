@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from '../components/searchbar/Searchbar';
 import OrdersTable from '../components/order-table/OrdersTable';
 import StatusButtonsContainer from '../components/status-buttons/StatusButtonsContainer'
+import { TableHead } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         marginTop: theme.spacing(2),
@@ -56,6 +57,9 @@ const Dashboard = (props) => {
             </div>
             <br></br>
             <OrdersTable />
+            
+            <br/>
+            
         </div>
     );
 }

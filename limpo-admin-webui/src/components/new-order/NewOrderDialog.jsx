@@ -92,7 +92,6 @@ export default function NewOrderDialog(props) {
     passData(data)
     setDialogOpen(false);
     setHasToRedirect(true)
-    console.log(reason)
   };
 
   const handleChange = (field, value) => {
@@ -170,7 +169,7 @@ export default function NewOrderDialog(props) {
               <FormHelperText id="component-helper-text"></FormHelperText>
             </FormControl>
             {isCorporateClient ? corporateClientDetals : null}
-            <FormControl fullwidth >
+            <FormControl fullWidth>
               <Button
                 className={classes.add}
                 onClick={() => setNewServiceDialogOpen(true)}

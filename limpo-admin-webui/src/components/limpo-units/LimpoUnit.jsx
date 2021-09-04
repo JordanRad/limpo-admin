@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { IconButton, Grid, Container, Paper } from '@material-ui/core';
+import { IconButton, Grid, Container } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: theme.palette.primary.main,
@@ -30,6 +27,10 @@ const useStyles = makeStyles(theme => ({
         overflowY:"auto",
         height:"50%",
         marginTop:theme.spacing(1),
+    },
+    cardHeader:{
+        marginTop:theme.spacing(1),
+
     }
 }));
 
@@ -40,7 +41,7 @@ export default function LimpoUnit(props) {
     return (
         <Grid item sm={6} >
             <Container className={classes.root} >
-                <Grid container alignItems="center" style={{marginTop:"12px"}}>
+                <Grid className={classes.cardHeader} container alignItems="center">
                     <Grid item xs={11}>
                         <Typography variant="h6">
                             {name}

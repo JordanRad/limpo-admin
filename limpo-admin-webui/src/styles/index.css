@@ -21,6 +21,11 @@ code {
 .MuiButton-root{
   border-radius: 0px !important;
 }
+
+.MuiButton-root:hover{
+  box-shadow: 4px 6px black;
+}
+
 .MuiDialog-paperScrollPaper {
   border-radius: 0px !important;
 }
