@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { useGlobalStateValue } from '../../context/GlobalStateProvider';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,12 +24,12 @@ const useStyles = makeStyles(theme => ({
 const Searchbar = (props) => {
     let { placeholder } = props
 
-    const [input,setInput] = useState("")
+    const dispatch = useGlobalStateValue()[1];
 
     const classes = useStyles();
-
+    
     const onChangeHandler = (e) => {
-        setInput(e.target.value)
+        dispatch({type:"update search input",payload:e.target.value})
     }
 
     return (

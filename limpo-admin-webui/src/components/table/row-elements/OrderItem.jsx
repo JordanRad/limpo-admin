@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 const OrderItem = (props) => {
     const classes = useStyles()
-    const { item, index } = props
+    const { item } = props
     
     return (
         <Container className={classes.row}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Drawer, List, ListItem, ListItemText, Button } from '@material-ui/core'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 export default function Navigation(props) {
 
   const classes = useStyles();
-  let history = useHistory();
+  
   const { drawerOpen, setDrawerOpen, ref } = props
 
   const logoutHandler = () => {

@@ -68,7 +68,7 @@ const TableRow = (props) => {
     const classes = useStyles()
 
     const [isShown, setIsShown] = useState(false)
-    let { order, index, type } = props
+    let { order, type } = props
 
     let cellSizes = type === "archive" ? [4, 4, 3, 0, 1] : [3, 4, 2, 2, 1]
     useEffect(() => setIsShown(false), [props])

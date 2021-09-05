@@ -1,9 +1,10 @@
-import React , {useState} from 'react';
+import React , {useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from '../components/searchbar/Searchbar';
 import OrdersTable from '../components/order-table/OrdersTable';
 import StatusButtonsContainer from '../components/status-buttons/StatusButtonsContainer'
-import { TableHead } from '@material-ui/core';
+import {useGlobalStateValue } from '../context/GlobalStateProvider';
+
 const useStyles = makeStyles(theme => ({
     root: {
         marginTop: theme.spacing(2),
@@ -34,32 +35,24 @@ const useStyles = makeStyles(theme => ({
 }));
 const Dashboard = (props) => {
     const classes = useStyles();
-    
-    const [activeStatusButton,setActiveStatusButton] = useState("all")
-    
-    const onStatusFilterChange = (id) => {
-        setActiveStatusButton(id)
-    }
+    const [state,dispatch] = useGlobalStateValue()
 
-    console.log(activeStatusButton)
+    useEffect(() => {
+        dispatch({ type: "update search input", payload: "" })
+    }, [dispatch])
 
-    
+    console.log(state)
     return (
         <div className={classes.root}>
             <div className={classes.filters}>
                 <Searchbar placeholder="Търси по номер на поръчка, име на клиент или дата" />
                 <div className={classes.statusButtons}>
-                <StatusButtonsContainer
-                    active={activeStatusButton}
-                    onClick={onStatusFilterChange} />
+                <StatusButtonsContainer active={state.statusFilter}/>
                 <img alt="businessman" height="50px" src="./businessman.png"/>
                 </div>
             </div>
             <br></br>
             <OrdersTable />
-            
-
-            
         </div>
     );
 }

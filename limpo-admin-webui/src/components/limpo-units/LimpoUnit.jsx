@@ -48,7 +48,7 @@ export default function LimpoUnit(props) {
                         </Typography>
                     </Grid>
                     <Grid item xs={1}>
-                        <IconButton className={classes.error}><DeleteForeverIcon /></IconButton>
+                        <IconButton onClick={(e)=>console.log(id)} className={classes.error}><DeleteForeverIcon /></IconButton>
                     </Grid>
                 </Grid>
                 <div className={classes.scroll}>

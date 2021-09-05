@@ -16,65 +16,64 @@ import NewOrderDialog from "./components/new-order/NewOrderDialog.jsx";
 import AddLimpoUnit from "./components/limpo-units/AddLimpoUnit.jsx";
 import LimpoUnitsPage from "./pages/LimpoUnitsPage.jsx";
 import OrdersArchive from './pages/OrdersArchive.jsx';
+import { GlobalStateProvider, initialState } from './context/GlobalStateProvider';
+import { reducer } from './context/reducer';
 
-const getUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
-}
 
 function App() {
-  let user = getUser()
 
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("user"))
+  const isLoggedIn = useState(localStorage.getItem("user"))[0]
+
   const getData = (data) => {
     console.log(data)
   }
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-        <AppBar position="sticky" style={{ display: !isLoggedIn ? "none" : "block" }}>
-          <Toolbar>
-            <IconButton edge="start"
-              color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6" noWrap>
-              Limpo Resource Planning System v1.0.0
-            </Typography>
-            <Button color="inherit"></Button>
-          </Toolbar>
-        </AppBar>
-        <Switch>
-          <Route path="/login">
-            {isLoggedIn ? <Redirect to="/dashboard" /> : <LoginPage />}
-          </Route>
-          <Route path="/dashboard">
-            {isLoggedIn ? <Dashboard /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/archive">
-            {isLoggedIn ? <OrdersArchive /> : <Redirect to="/login" />}
-
-          </Route>
-          <Route path="/limpoUnits">
-            {isLoggedIn ? <LimpoUnitsPage /> : <Redirect to="/login" />}
-
-          </Route>
-          <Route path="/neworder">
-            {isLoggedIn ? <NewOrderDialog open={true} passData={getData} /> : <Redirect to="/login" />}
-
-          </Route>
-          <Route path="/newlimpounit">
-            {isLoggedIn ? <AddLimpoUnit open={true} passData={getData} /> : <Redirect to="/login" />}
-          </Route>
-          <Route path="/*">
-            <Redirect to="/login" />
-          </Route>
-        </Switch>
-      </Router>
+      <GlobalStateProvider reducer={reducer} initialState={initialState}>
+        <Router>
+          <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
+          <AppBar position="sticky" style={{ display: !isLoggedIn ? "none" : "block" }}>
+            <Toolbar>
+              <IconButton edge="start"
+                color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h6" noWrap>
+                Limpo Resource Planning System v1.0.0
+              </Typography>
+              <Button color="inherit"></Button>
+            </Toolbar>
+          </AppBar>
+          <Switch>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
+            <Route path="/archive">
+              <OrdersArchive />
+            </Route>
+            <Route path="/limpoUnits">
+              <LimpoUnitsPage />
+            </Route>
+            <Route path="/neworder">
+              <NewOrderDialog open={true} passData={getData} />
+            </Route>
+            <Route path="/newlimpounit">
+              <AddLimpoUnit open={true} passData={getData} />
+            </Route>
+            <Route path="/*">
+              <Redirect to="/login" />
+            </Route>
+          </Switch>
+        </Router>
+      </GlobalStateProvider>
     </ThemeProvider>
+
   );
 }
 

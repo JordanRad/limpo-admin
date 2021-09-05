@@ -99,7 +99,7 @@ export default function NewOrderDialog(props) {
   }
 
   const onRemoveItemClick = (deleteIndex)=>{
-    console.log(deleteIndex)
+    
     let updatedOrderItems = orderItems;
     updatedOrderItems.splice(deleteIndex,1);
     setOrderItems(updatedOrderItems)
@@ -112,6 +112,7 @@ export default function NewOrderDialog(props) {
     setData({ ...data, orderItems: [...old] })
   }
   
+  console.log(orderItems)
   if (hasToRedirect) {
     return <Redirect to={"/dashboard"} />
   } else {
@@ -153,7 +154,7 @@ export default function NewOrderDialog(props) {
               <Input
                 id="phone"
                 value={data.tel}
-                onChange={(e) => handleChange('tel', e.target.value)}
+                onChange={(e) => handleChange('phone', e.target.value)}
                 aria-describedby="component-helper-text"
               />
               <FormHelperText id="component-helper-text">телефонът във формат 08******</FormHelperText>
@@ -163,7 +164,7 @@ export default function NewOrderDialog(props) {
               <Input
                 id="address"
                 value={data.addr}
-                onChange={(e) => handleChange('addr', e.target.value)}
+                onChange={(e) => handleChange('address', e.target.value)}
                 aria-describedby="component-helper-text"
               />
               <FormHelperText id="component-helper-text"></FormHelperText>

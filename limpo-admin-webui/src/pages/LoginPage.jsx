@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import {useHistory, withRouter} from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import {Alert} from '@material-ui/lab'
+import { Alert } from '@material-ui/lab'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -61,7 +61,7 @@ function LoginPage() {
 
   const classes = useStyles();
   const [helpers, setHelpers] = useState([false, false])
-  const [wrongCredentials, setWrongCredentials] = useState(false)
+  const wrongCredentials = useState(false)[0]
   const email = useRef("")
   const password = useRef("")
 
@@ -85,11 +85,12 @@ function LoginPage() {
     if (password.current.length === 0) {
       updatedHelpers[1] = true
     }
-    
+
     setHelpers(updatedHelpers)
-  
-    localStorage.setItem("user",JSON.stringify({name:""}))
-    window.location.reload()
+
+    localStorage.setItem("user", JSON.stringify({ name: "" }))
+
+    history.push("./dashboard")
   }
   return (
     <Grid container component="main" className={classes.root}>
@@ -105,8 +106,8 @@ function LoginPage() {
           </Typography>
           {wrongCredentials ?
             <Alert variant="outlined" severity="error">
-            Невалиден имейл и/или парола
-          </Alert> : ""}
+              Невалиден имейл и/или парола
+            </Alert> : ""}
           <form className={classes.form} noValidate>
             <TextField
               margin="normal"

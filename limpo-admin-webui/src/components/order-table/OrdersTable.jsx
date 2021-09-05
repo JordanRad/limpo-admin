@@ -47,7 +47,6 @@ let orders = [
     { orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "APPROVED", orderItems: [] },
     { orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "NEW", orderItems: [] },
 ]
-const TYPE = "ALL"
 
 const tableHeadCells = [
     { name: "Номер на поръчка", hasOrderByFilter: false },

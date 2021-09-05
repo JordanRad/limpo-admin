@@ -10,7 +10,6 @@ const StatusButtonsContainer = (props) => {
             <StatusButton
                 key={index}
                 id={status}
-                onClick={props.onClick}
                 active={status === active}
                 label={buttonLabels[index]} />
         )

@@ -6,6 +6,7 @@ import Heading from '../components/heading/Heading';
 import TableHead from '../components/table/TableHead'
 import TableFooter from '../components/table/TableFooter'
 import TableRow from '../components/table/TableRow'
+import { useGlobalStateValue } from '../context/GlobalStateProvider';
 const useStyles = makeStyles(theme => ({
     root: {
         marginTop: theme.spacing(2),
@@ -25,7 +26,6 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         margin: "auto"
     }
-
 }));
 
 let orders = [
@@ -61,20 +61,25 @@ let orders = [
 ]
 const TYPE = "ARCHIVE"
 
+const tableHeadCells = [
+    { name: "Номер на поръчка", hasOrderByFilter: false },
+    { name: "Име на клиент", hasOrderByFilter: false },
+    { name: "Дата", hasOrderByFilter: false },
+    { name: "Детайли", hasOrderByFilter: false }
+]
+
 const OrdersArchive = () => {
     const classes = useStyles();
+
+    const [state, dispatch] = useGlobalStateValue()
+
     const [pageNumber, setPageNumber] = useState(1)
 
+    const [tableFooterCells, setTableFooterCells] = useState({ from: 0, to: 0, all: 0, page: pageNumber })
+   
     const onPageNumberChanged = (number) => {
         setPageNumber(number)
     }
-    const tableHeadCells = [
-        { name: "Номер на поръчка", hasOrderByFilter: false },
-        { name: "Име на клиент", hasOrderByFilter: false },
-        { name: "Дата", hasOrderByFilter: false },
-        { name: "Детайли", hasOrderByFilter: false }
-    ]
-    const [tableFooterCells, setTableFooterCells] = useState({ from: 0, to: 0, all: 0, page: pageNumber })
 
     useEffect(() => {
         if (pageNumber > parseInt(tableFooterCells.all / 5)) {
@@ -83,7 +88,14 @@ const OrdersArchive = () => {
             setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: 21, page: pageNumber })
         }
         console.log(pageNumber)
-    }, [pageNumber,tableFooterCells.all])
+    }, [pageNumber, tableFooterCells.all])
+
+    useEffect(() => {
+        dispatch({ type: "update search input", payload: "" })
+    }, [dispatch])
+
+
+    console.log(state)
     return (
         <div className={classes.root}>
             <Grid className={classes.head} container direction="row" justifyContent="space-between">
