@@ -1,6 +1,6 @@
 import React from 'react'
 import { Drawer, List, ListItem, ListItemText, Button } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     minWidth: "250px",
     padding: 0,
-    backgroundColor:"#eef7f2",
-    height:"100%"
+    backgroundColor: "#eef7f2",
+    height: "100%"
   },
 
   button: {
@@ -39,8 +39,13 @@ const useStyles = makeStyles(theme => ({
 export default function Navigation(props) {
 
   const classes = useStyles();
-  const { drawerOpen, setDrawerOpen,ref } = props
+  let history = useHistory();
+  const { drawerOpen, setDrawerOpen, ref } = props
 
+  const logoutHandler = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
   return (
     <Drawer ref={ref} open={drawerOpen}>
       <List className={classes.root}>
@@ -59,7 +64,7 @@ export default function Navigation(props) {
         <ListItem key="Добави поръчка" component={Link} to="/neworder">
           <Button className={classes.button} onClick={(e) => setDrawerOpen(false)} variant="outlined">Добави поръчка</Button>
         </ListItem>
-        <ListItem className={classes.li} key="Излизане" button onClick={(e) => setDrawerOpen(false)} component={Link} to="/dashboard">
+        <ListItem className={classes.li} key="Излизане" button onClick={logoutHandler} component={Link} to="/dashboard">
           <ExitToAppIcon />&nbsp;&nbsp;&nbsp;Излез
         </ListItem>
       </List>

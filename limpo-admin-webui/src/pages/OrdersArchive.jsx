@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Button, Typography, Grid, Container } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 import Searchbar from '../components/searchbar/Searchbar';
 import Heading from '../components/heading/Heading';
 import TableHead from '../components/table/TableHead'
@@ -60,17 +59,31 @@ let orders = [
     { orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "APPROVED", orderItems: [] },
     { orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "NEW", orderItems: [] },
 ]
+const TYPE = "ARCHIVE"
+
 const OrdersArchive = () => {
     const classes = useStyles();
+    const [pageNumber, setPageNumber] = useState(1)
+
+    const onPageNumberChanged = (number) => {
+        setPageNumber(number)
+    }
     const tableHeadCells = [
-        { name: "Номер на поръчка", hasOrderByFilter: true },
-        { name: "Име на клиент", hasOrderByFilter: true },
-        { name: "Дата", hasOrderByFilter: true },
-        { name: "Статус", hasOrderByFilter: false },
+        { name: "Номер на поръчка", hasOrderByFilter: false },
+        { name: "Име на клиент", hasOrderByFilter: false },
+        { name: "Дата", hasOrderByFilter: false },
         { name: "Детайли", hasOrderByFilter: false }
     ]
-    const [tableFooterCells,setTableFooterCells] = useState({ from: 1, to: 5, all: 11, page: 1 })
-    
+    const [tableFooterCells, setTableFooterCells] = useState({ from: 0, to: 0, all: 0, page: pageNumber })
+
+    useEffect(() => {
+        if (pageNumber > parseInt(tableFooterCells.all / 5)) {
+            setTableFooterCells({ from: pageNumber * 5 - 4, to: 21, all: 21, page: pageNumber })
+        } else {
+            setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: 21, page: pageNumber })
+        }
+        console.log(pageNumber)
+    }, [pageNumber,tableFooterCells.all])
     return (
         <div className={classes.root}>
             <Grid className={classes.head} container direction="row" justifyContent="space-between">
@@ -80,9 +93,9 @@ const OrdersArchive = () => {
 
             <br />
             <div className={classes.table}>
-                <TableHead type="archive1" cells={tableHeadCells} />
-                {orders.map(el => <TableRow type="archive1" order={el} />)}
-                <TableFooter details={tableFooterCells} />
+                <TableHead type={TYPE} cells={tableHeadCells} />
+                {orders.map((el, index) => <TableRow key={index} type="archive" order={el} />)}
+                <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
             </div>
         </div>
     );

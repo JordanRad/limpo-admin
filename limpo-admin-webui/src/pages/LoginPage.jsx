@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Login() {
+export default function LoginPage() {
 
   const classes = useStyles();
   const [helpers, setHelpers] = useState([false, false])
@@ -85,8 +85,9 @@ export default function Login() {
     if (password.current.length === 0) {
       updatedHelpers[1] = true
     }
+    
     setHelpers(updatedHelpers)
-    //setWrongCredentials(true)
+    
 
     localStorage.setItem("user",JSON.stringify({name:""}))
     history.push("./dashboard")

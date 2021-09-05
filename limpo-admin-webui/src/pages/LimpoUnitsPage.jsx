@@ -1,10 +1,9 @@
 
 import React from 'react';
 import LimpoUnitsList from '../components/limpo-units/LimpoUnitsList';
-import { Button, Typography, Grid, Container } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import Searchbar from '../components/searchbar/Searchbar';
 import Heading from '../components/heading/Heading';
 const services = [
     { name: "Почистване на етаж", description: "Услугата включва почистване на 1 бр. етаж в жилищна кооперация.Услугата включва почистване на 1 бр. етаж в жилищна кооперация.Услугата включва почистване на 1 бр. етаж в жилищна кооперация." },

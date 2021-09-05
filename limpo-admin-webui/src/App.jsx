@@ -10,7 +10,7 @@ import theme from './config/theme-config.js';
 import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu'
 import Dashboard from "./pages/Dashboard.jsx";
-import Login from './pages/Login.jsx'
+import LoginPage from './pages/LoginPage.jsx'
 import Navigation from "./components/navigation/Navigation.jsx";
 import NewOrderDialog from "./components/new-order/NewOrderDialog.jsx";
 import AddLimpoUnit from "./components/limpo-units/AddLimpoUnit.jsx";
@@ -26,7 +26,7 @@ function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  const [isLoggedIn, setIsLoggedIn] = useState(user != null)
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("user"))
   const getData = (data) => {
     console.log(data)
   }
@@ -49,22 +49,25 @@ function App() {
         </AppBar>
         <Switch>
           <Route path="/login">
-            {isLoggedIn?<Redirect to="/dashboard" />:<Login />}
+            {isLoggedIn ? <Redirect to="/dashboard" /> : <LoginPage />}
           </Route>
           <Route path="/dashboard">
-            <Dashboard />
+            {isLoggedIn ? <Dashboard /> : <Redirect to="/login" />}
           </Route>
           <Route path="/archive">
-            <OrdersArchive/>
+            {isLoggedIn ? <OrdersArchive /> : <Redirect to="/login" />}
+
           </Route>
           <Route path="/limpoUnits">
-            <LimpoUnitsPage />
+            {isLoggedIn ? <LimpoUnitsPage /> : <Redirect to="/login" />}
+
           </Route>
           <Route path="/neworder">
-            <NewOrderDialog open={true} passData={getData} />
+            {isLoggedIn ? <NewOrderDialog open={true} passData={getData} /> : <Redirect to="/login" />}
+
           </Route>
           <Route path="/newlimpounit">
-            <AddLimpoUnit open={true} passData={getData} />
+            {isLoggedIn ? <AddLimpoUnit open={true} passData={getData} /> : <Redirect to="/login" />}
           </Route>
           <Route path="/*">
             <Redirect to="/login" />

@@ -58,7 +58,7 @@ const Dashboard = (props) => {
             <br></br>
             <OrdersTable />
             
-            <br/>
+
             
         </div>
     );

@@ -30,7 +30,7 @@ const TableHeadCell = (props) => {
     }
 
     return (
-        <Grid item className={classes.item} xs={cellSize}>
+        <Grid item className={classes.item} xs={parseInt(cellSize)}>
             {item.name}
             {item.hasOrderByFilter ?
                 filter === "ASC" ?
@@ -44,7 +44,7 @@ const TableHead = (props) => {
     const classes = useStyles();
     let { cells ,type} = props
 
-    let cellSizes =type==="archive"?[4,4,3,0,1]:[3,4,2,2,1]
+    let cellSizes =type==="ARCHIVE"?[4,4,3,1,1]:[3,4,2,2,1]
 
     let CellsList = cells.map((el, index) => {
         return <TableHeadCell key={index+"-head"} cellSize={[cellSizes[index]]} item={el} />
