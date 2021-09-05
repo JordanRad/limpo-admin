@@ -21,6 +21,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Clean cache
+      working-directory: ./limpo-admin-webui
+      run: npm cache clean --force  
     - name: Install npm dependencies
       working-directory: ./limpo-admin-webui
       run: npm install
