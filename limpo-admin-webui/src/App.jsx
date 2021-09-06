@@ -19,7 +19,6 @@ import OrdersArchive from './pages/OrdersArchive.jsx';
 import { GlobalStateProvider, initialState } from './context/GlobalStateProvider';
 import { reducer } from './context/reducer';
 
-
 function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)

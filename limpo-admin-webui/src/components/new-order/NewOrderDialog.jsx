@@ -49,8 +49,16 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     "&:hover": {
       backgroundColor: theme.palette.primary.main,
-      color:theme.palette.primary.dark,
+      color: theme.palette.primary.dark,
     },
+  },
+  row: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-between"
+  },
+  smallInput: {
+    width: "45%"
   }
 }));
 
@@ -88,7 +96,7 @@ export default function NewOrderDialog(props) {
     </FormControl>
   ]
 
-  const handleClose = async (e,reason) => {
+  const handleClose = async (e, reason) => {
     passData(data)
     setDialogOpen(false);
     setHasToRedirect(true)
@@ -98,10 +106,10 @@ export default function NewOrderDialog(props) {
     setData({ ...data, [field]: value })
   }
 
-  const onRemoveItemClick = (deleteIndex)=>{
-    
+  const onRemoveItemClick = (deleteIndex) => {
+
     let updatedOrderItems = orderItems;
-    updatedOrderItems.splice(deleteIndex,1);
+    updatedOrderItems.splice(deleteIndex, 1);
     setOrderItems(updatedOrderItems)
   }
   const saveData = (datas) => {
@@ -111,8 +119,8 @@ export default function NewOrderDialog(props) {
     setOrderItems([...old])
     setData({ ...data, orderItems: [...old] })
   }
-  
-  console.log(orderItems)
+
+
   if (hasToRedirect) {
     return <Redirect to={"/dashboard"} />
   } else {
@@ -139,16 +147,40 @@ export default function NewOrderDialog(props) {
               control={<Switch color="primary" className={classes.switch} checked={isCorporateClient} onChange={(e) => setIsCorporateClient(!isCorporateClient)} name="checkedA" />}
               label={isCorporateClient ? "Тип клиент: корпоративен" : "Тип клиент: некорпоративен"}
             />
-            <FormControl fullWidth>
-              <InputLabel htmlFor="component-helper">Имена на клиента</InputLabel>
+            {isCorporateClient ? <FormControl fullWidth>
+              <InputLabel htmlFor="component-helper">Име на клиента</InputLabel>
               <Input
-                id="names"
+                id="firstName"
                 value={data.name}
-                onChange={(e) => handleChange('name', e.target.value)}
+                onChange={(e) => handleChange('firstName', e.target.value)}
                 aria-describedby="component-helper-text"
               />
               <FormHelperText id="component-helper-text"></FormHelperText>
-            </FormControl>
+            </FormControl> :
+              <div className={classes.row}>
+                <FormControl className={classes.smallInput}>
+                  <InputLabel htmlFor="component-helper">Име на клиента</InputLabel>
+                  <Input
+                    id="firstName"
+                    value={data.name}
+                    onChange={(e) => handleChange('firstName', e.target.value)}
+                    aria-describedby="component-helper-text"
+                  />
+                  <FormHelperText id="component-helper-text"></FormHelperText>
+                </FormControl>
+                <FormControl className={classes.smallInput} >
+                  <InputLabel htmlFor="component-helper">Фамилия на клиента</InputLabel>
+                  <Input
+                    id="lastName"
+                    value={data.name}
+                    onChange={(e) => handleChange('lastName', e.target.value)}
+                    aria-describedby="component-helper-text"
+                  />
+                  <FormHelperText id="component-helper-text"></FormHelperText>
+                </FormControl>
+              </div>
+            }
+            
             <FormControl fullWidth>
               <InputLabel htmlFor="component-helper">Телефон</InputLabel>
               <Input
@@ -185,7 +217,7 @@ export default function NewOrderDialog(props) {
                 return (
                   <ListItem key={idx}>
                     <ListItemText primary={el.serviceType.name} secondary={`${el.serviceQty} x ${el.servicePrice} лв.`} />
-                    <IconButton onClick={(e)=>onRemoveItemClick(idx)} ><DeleteForeverIcon/></IconButton>
+                    <IconButton onClick={(e) => onRemoveItemClick(idx)} ><DeleteForeverIcon /></IconButton>
                   </ListItem>
                 )
               })}
