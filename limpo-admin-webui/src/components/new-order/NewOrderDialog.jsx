@@ -110,7 +110,7 @@ export default function NewOrderDialog(props) {
 
     let updatedOrderItems = orderItems;
     updatedOrderItems.splice(deleteIndex, 1);
-    setOrderItems(updatedOrderItems)
+    setOrderItems([...updatedOrderItems])
   }
   const saveData = (datas) => {
     console.log(data)
