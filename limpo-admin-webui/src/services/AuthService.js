@@ -1,22 +1,31 @@
 import {clear} from './SessionStorage';
-export default class AuthService{
+import axios from 'axios';
+export default class AuthService {
 
-    static URL = 'http://localhost:8080/auth-service/api/v1/'
+    static URL = 'http://localhost:8080/auth-service/api/v1'
 
-    static async login(email,password){
-        // Make a call to the API
-        // Save jwt to Session Storage
-        // Save refreshToken to Local Stroage
+    static async login(email, password) {
+
+        let body = {
+            email: email,
+            password: password
+        }
+    
+        let result;
+
+        result = await axios.post(this.URL + "/login", body).then(response => result = response.data).catch((e) => console.log(e))
+
+        return result;
     }
 
-    static async refreshToken (refreshToken){
+    static async refreshToken(refreshToken) {
         // Get new JWT
         // Save response to Session Storage
         // Save refreshToken to Local Stroage
     }
-    
-    static logout(){
+
+    static logout() {
         clear()
-        window.location.reload()
+        window.location.href = "./login"
     }
 }

@@ -29,19 +29,20 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-let client =
-{
-    firstName: "Йордан",
-    lastName: "Радушев",
-    phone: "+35988491569",
-    bulstat: "460y4hi4h649460y4hi4h649",
-    type: "Корпоративен",
-    email: "dani.radushev@gmail.com",
-    VATNumber: "0359y509309",
-    address: "София, ул. Козяк 47"
-}
+// let client =
+// {
+//     firstName: "Йордан",
+//     lastName: "Радушев",
+//     phone: "+35988491569",
+//     bulstat: "460y4hi4h649460y4hi4h649",
+//     type: "Корпоративен",
+//     email: "dani.radushev@gmail.com",
+//     VATNumber: "0359y509309",
+//     address: "София, ул. Козяк 47"
+// }
 const ClientDetails = (props) => {
     const classes = useStyles()
+    let {client} = props
     let corporateClientDetails;
     if (client.type === "Корпоративен") {
         corporateClientDetails =

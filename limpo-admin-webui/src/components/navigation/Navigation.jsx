@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AuthService from '../../services/AuthService';
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: "250px",
@@ -36,15 +37,16 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.dark
   }
 }));
-export default function Navigation(props) {
+
+
+const Navigation= (props) =>{
 
   const classes = useStyles();
-  
+ 
   const { drawerOpen, setDrawerOpen, ref } = props
 
   const logoutHandler = () => {
-    localStorage.clear()
-    window.location.reload()
+    AuthService.logout()
   }
   return (
     <Drawer ref={ref} open={drawerOpen}>
@@ -71,3 +73,5 @@ export default function Navigation(props) {
     </Drawer>)
 
 }
+
+export default Navigation;

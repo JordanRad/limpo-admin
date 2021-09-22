@@ -11,6 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Alert } from '@material-ui/lab'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import AuthService from '../services/AuthService';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,21 +62,27 @@ function LoginPage() {
 
   const classes = useStyles();
   const [helpers, setHelpers] = useState([false, false])
-  const wrongCredentials = useState(false)[0]
+  const [wrongCredentials, setWrongCredentials] = useState(false)
   const email = useRef("")
   const password = useRef("")
 
   const history = useHistory()
 
   const onEmailInputChange = (e) => {
+    if (wrongCredentials) {
+      setWrongCredentials(false)
+    }
     email.current = e.target.value
   }
 
   const onPasswordInputChange = (e) => {
+    if (wrongCredentials) {
+      setWrongCredentials(false)
+    }
     password.current = e.target.value
   }
 
-  const onSubmitClick = (e) => {
+  const onSubmitClick = async (e) => {
     e.preventDefault()
     const updatedHelpers = [false, false]
     if (email.current.length === 0) {
@@ -88,9 +95,25 @@ function LoginPage() {
 
     setHelpers(updatedHelpers)
 
-    localStorage.setItem("user", JSON.stringify({ name: "" }))
+    if (helpers[0] == false && helpers[1] == 0) {
+      let user;
 
-    history.push("./dashboard")
+      await AuthService.login(email.current, password.current)
+        .then((response) => user = response)
+        .catch((e) => console.log(e))
+     
+      if (user === undefined) {
+        setWrongCredentials(true)
+      } else {
+
+        localStorage.setItem("refreshToken",JSON.stringify(user.refreshToken))
+
+        sessionStorage.setItem("user",JSON.stringify(user))
+        
+        history.push("./dashboard")
+
+      }
+    }
   }
   return (
     <Grid container component="main" className={classes.root}>

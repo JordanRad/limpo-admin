@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,8 +23,6 @@ function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  const isLoggedIn = useState(localStorage.getItem("user"))[0]
-
   const getData = (data) => {
     console.log(data)
   }
@@ -33,7 +31,7 @@ function App() {
       <GlobalStateProvider reducer={reducer} initialState={initialState}>
         <Router>
           <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-          <AppBar position="sticky" style={{ display: !isLoggedIn ? "none" : "block" }}>
+          <AppBar position="sticky" style={{ display: window.location.href.includes("login") ? "none" : "block" }}>
             <Toolbar>
               <IconButton edge="start"
                 color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>

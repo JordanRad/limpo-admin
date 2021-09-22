@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TableHead from '../table/TableHead'
 import TableFooter from '../table/TableFooter'
 import TableRow from '../table/TableRow'
+import OrderService from '../../services/OrderService';
 const useStyles = makeStyles(theme => ({
     progress: {
         marginBottom: theme.spacing(1),
@@ -74,13 +75,14 @@ const OrdersTable = (props) => {
             setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: 21, page: pageNumber })
         }
         console.log(pageNumber)
+        let url = "/orders/all?startIndex="+(pageNumber*5 - 5).toString()
+        OrderService.get(url)
+            .then((res) =>setRows(res))
+            .catch((e) => console.log(e))
     }, [pageNumber, tableFooterCells.all])
 
 
-    useEffect(() => {
-        setTimeout(() => setRows(orders), 1000)
-    }, [rows])
-
+    console.log(rows)
     if (rows === undefined) {
         return (
             <div className={classes.table}>
@@ -95,7 +97,7 @@ const OrdersTable = (props) => {
         return (
             <div className={classes.table}>
                 <TableHead type="all" cells={tableHeadCells} />
-                {orders.length > 0 ? orders.map((el, index) => <TableRow key={index} type="all" order={el} />) : <Grid>Няма намерени почъчки</Grid>}
+                {rows.length > 0 ? rows.map((el, index) => <TableRow key={index} type="all" order={el} />) : <Grid>Няма намерени почъчки</Grid>}
                 <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
             </div>
         );

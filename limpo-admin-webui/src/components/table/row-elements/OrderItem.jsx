@@ -32,7 +32,7 @@ const OrderItem = (props) => {
     return (
         <Container className={classes.row}>
             <Typography className={classes.desc}>
-            <CheckCircleIcon className={classes.icon} />{item.product.type} - {item.product.name}
+            <CheckCircleIcon className={classes.icon} />{item.name}
                 
             </Typography>
             <Typography className={classes.price}>
