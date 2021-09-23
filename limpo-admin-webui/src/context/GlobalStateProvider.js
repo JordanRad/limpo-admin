@@ -14,6 +14,7 @@ export const initialState = {
     statusFilter:"ALL",
     orderByNameFilter:"",
     orderByOrderNumberFilter:"",
+    isLoggedIn:false
 }
 export const useGlobalStateValue = ()=> useContext(StateContext)
 

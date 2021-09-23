@@ -16,22 +16,26 @@ import NewOrderDialog from "./components/new-order/NewOrderDialog.jsx";
 import AddLimpoUnit from "./components/limpo-units/AddLimpoUnit.jsx";
 import LimpoUnitsPage from "./pages/LimpoUnitsPage.jsx";
 import OrdersArchive from './pages/OrdersArchive.jsx';
-import { GlobalStateProvider, initialState } from './context/GlobalStateProvider';
+import { GlobalStateProvider, initialState, useGlobalStateValue } from './context/GlobalStateProvider';
 import { reducer } from './context/reducer';
 
 function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)
 
+  const globalState = useGlobalStateValue()[0]
   const getData = (data) => {
     console.log(data)
   }
+
+  useEffect(()=>{
+    console.log(globalState)
+  },[globalState])
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStateProvider reducer={reducer} initialState={initialState}>
         <Router>
           <Navigation drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />
-          <AppBar position="sticky" style={{ display: window.location.href.includes("login") ? "none" : "block" }}>
+          <AppBar position="sticky" style={{ display: !globalState.isLoggedIn ? "none" : "block" }}>
             <Toolbar>
               <IconButton edge="start"
                 color="inherit" aria-label="menu" onClick={(e) => { setDrawerOpen(true) }}>
@@ -68,7 +72,6 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </GlobalStateProvider>
     </ThemeProvider>
 
   );

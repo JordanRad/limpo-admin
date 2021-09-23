@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AuthService from '../../services/AuthService';
+import { useGlobalStateValue } from '../../context/GlobalStateProvider';
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: "250px",
@@ -39,13 +40,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const Navigation= (props) =>{
+const Navigation = (props) => {
 
   const classes = useStyles();
- 
+
   const { drawerOpen, setDrawerOpen, ref } = props
 
+  const dispatch = useGlobalStateValue()[1]
+
   const logoutHandler = () => {
+    dispatch({ type: "user logout" })
     AuthService.logout()
   }
   return (

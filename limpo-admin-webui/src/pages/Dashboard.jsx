@@ -41,6 +41,7 @@ const Dashboard = (props) => {
         dispatch({ type: "update search input", payload: "" })
     }, [dispatch])
 
+
     console.log(state)
     return (
         <div className={classes.root}>

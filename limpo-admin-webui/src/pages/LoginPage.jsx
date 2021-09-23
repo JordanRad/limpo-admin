@@ -12,6 +12,7 @@ import { Alert } from '@material-ui/lab'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthService from '../services/AuthService';
+import { useGlobalStateValue } from '../context/GlobalStateProvider';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,6 +64,7 @@ function LoginPage() {
   const classes = useStyles();
   const [helpers, setHelpers] = useState([false, false])
   const [wrongCredentials, setWrongCredentials] = useState(false)
+  const dispatch = useGlobalStateValue()[1];
   const email = useRef("")
   const password = useRef("")
 
@@ -105,13 +107,14 @@ function LoginPage() {
       if (user === undefined) {
         setWrongCredentials(true)
       } else {
-
+        dispatch({type:"user authenticated"}) 
         localStorage.setItem("refreshToken",JSON.stringify(user.refreshToken))
 
         sessionStorage.setItem("user",JSON.stringify(user))
         
-        history.push("./dashboard")
+        
 
+        history.push("./dashboard")
       }
     }
   }
