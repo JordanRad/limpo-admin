@@ -3,8 +3,8 @@ import React from 'react';
 import LimpoUnit from './LimpoUnit';
 
 const LimpoUnitsList = (props) => {
-    let { services } = props
-    let List = services.map((item, index) => <LimpoUnit key={"service-" + index} name={item.name} description={item.description} />
+    let { limpoUnits } = props
+    let List = limpoUnits.map((item, index) => <LimpoUnit key={"limpoUnit-" + index} id={item.id} name={item.name} description={item.description} />
     )
     return (
         <Grid container spacing={5}>

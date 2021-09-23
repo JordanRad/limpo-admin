@@ -11,7 +11,7 @@ export const GlobalStateProvider = ({reducer,initialState, children})=>{
 }
 export const initialState = {
     input:"",
-    statusFilter:"all",
+    statusFilter:"ALL",
     orderByNameFilter:"",
     orderByOrderNumberFilter:"",
 }

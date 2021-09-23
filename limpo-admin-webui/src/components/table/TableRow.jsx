@@ -77,7 +77,7 @@ const TableRow = (props) => {
     const onClickHandler = (e) => setIsShown(!isShown)
 
     let total = order.orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
-    console.log(order.orderItems)
+    
     return (
         <div>
             {/* Order Row */}

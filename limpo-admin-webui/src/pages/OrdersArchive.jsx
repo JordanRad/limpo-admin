@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, LinearProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Searchbar from '../components/searchbar/Searchbar';
 import Heading from '../components/heading/Heading';
@@ -7,6 +7,8 @@ import TableHead from '../components/table/TableHead'
 import TableFooter from '../components/table/TableFooter'
 import TableRow from '../components/table/TableRow'
 import { useGlobalStateValue } from '../context/GlobalStateProvider';
+import OrderService from '../services/OrderService';
+
 const useStyles = makeStyles(theme => ({
     root: {
         marginTop: theme.spacing(2),
@@ -25,40 +27,13 @@ const useStyles = makeStyles(theme => ({
         flexDirection: "column",
         width: "100%",
         margin: "auto"
-    }
+    },
+    progress: {
+        marginBottom: theme.spacing(1),
+        height: "2em"
+    },
 }));
 
-let orders = [
-    {
-        orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "NEW", orderItems: [
-            {
-                id: 2,
-                product: {
-                    id: 3,
-                    name: "Чистене на прозорци Чистене на прозорци Чистене на прозорци Чистене на прозорци",
-                    type: "Чистене"
-                },
-                quantity: 2,
-                price: 3.99
-            },
-            {
-                id: 3,
-                product: {
-                    id: 4,
-                    name: "Чистене на етаж",
-                    type: "Чистене на вход"
-                },
-                quantity: 6,
-                price: 19.99
-            },
-
-        ]
-    },
-    { orderNumber: "22222222", client: "Бисер Бисеров", date: "12.04.2021", status: "PENDING", orderItems: [] },
-    { orderNumber: "33333333", client: "Мони Манолов", date: "24.07.2021", status: "PENDING", orderItems: [] },
-    { orderNumber: "44444444", client: "Иван Маринчев", date: "29.01.2021", status: "APPROVED", orderItems: [] },
-    { orderNumber: "11111111", client: "Йордан Радушев", date: "23.05.2021", status: "NEW", orderItems: [] },
-]
 const TYPE = "ARCHIVE"
 
 const tableHeadCells = [
@@ -68,49 +43,90 @@ const tableHeadCells = [
     { name: "Детайли", hasOrderByFilter: false }
 ]
 
+
 const OrdersArchive = () => {
     const classes = useStyles();
 
-    const [state, dispatch] = useGlobalStateValue()
+    const [rows, setRows] = useState(undefined)
+    const [globalState, dispatch] = useGlobalStateValue()
 
     const [pageNumber, setPageNumber] = useState(1)
 
     const [tableFooterCells, setTableFooterCells] = useState({ from: 0, to: 0, all: 0, page: pageNumber })
-   
+
     const onPageNumberChanged = (number) => {
         setPageNumber(number)
     }
 
-    useEffect(() => {
+    const fetchOrders = async () => {
+        let ordersUrl = "/orders/?startIndex=" + (pageNumber * 5 - 5).toString() + "&status=COMPLETED"
+        const response = await OrderService.get(ordersUrl)
+        console.log(response)
+        return response
+    }
+
+    const fetchOrdersCount = async () => {
+        let countUrl = "/orders/count?status=COMPLETED"
+        const response = await OrderService.get(countUrl);
+        console.log(response)
+        return response;
+    }
+
+
+    useEffect(async () => {
+
+        let orders = await fetchOrders();
+        setRows(orders)
+
+        let all = await fetchOrdersCount();
+
         if (pageNumber > parseInt(tableFooterCells.all / 5)) {
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: 21, all: 21, page: pageNumber })
+            setTableFooterCells({ from: pageNumber * 5 - 4, to: all, all: all, page: pageNumber })
         } else {
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: 21, page: pageNumber })
+            setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: all, page: pageNumber })
         }
-        console.log(pageNumber)
-    }, [pageNumber, tableFooterCells.all])
+    }, [pageNumber])
+
 
     useEffect(() => {
         dispatch({ type: "update search input", payload: "" })
     }, [dispatch])
 
+    console.log(rows)
 
-    console.log(state)
-    return (
-        <div className={classes.root}>
-            <Grid className={classes.head} container direction="row" justifyContent="space-between">
-                <Heading text="Архив поръчки" imageUrl="./businessman.png" />
-                <Searchbar placeholder="Търси по номер на поръчка, име на клиент или дата" />
-            </Grid>
+    if (rows === undefined) {
+        return (
+            <div className={classes.root}>
+                <Grid className={classes.head} container direction="row" justifyContent="space-between">
+                    <Heading text="Архив поръчки" imageUrl="./businessman.png" />
+                </Grid>
 
-            <br />
-            <div className={classes.table}>
-                <TableHead type={TYPE} cells={tableHeadCells} />
-                {orders.map((el, index) => <TableRow key={index} type="archive" order={el} />)}
-                <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
+                <br />
+                <div className={classes.table}>
+                    <TableHead type="all" cells={tableHeadCells} />
+                    <LinearProgress className={classes.progress} />
+                    <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
+                </div>
             </div>
-        </div>
-    );
+
+        );
+    } else {
+        return (
+            <div className={classes.root}>
+                <Grid className={classes.head} container direction="row" justifyContent="space-between">
+                    <Heading text="Архив поръчки" imageUrl="./businessman.png" />
+                    <Searchbar placeholder="Търси по номер на поръчка, име на клиент или дата" />
+                </Grid>
+
+                <br />
+                <div className={classes.table}>
+                    <TableHead type={TYPE} cells={tableHeadCells} />
+                    {rows.map((el, index) => <TableRow key={index} type="archive" order={el} />)}
+                    <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default OrdersArchive;

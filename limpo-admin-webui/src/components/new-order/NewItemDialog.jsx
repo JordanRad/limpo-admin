@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,9 +7,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, FormControl, InputLabel, FormHelperText, Select, MenuItem } from '@material-ui/core'
-
+import OrderService from '../../services/OrderService'
 const useStyles = makeStyles((theme) => ({
-
   inl: {
     margin: theme.spacing(1),
   },
@@ -41,40 +40,32 @@ const useStyles = makeStyles((theme) => ({
   "& .MuiInputBase-input:focus": {
     backgroundColor: theme.palette.primary.dark
   },
-  
+
 }));
 
 export default function NewItemDialog(props) {
   const { open, setOpen, saveData } = props
+  const classes = useStyles();
+
   const [helpers, setHelpers] = useState({ type: "", qty: "", price: "" })
+
   const [serviceType, setServiceType] = useState('')
   const [serviceQty, setServiceQty] = useState(0)
   const [servicePrice, setServicePrice] = useState(0)
+  const [limpoUnits, setLimpoUnits] = useState(undefined)
 
-  const products = [
-    {
-      id: 1,
-      name: 'Чистене прозорци',
-      type: '',
-      description: '',
-      price: 2.30
-    },
-    {
-      id: 2,
-      name: 'Чистене етаж',
-      type: 'Чистене на вход',
-      description: '',
-      price: 15.30
-    },
-    {
-      id: 3,
-      name: 'Дезинфекция',
-      type: '',
-      description: '',
-      price: 32.30
-    },
-  ]
-  const classes = useStyles();
+  const fetchLimpoUnits = async () => {
+    let limpoUnitsUrl = "/limpoUnits/"
+    const response = await OrderService.get(limpoUnitsUrl)
+
+    return response
+  }
+
+  useEffect(async () => {
+    let response = await fetchLimpoUnits();
+    setLimpoUnits(response)
+
+  }, [])
 
   const handleClose = () => {
     setServiceType('')
@@ -82,8 +73,8 @@ export default function NewItemDialog(props) {
     setServicePrice(0)
     setOpen(false);
     setHelpers({ type: "", qty: "", price: "" })
-
   };
+
   const handleSave = () => {
     if (serviceType === '') {
       helpers.type = "Задължително"
@@ -93,6 +84,7 @@ export default function NewItemDialog(props) {
       helpers.type = ""
       setHelpers({ ...helpers })
     }
+
     if (parseInt(serviceQty) <= 0) {
       helpers.qty = "Невалиден брой"
       setHelpers({ ...helpers })
@@ -101,6 +93,7 @@ export default function NewItemDialog(props) {
       helpers.qty = ""
       setHelpers({ ...helpers })
     }
+
     if (parseInt(servicePrice) <= 0) {
       helpers.price = "Невалидна цена"
       setHelpers({ ...helpers })
@@ -109,12 +102,12 @@ export default function NewItemDialog(props) {
       helpers.price = ""
       setHelpers({ ...helpers })
     }
+
     if (helpers.price === "" && helpers.qty === "" && helpers.type === "") {
       saveData({ serviceType: serviceType, serviceQty: parseInt(serviceQty) || 0, servicePrice: parseFloat(servicePrice) || 0 })
       handleClose()
     }
   }
-
 
   return (
     <div>
@@ -128,26 +121,21 @@ export default function NewItemDialog(props) {
 
             <FormControl className={classes.inl} fullWidth>
               <InputLabel id="dialog-select-label">Избери Услуга</InputLabel>
-              <Select
-                style={{width:"30em"}}
-                error={helpers.type!==""}
-                id="dialog-select"
-                value={serviceType.name?serviceType.name:""}
-                onChange={(e) => (setServiceType(products.find(el=>el.name===e.target.value)))}
-              >
-                {
-                  products.map((el, idx) => (
-                    <MenuItem key={idx} value={el.name}>{el.name}</MenuItem>
-                  ))
-                }
-
-              </Select>
+              {limpoUnits === undefined ? "Услугите се зареждат" :
+                <Select
+                  style={{ width: "30em" }}
+                  error={helpers.type !== ""}
+                  id="dialog-select"
+                  value={serviceType.name ? serviceType.name : ""}
+                  onChange={(e) => (setServiceType(limpoUnits.find(el => el.name === e.target.value)))}>
+                  {limpoUnits.map((el, idx) => (<MenuItem key={idx} value={el.name}>{el.name}</MenuItem>))}
+                </Select>}
               <FormHelperText>{helpers.type}</FormHelperText>
             </FormControl>
             <FormControl className={classes.inl}>
               <TextField
                 label="Брой"
-                error={helpers.qty!==""}
+                error={helpers.qty !== ""}
                 id="number-helper"
                 value={serviceQty || ""}
 
@@ -162,7 +150,7 @@ export default function NewItemDialog(props) {
               {/* <InputLabel htmlFor="component-helper">Цена</InputLabel> */}
               <TextField
                 label="Цена"
-                error={helpers.price!==""}
+                error={helpers.price !== ""}
                 id="price-helper"
                 value={servicePrice || ""}
                 onChange={(e) => (setServicePrice(e.target.value))}
@@ -177,7 +165,7 @@ export default function NewItemDialog(props) {
           </div>
         </DialogContent>
         <DialogActions className={classes.actions}>
-        <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
+          <Button className={classes.error} variant="outlined" onClick={handleClose} color="primary">
             Откажи
           </Button>
           <Button className={classes.save} variant="outlined" onClick={handleSave} color="primary">

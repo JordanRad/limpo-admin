@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, FormControl, FormHelperText } from '@material-ui/core'
 import { Redirect, useHistory } from 'react-router-dom';
+import OrderService from '../../services/OrderService';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
       borderColor: theme.palette.primary.dark,
     }
   },
-  input:{
-    marginBottom:theme.spacing(3)
+  input: {
+    marginBottom: theme.spacing(3)
   },
   actions: {
     display: "flex",
@@ -51,30 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const limpoUnits = [
-  {
-    id: 1,
-    name: 'Чистене прозорци',
-    type: '',
-    description: '',
-    price: 2.30
-  },
-  {
-    id: 2,
-    name: 'Чистене етаж',
-    type: 'Чистене на вход',
-    description: '',
-    price: 15.30
-  },
-  {
-    id: 3,
-    name: 'Дезинфекция',
-    type: '',
-    description: '',
-    price: 32.30
-  },
-]
-
 export default function AddLimpoUnit(props) {
   const { open } = props
   const [hasToRedirect, setHasToRedirect] = useState(false)
@@ -88,8 +65,16 @@ export default function AddLimpoUnit(props) {
   const classes = useStyles();
 
   const history = useHistory()
-  const saveData = (data) => {
-    console.log(data)
+  const saveData = async (data) => {
+
+    let response = await OrderService.post("/limpoUnits/", data)
+    console.log("response: ",response)
+    if(response === undefined){
+      alert("Услуга с това име вече съществува!\nМоля, изберете друго име за услугата.")
+    }else{
+      history.push("./limpoUnits")
+    }
+
   }
   const handleClose = () => {
     setLimpoUnitName('')
@@ -100,25 +85,13 @@ export default function AddLimpoUnit(props) {
   };
 
   const handleSave = () => {
-    const exists = limpoUnits.find(({ name }) => (name === limpoUnitName))
-    console.log(exists)
     if (limpoUnitName === '') {
       helpers.name = "Името e задължително"
       setHelpers({ ...helpers })
     }
-    else
-      if (exists) {
-        helpers.name = "Има услуга с такова име"
-        setHelpers({ ...helpers })
-      }
-      else {
-        helpers.name = ""
-        setHelpers({ ...helpers })
-      }
 
     if (helpers.name === "") {
-      saveData({ limpoUnitName: limpoUnitName })
-      handleClose()
+      saveData({ name: limpoUnitName, description: LimpoUnitDescription })
     }
   }
 
@@ -138,7 +111,7 @@ export default function AddLimpoUnit(props) {
               <FormControl className={classes.input} fullWidth >
                 <TextField
                   label="Име на услугата"
-                  error={helpers.name!==""}
+                  error={helpers.name !== ""}
                   helperText={helpers.name}
                   id="component-helper"
                   value={limpoUnitName || ""}
