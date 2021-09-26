@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     mainContainer: {
         display: "flex",
         justifyContent: "space-between",
-        margin: theme.spacing(1, 0,0,0),
+        margin: theme.spacing(1, 0, 0, 0),
         padding: 0
     },
     secondaryContainer: {
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
     img: {
         marginLeft: theme.spacing(2),
-        alignSelf:"center"
+        alignSelf: "center"
     }
 }));
 
@@ -42,18 +42,21 @@ const useStyles = makeStyles(theme => ({
 // }
 const ClientDetails = (props) => {
     const classes = useStyles()
-    let {client} = props
+    let { client } = props
     let corporateClientDetails;
     if (client.type === "Корпоративен") {
         corporateClientDetails =
             [<Typography key="Bulstat" className={classes.line}><strong>Булстат:</strong> {client.bulstat}</Typography>,
             <Typography key="VAT" className={classes.line}><strong>VAT Номер:</strong> {client.VATNumber}</Typography>]
     }
+
+    let clientName = client.type === "Некорпоративен" ? `${client.firstName} ${client.lastName}` : client.corporateName
+    
     return (
         <Container className={classes.row}>
             <Typography><u>Информация за {client.type.toLowerCase()} клиент:</u></Typography>
             <Container className={classes.mainContainer}>
-                <Typography><strong>Име:</strong> {client.firstName + " " + client.lastName}</Typography>
+                <Typography><strong>Име:</strong> {clientName}</Typography>
                 <Typography><strong>Имейл:</strong> {client.email}</Typography>
                 <Typography><strong>Телефон:</strong> {client.phone}</Typography>
             </Container>
@@ -62,10 +65,10 @@ const ClientDetails = (props) => {
                     <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
                     {corporateClientDetails}
                 </div>
-                <img alt="data" 
-                className={classes.img} 
-                height={corporateClientDetails?"64em":"32em"}
-                src="./personal-information.png" />
+                <img alt="data"
+                    className={classes.img}
+                    height={corporateClientDetails ? "64em" : "32em"}
+                    src="./personal-information.png" />
             </Container>
         </Container>
     );

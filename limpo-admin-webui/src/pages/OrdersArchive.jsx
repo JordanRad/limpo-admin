@@ -8,6 +8,7 @@ import TableFooter from '../components/table/TableFooter'
 import TableRow from '../components/table/TableRow'
 import { useGlobalStateValue } from '../context/GlobalStateProvider';
 import OrderService from '../services/OrderService';
+import Placeholder from '../components/empty-placeholder/Placeholder';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -48,6 +49,7 @@ const OrdersArchive = () => {
     const classes = useStyles();
 
     const [rows, setRows] = useState(undefined)
+
     const [globalState, dispatch] = useGlobalStateValue()
 
     const [pageNumber, setPageNumber] = useState(1)
@@ -58,27 +60,19 @@ const OrdersArchive = () => {
         setPageNumber(number)
     }
 
-    const fetchOrders = async () => {
-        let ordersUrl = "/orders/?startIndex=" + (pageNumber * 5 - 5).toString() + "&status=COMPLETED"
-        const response = await OrderService.get(ordersUrl)
+    const fetchData = async (url) => {
+        const response = await OrderService.get(url)
         console.log(response)
         return response
-    }
-
-    const fetchOrdersCount = async () => {
-        let countUrl = "/orders/count?status=COMPLETED"
-        const response = await OrderService.get(countUrl);
-        console.log(response)
-        return response;
     }
 
 
     useEffect(async () => {
 
-        let orders = await fetchOrders();
+        let orders = await fetchData("/orders/?startIndex=" + (pageNumber * 5 - 5).toString() + "&status=COMPLETED");
         setRows(orders)
 
-        let all = await fetchOrdersCount();
+        let all = await fetchData("/orders/count?status=COMPLETED");
 
         if (pageNumber > parseInt(tableFooterCells.all / 5)) {
             setTableFooterCells({ from: pageNumber * 5 - 4, to: all, all: all, page: pageNumber })
@@ -90,9 +84,18 @@ const OrdersArchive = () => {
 
     useEffect(() => {
         dispatch({ type: "update search input", payload: "" })
+
     }, [dispatch])
 
-    console.log(rows)
+
+    useEffect(async () => {
+        if (globalState.input.trim() !== "") {
+            let orders = await fetchData(`/orders/search?searchInput=${globalState.input}&status=COMPLETED`);
+            setRows(orders)
+            setTableFooterCells({ from: pageNumber * 5 - 4, to: orders.length, all: orders.length, page: pageNumber })
+        }
+
+    }, [globalState.input])
 
     if (rows === undefined) {
         return (
@@ -121,7 +124,11 @@ const OrdersArchive = () => {
                 <br />
                 <div className={classes.table}>
                     <TableHead type={TYPE} cells={tableHeadCells} />
-                    {rows.map((el, index) => <TableRow key={index} type="archive" order={el} />)}
+                    {
+                        rows.length !== 0 ?
+                            rows.map((el, index) => <TableRow key={index} type="archive" order={el} />) :
+                            <Placeholder text="⚠️ Няма намрени поръчки"  />
+                    }
                     <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
                 </div>
             </div>

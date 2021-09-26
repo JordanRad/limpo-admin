@@ -14,10 +14,13 @@ import { FormControl, FormControlLabel, InputLabel, Input, FormHelperText, Switc
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import NewItemDialog from './NewItemDialog'
 import { Redirect } from 'react-router-dom';
+import { DateTimePicker } from "@material-ui/pickers";
+import moment from 'moment';
+import 'moment/locale/bg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(5),
+    padding: theme.spacing(3),
     "& .MuiFormLabel-root.Mui-focused": {
       borderColor: theme.palette.primary.dark,
       color: theme.palette.primary.dark
@@ -25,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiInput-underline:after": {
       borderColor: theme.palette.primary.dark,
     },
+    height: "85vh",
+    paddingTop: theme.spacing(5)
+  },
+  form: {
+    padding: theme.spacing(4),
+
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -42,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.dark,
     },
     textAlign: "center",
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(1, 0)
   },
   btn: {
     backgroundColor: theme.palette.primary.dark,
@@ -55,7 +64,8 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: "flex",
     width: "100%",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    margin: theme.spacing(1, 0)
   },
   smallInput: {
     width: "45%"
@@ -63,23 +73,66 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+const convertDateToBg = (date) => {
+  moment.locale("bg")
+  let convertedDate = moment(date)
+  return convertedDate.format("LLL")
+}
 export default function NewOrderDialog(props) {
   const { open, passData } = props
   const classes = useStyles();
   const [dialogOpen, setDialogOpen] = useState(open);
-  const [data, setData] = useState({})
-  const [orderItems, setOrderItems] = useState([])
   const [newServiceDialogOpen, setNewServiceDialogOpen] = useState(false)
+
+  const [client, setClient] = useState({})
+  const [orderItems, setOrderItems] = useState([])
+
   const [isCorporateClient, setIsCorporateClient] = useState(false);
   const [hasToRedirect, setHasToRedirect] = useState(false)
+
+  const [selectedDate, handleDateChange] = useState(null);
+
+
+  const handleClose = async (e, reason) => {
+    let clientDetails = client
+    clientDetails.type = isCorporateClient ? "Корпоративен" : "Некорпоративен"
+    let scheduledAt = selectedDate !== null ? selectedDate.format("L") + "/" + selectedDate.format("LT") : ""
+
+    let requestBody = {
+      scheduledAt: scheduledAt,
+      orderItems: orderItems,
+      client: client
+    }
+    console.log(requestBody)
+    // passData(data)
+    // setDialogOpen(false);
+    // setHasToRedirect(true)
+  };
+
+  const onClientDetailsChanged = (field, value) => {
+    setClient({ ...client, [field]: value })
+  }
+
+  const onRemoveItemClick = (deleteIndex) => {
+    let updatedOrderItems = [...orderItems];
+    updatedOrderItems.splice(deleteIndex, 1);
+    setOrderItems(updatedOrderItems)
+  }
+  
+  const addOrderItem = (datas) => {
+    let updatedItems = [...orderItems]
+    updatedItems.push(datas)
+    setOrderItems(updatedItems)
+  }
+
 
   const corporateClientDetals = [
     <FormControl key="cc-1" fullWidth>
       <InputLabel htmlFor="component-helper">Булстат</InputLabel>
       <Input
         id="bulstat"
-        value={data.bulstat}
-        onChange={(e) => handleChange('bulstat', e.target.value)}
+        value={client.bulstat}
+        onChange={(e) => onClientDetailsChanged('bulstat', e.target.value)}
         aria-describedby="component-helper-text"
       />
       <FormHelperText id="component-helper-text"></FormHelperText>
@@ -88,45 +141,20 @@ export default function NewOrderDialog(props) {
       <InputLabel htmlFor="component-helper">VAT Номер</InputLabel>
       <Input
         id="vat"
-        value={data.vatNumber}
-        onChange={(e) => handleChange('vatNumber', e.target.value)}
+        value={client.vatNumber}
+        onChange={(e) => onClientDetailsChanged('vatNumber', e.target.value)}
         aria-describedby="component-helper-text"
       />
       <FormHelperText id="component-helper-text"></FormHelperText>
     </FormControl>
   ]
 
-  const handleClose = async (e, reason) => {
-    passData(data)
-    setDialogOpen(false);
-    setHasToRedirect(true)
-  };
-
-  const handleChange = (field, value) => {
-    setData({ ...data, [field]: value })
-  }
-
-  const onRemoveItemClick = (deleteIndex) => {
-
-    let updatedOrderItems = orderItems;
-    updatedOrderItems.splice(deleteIndex, 1);
-    setOrderItems(updatedOrderItems)
-  }
-  const saveData = (datas) => {
-    console.log(data)
-    let old = orderItems
-    old.push(datas)
-    setOrderItems([...old])
-    setData({ ...data, orderItems: [...old] })
-  }
-
-
   if (hasToRedirect) {
     return <Redirect to={"/dashboard"} />
   } else {
     return (
       <div>
-        <NewItemDialog open={newServiceDialogOpen} setOpen={setNewServiceDialogOpen} saveData={saveData} />
+        <NewItemDialog open={newServiceDialogOpen} setOpen={setNewServiceDialogOpen} addOrderItem={addOrderItem} />
         <Dialog disableBackdropClick className={classes.root} open={dialogOpen} onClose={handleClose}>
           <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -141,67 +169,103 @@ export default function NewOrderDialog(props) {
               </Button>
             </Toolbar>
           </AppBar>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.form} noValidate autoComplete="off">
             <Typography>Въведи данни за поръчка</Typography>
+
             <FormControlLabel
               control={<Switch color="primary" className={classes.switch} checked={isCorporateClient} onChange={(e) => setIsCorporateClient(!isCorporateClient)} name="checkedA" />}
               label={isCorporateClient ? "Тип клиент: корпоративен" : "Тип клиент: некорпоративен"}
             />
-            {isCorporateClient ? <FormControl fullWidth>
-              <InputLabel htmlFor="component-helper">Име на клиента</InputLabel>
-              <Input
-                id="firstName"
-                value={data.name}
-                onChange={(e) => handleChange('firstName', e.target.value)}
-                aria-describedby="component-helper-text"
-              />
-              <FormHelperText id="component-helper-text"></FormHelperText>
-            </FormControl> :
-              <div className={classes.row}>
-                <FormControl className={classes.smallInput}>
-                  <InputLabel htmlFor="component-helper">Име на клиента</InputLabel>
-                  <Input
-                    id="firstName"
-                    value={data.name}
-                    onChange={(e) => handleChange('firstName', e.target.value)}
-                    aria-describedby="component-helper-text"
-                  />
-                  <FormHelperText id="component-helper-text"></FormHelperText>
-                </FormControl>
-                <FormControl className={classes.smallInput} >
-                  <InputLabel htmlFor="component-helper">Фамилия на клиента</InputLabel>
-                  <Input
-                    id="lastName"
-                    value={data.name}
-                    onChange={(e) => handleChange('lastName', e.target.value)}
-                    aria-describedby="component-helper-text"
-                  />
-                  <FormHelperText id="component-helper-text"></FormHelperText>
-                </FormControl>
-              </div>
+
+            {
+              isCorporateClient ? <FormControl fullWidth>
+                <InputLabel htmlFor="component-helper">Име на клиента</InputLabel>
+                <Input
+                  id="corporatename"
+                  value={client.corporateName}
+                  onChange={(e) => onClientDetailsChanged('corporateName', e.target.value)}
+                  aria-describedby="component-helper-text"
+                />
+                <FormHelperText id="component-helper-text"></FormHelperText>
+              </FormControl> :
+                <div className={classes.row}>
+                  <FormControl className={classes.smallInput}>
+                    <InputLabel htmlFor="component-helper">Име на клиента</InputLabel>
+                    <Input
+                      id="firstName"
+                      value={client.firstName}
+                      onChange={(e) => onClientDetailsChanged('firstName', e.target.value)}
+                      aria-describedby="component-helper-text"
+                    />
+                    <FormHelperText id="component-helper-text"></FormHelperText>
+                  </FormControl>
+                  <FormControl className={classes.smallInput} >
+                    <InputLabel htmlFor="component-helper">Фамилия на клиента</InputLabel>
+                    <Input
+                      id="lastName"
+                      value={client.lastName}
+                      onChange={(e) => onClientDetailsChanged('lastName', e.target.value)}
+                      aria-describedby="component-helper-text"
+                    />
+                    <FormHelperText id="component-helper-text"></FormHelperText>
+                  </FormControl>
+                </div>
             }
-            
-            <FormControl fullWidth>
-              <InputLabel htmlFor="component-helper">Телефон</InputLabel>
-              <Input
-                id="phone"
-                value={data.tel}
-                onChange={(e) => handleChange('phone', e.target.value)}
-                aria-describedby="component-helper-text"
-              />
-              <FormHelperText id="component-helper-text">телефонът във формат 08******</FormHelperText>
-            </FormControl>
+
+            <div className={classes.row}>
+              <FormControl className={classes.smallInput}>
+                <InputLabel htmlFor="component-helper">Имейл</InputLabel>
+                <Input
+                  id="email"
+                  value={client.email}
+                  onChange={(e) => onClientDetailsChanged('email', e.target.value)}
+                  aria-describedby="component-helper-text"
+                />
+                <FormHelperText id="component-helper-text"></FormHelperText>
+              </FormControl>
+              <FormControl className={classes.smallInput}>
+                <InputLabel htmlFor="component-helper">Телефон</InputLabel>
+                <Input
+                  id="phone"
+                  value={client.phone}
+                  onChange={(e) => onClientDetailsChanged('phone', e.target.value)}
+                  aria-describedby="component-helper-text"
+                />
+                <FormHelperText id="component-helper-text">телефонeн номер във формат 08******</FormHelperText>
+              </FormControl>
+            </div>
+
             <FormControl fullWidth>
               <InputLabel htmlFor="component-helper">Адрес за изпълнение поръчката</InputLabel>
               <Input
                 id="address"
-                value={data.addr}
-                onChange={(e) => handleChange('address', e.target.value)}
+                value={client.address}
+                onChange={(e) => onClientDetailsChanged('address', e.target.value)}
                 aria-describedby="component-helper-text"
               />
               <FormHelperText id="component-helper-text"></FormHelperText>
             </FormControl>
+
             {isCorporateClient ? corporateClientDetals : null}
+
+            <FormControl fullWidth>
+              <br />
+              <DateTimePicker
+                autoOk
+                hideTabs
+                ampm={false}
+                value={selectedDate}
+                clearable
+                onChange={handleDateChange}
+                allowKeyboardControl={false}
+                minDate={new Date("2018-01-01")}
+                helperText="Изберете дата за изпълнение"
+                leftArrowButtonProps={{ "aria-label": "Prev month" }}
+                rightArrowButtonProps={{ "aria-label": "Next month" }}
+
+              />
+            </FormControl>
+
             <FormControl fullWidth>
               <Button
                 className={classes.add}
@@ -216,7 +280,7 @@ export default function NewOrderDialog(props) {
               {orderItems.map((el, idx) => {
                 return (
                   <ListItem key={idx}>
-                    <ListItemText primary={el.serviceType.name} secondary={`${el.serviceQty} x ${el.servicePrice} лв.`} />
+                    <ListItemText primary={el.name} secondary={`${el.quantity} x ${el.price} лв.`} />
                     <IconButton onClick={(e) => onRemoveItemClick(idx)} ><DeleteForeverIcon /></IconButton>
                   </ListItem>
                 )

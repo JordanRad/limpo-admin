@@ -32,6 +32,11 @@ code {
 .MuiSwitch-colorPrimary.Mui-checked{
   color: #214455 !important;
 }
+
+.MuiButton-textPrimary{
+  color: #214455 !important;
+}
+
 .wave-container {
   position: relative;
   background: #eef7f2;

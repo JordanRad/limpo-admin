@@ -9,12 +9,14 @@ export const GlobalStateProvider = ({reducer,initialState, children})=>{
         </StateContext.Provider>
     )
 }
+
+
 export const initialState = {
     input:"",
     statusFilter:"ALL",
     orderByNameFilter:"",
     orderByOrderNumberFilter:"",
-    isLoggedIn:false
+    isLoggedIn:sessionStorage.getItem("user")!=null
 }
 export const useGlobalStateValue = ()=> useContext(StateContext)
 

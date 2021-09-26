@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewItemDialog(props) {
-  const { open, setOpen, saveData } = props
+  const { open, setOpen, addOrderItem } = props
   const classes = useStyles();
 
   const [helpers, setHelpers] = useState({ type: "", qty: "", price: "" })
@@ -52,6 +52,7 @@ export default function NewItemDialog(props) {
   const [serviceType, setServiceType] = useState('')
   const [serviceQty, setServiceQty] = useState(0)
   const [servicePrice, setServicePrice] = useState(0)
+
   const [limpoUnits, setLimpoUnits] = useState(undefined)
 
   const fetchLimpoUnits = async () => {
@@ -104,7 +105,7 @@ export default function NewItemDialog(props) {
     }
 
     if (helpers.price === "" && helpers.qty === "" && helpers.type === "") {
-      saveData({ serviceType: serviceType, serviceQty: parseInt(serviceQty) || 0, servicePrice: parseFloat(servicePrice) || 0 })
+      addOrderItem({ name: serviceType.name, quantity: parseInt(serviceQty) || 0, price: parseFloat(servicePrice) || 0 })
       handleClose()
     }
   }

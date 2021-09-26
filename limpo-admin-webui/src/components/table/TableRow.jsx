@@ -78,6 +78,7 @@ const TableRow = (props) => {
 
     let total = order.orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     
+    let clientName = order.client.type === "Некорпоративен" ? `${order.client.firstName} ${order.client.lastName}` : order.client.corporateName
     return (
         <div>
             {/* Order Row */}
@@ -86,7 +87,7 @@ const TableRow = (props) => {
                     <strong>{order.orderNumber}</strong>
                 </Grid>
                 <Grid item xs={cellSizes[1]} className={classes.bold}>
-                    {order.client.firstName}
+                    {clientName}
                 </Grid>
                 <Grid item xs={cellSizes[2]}>
                     {order.createdAt.split("/")[0]}

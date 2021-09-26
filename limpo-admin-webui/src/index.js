@@ -5,10 +5,14 @@ import App from './App.jsx';
 import reportWebVitals from './reportWebVitals';
 import { GlobalStateProvider, initialState } from './context/GlobalStateProvider';
 import { reducer } from './context/reducer';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment'; 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStateProvider reducer={reducer} initialState={initialState}>
-      <App />
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <App />
+      </MuiPickersUtilsProvider>
     </GlobalStateProvider>
   </React.StrictMode>,
   document.getElementById('root')
