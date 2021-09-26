@@ -33,6 +33,15 @@ code {
   color: #214455 !important;
 }
 
+.MuiFormLabel-root.Mui-focused{
+  color: #214455 !important;
+}
+
+.MuiInput-underline:after{
+  color: #214455 !important;
+  border: 0.5px solid #214455 !important;
+}
+
 .MuiButton-textPrimary{
   color: #214455 !important;
 }
