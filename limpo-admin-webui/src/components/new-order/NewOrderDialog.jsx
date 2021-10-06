@@ -17,6 +17,7 @@ import { Redirect } from 'react-router-dom';
 import { DateTimePicker } from "@material-ui/pickers";
 import moment from 'moment';
 import 'moment/locale/bg'
+import OrderService from '../../services/OrderService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +79,7 @@ const convertDateToBg = (date) => {
   let convertedDate = moment(date)
   return convertedDate.format("LLL")
 }
+
 export default function NewOrderDialog(props) {
   const { open, passData } = props
   const classes = useStyles();
@@ -93,21 +95,30 @@ export default function NewOrderDialog(props) {
   const [selectedDate, handleDateChange] = useState(null);
 
 
-  const handleClose = async (e, reason) => {
+  const saveData = async (e, reason) => {
     let clientDetails = client
     clientDetails.type = isCorporateClient ? "Корпоративен" : "Некорпоративен"
-    let scheduledAt = selectedDate !== null ? selectedDate.format("L") + "/" + selectedDate.format("LT") : ""
-
-    let requestBody = {
-      scheduledAt: scheduledAt,
+    // let scheduledAt = selectedDate !== null ? selectedDate.format("L") + "/" + selectedDate.format("LT") : ""
+    let timestamp = selectedDate.toDate().getTime()
+    let data = {
+      timestamp: timestamp,
       orderItems: orderItems,
       client: client
     }
-    console.log(requestBody)
-    // passData(data)
-    // setDialogOpen(false);
-    // setHasToRedirect(true)
+    
+
+    let response = await OrderService.post("/orders/",data)
+    console.log(response)
+    if(response === undefined){
+      alert("Телефонният номер и/или имейл адресът вече са вписани на друг клиент")
+    }
+    handleClose()
   };
+
+  const handleClose = (e) =>{
+    setDialogOpen(false);
+    setHasToRedirect(true)
+  }
 
   const onClientDetailsChanged = (field, value) => {
     setClient({ ...client, [field]: value })
@@ -164,7 +175,7 @@ export default function NewOrderDialog(props) {
               <Typography variant="h6" className={classes.title}>
                 Нова Поръчка
               </Typography>
-              <Button className={classes.btn} variant="outlined" autoFocus onClick={handleClose}>
+              <Button className={classes.btn} variant="outlined" autoFocus onClick={saveData}>
                 Запиши
               </Button>
             </Toolbar>

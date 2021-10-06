@@ -14,10 +14,12 @@ body {
   margin: 0;
   padding: 0;
 }
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .MuiButton-root{
   border-radius: 0px !important;
 }
@@ -29,6 +31,7 @@ code {
 .MuiDialog-paperScrollPaper {
   border-radius: 0px !important;
 }
+
 .MuiSwitch-colorPrimary.Mui-checked{
   color: #214455 !important;
 }

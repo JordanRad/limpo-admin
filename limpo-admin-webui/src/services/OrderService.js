@@ -48,7 +48,18 @@ export default class OrderService {
     }
 
     static async put(url, body) {
-        axios.put()
+        let result;
+        let token = this.getToken()
+
+        result = await axios.put(this.URL + url, body, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            })
+            .then(response => result = response.data)
+            .catch((error) => error.message.includes("401") ? this.logout() : console.log(error))
+
+        return result;
     }
 
     static async delete(url) {

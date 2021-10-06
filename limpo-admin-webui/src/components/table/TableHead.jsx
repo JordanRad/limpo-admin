@@ -15,15 +15,15 @@ const useStyles = makeStyles(theme => ({
     icon: {
         color: theme.palette.primary.dark,
     },
-    item:{
-        display:"flex",
-        alignItems:"center"
+    item: {
+        display: "flex",
+        alignItems: "center"
     }
 }));
 
 const TableHeadCell = (props) => {
     const classes = useStyles();
-    let { item, cellSize} = props;
+    let { item, cellSize } = props;
     const [filter, setFilter] = useState("ASC")
     const onFilterChangeHandler = (e) => {
         filter === "ASC" ? setFilter("DESC") : setFilter("ASC")
@@ -42,12 +42,12 @@ const TableHeadCell = (props) => {
 }
 const TableHead = (props) => {
     const classes = useStyles();
-    let { cells ,type} = props
+    let { cells, type } = props
 
-    let cellSizes =type==="ARCHIVE"?[4,4,3,1,1]:[3,4,2,2,1]
+    let cellSizes = type === "ARCHIVE" ? [4, 4, 3, 1, 1] : [3, 3, 3, 2, 1]
 
     let CellsList = cells.map((el, index) => {
-        return <TableHeadCell key={index+"-head"} cellSize={[cellSizes[index]]} item={el} />
+        return <TableHeadCell key={index + "-head"} cellSize={[cellSizes[index]]} item={el} />
     })
     return (
         <Grid container alignItems="center" className={classes.head}>

@@ -3,7 +3,7 @@ import React from 'react';
 import OrderItem from './OrderItem';
 
 const OrderItemsList = (props) => {
-    let { items } = props
+    let { items,scheduledAt } = props
 
     let ItemList = items.map((item, index) => <OrderItem item={item} key={index} index={index+1} />)
 

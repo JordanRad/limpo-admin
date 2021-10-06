@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 // }
 const ClientDetails = (props) => {
     const classes = useStyles()
-    let { client } = props
+    let { client, scheduledAtString } = props
     let corporateClientDetails;
     if (client.type === "Корпоративен") {
         corporateClientDetails =
@@ -63,11 +63,13 @@ const ClientDetails = (props) => {
             <Container className={classes.secondaryContainer} style={{ padding: 0 }}>
                 <div className={classes.marginLeft}>
                     <Typography className={classes.line}><strong>Адрес:</strong> {client.address}</Typography>
+                    <Typography className={classes.line}><strong>Дата и час:</strong>  {scheduledAtString.split(" ")[0]} {scheduledAtString.split(" ")[1]}</Typography>
+                    
                     {corporateClientDetails}
                 </div>
                 <img alt="data"
                     className={classes.img}
-                    height={corporateClientDetails ? "64em" : "32em"}
+                    height={corporateClientDetails ? "64em" : "50em"}
                     src="./personal-information.png" />
             </Container>
         </Container>

@@ -53,8 +53,8 @@ const useStyles = makeStyles(theme => ({
 
 const tableHeadCells = [
     { name: "Номер на поръчка", hasOrderByFilter: false },
-    { name: "Име на клиент", hasOrderByFilter: true },
-    { name: "Дата", hasOrderByFilter: false },
+    { name: "Име на клиент", hasOrderByFilter: false },
+    { name: "Дата и час", hasOrderByFilter: false },
     { name: "Статус", hasOrderByFilter: false },
     { name: "Детайли", hasOrderByFilter: false }
 ]
@@ -79,30 +79,15 @@ const OrdersTable = (props) => {
     }
 
     useEffect(async () => {
-        let orders = await fetchData(`/orders/?startIndex=${(pageNumber * 5 - 5).toString()}&status=${globalState.statusFilter}`)
-        setRows(orders)
+        let ordersPage = await fetchData(`/orders/?searchInput=${globalState.input.trim()}&status=${globalState.statusFilter}&pageNumber=${pageNumber - 1}&pageSize=5`)
+        setRows(ordersPage.orders)
 
-        let all = 0;
-        console.log(globalState.statusFilter)
-        let count = await fetchData(`/orders/count?status=${globalState.statusFilter}`)
+        let all = ordersPage.total;
+        setTableFooterCells({ from: ordersPage.from, to: ordersPage.to, all: all, page: pageNumber })
+
+    }, [pageNumber, globalState.statusFilter, globalState.input])
 
 
-        if (pageNumber > parseInt(tableFooterCells.all / 5)) {
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: count, all: count, page: pageNumber })
-        } else {
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: count, page: pageNumber })
-        }
-
-    }, [pageNumber, globalState.statusFilter])
-
-    useEffect(async () => {
-        if (globalState.input.trim() !== "") {
-            let orders = await fetchData(`/orders/search?searchInput=${globalState.input}&status=${globalState.statusFilter}`);
-            setRows(orders)
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: orders.length, all: orders.length, page: pageNumber })
-        }
-
-    }, [globalState.input])
 
     if (rows === undefined) {
         return (

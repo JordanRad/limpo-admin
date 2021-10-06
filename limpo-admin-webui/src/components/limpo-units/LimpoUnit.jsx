@@ -40,7 +40,7 @@ export default function LimpoUnit(props) {
     const { id, name, description } = props
 
     const onDeleteClick = async (id) => {
-        let confirmMessage = window.confirm("Сигурни ли сте, че искате да изтриете услугата");
+        let confirmMessage = window.confirm("Сигурни ли сте, че искате да изтриете услугата?");
         if (confirmMessage) {
             await OrderService.delete("/limpoUnits/" + id)
             window.location.reload()

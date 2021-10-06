@@ -64,11 +64,11 @@ export default function AddLimpoUnit(props) {
 
   const classes = useStyles();
 
-  const history = useHistory()
-  const saveData = async (data) => {
+  const history = useHistory();
 
+  const saveData = async (data) => {
     let response = await OrderService.post("/limpoUnits/", data)
-    console.log("response: ",response)
+    
     if(response === undefined){
       alert("Услуга с това име вече съществува!\nМоля, изберете друго име за услугата.")
     }else{

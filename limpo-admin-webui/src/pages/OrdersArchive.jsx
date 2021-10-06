@@ -67,21 +67,6 @@ const OrdersArchive = () => {
     }
 
 
-    useEffect(async () => {
-
-        let orders = await fetchData("/orders/?startIndex=" + (pageNumber * 5 - 5).toString() + "&status=COMPLETED");
-        setRows(orders)
-
-        let all = await fetchData("/orders/count?status=COMPLETED");
-
-        if (pageNumber > parseInt(tableFooterCells.all / 5)) {
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: all, all: all, page: pageNumber })
-        } else {
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: pageNumber * 5, all: all, page: pageNumber })
-        }
-    }, [pageNumber])
-
-
     useEffect(() => {
         dispatch({ type: "update search input", payload: "" })
 
@@ -89,13 +74,14 @@ const OrdersArchive = () => {
 
 
     useEffect(async () => {
-        if (globalState.input.trim() !== "") {
-            let orders = await fetchData(`/orders/search?searchInput=${globalState.input}&status=COMPLETED`);
-            setRows(orders)
-            setTableFooterCells({ from: pageNumber * 5 - 4, to: orders.length, all: orders.length, page: pageNumber })
-        }
 
-    }, [globalState.input])
+        let ordersPage = await fetchData(`/orders/?searchInput=${globalState.input.trim()}&status=COMPLETED&pageNumber=${pageNumber - 1}&pageSize=5`)
+        setRows(ordersPage.orders)
+
+        let all = ordersPage.total;
+
+        setTableFooterCells({ from: ordersPage.from, to: ordersPage.to, all: all, page: pageNumber })
+    }, [pageNumber,globalState.input])
 
     if (rows === undefined) {
         return (
@@ -127,7 +113,7 @@ const OrdersArchive = () => {
                     {
                         rows.length !== 0 ?
                             rows.map((el, index) => <TableRow key={index} type="archive" order={el} />) :
-                            <Placeholder text="⚠️ Няма намрени поръчки"  />
+                            <Placeholder text="⚠️ Няма намрени поръчки" />
                     }
                     <TableFooter setPageNumber={onPageNumberChanged} details={tableFooterCells} />
                 </div>

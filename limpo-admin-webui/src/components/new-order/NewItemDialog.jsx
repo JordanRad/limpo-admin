@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   "& .MuiInputBase-input:focus": {
     backgroundColor: theme.palette.primary.dark
   },
+  select: {
+    width: "30em",
+  }
 
 }));
 
@@ -50,6 +53,7 @@ export default function NewItemDialog(props) {
   const [helpers, setHelpers] = useState({ type: "", qty: "", price: "" })
 
   const [serviceType, setServiceType] = useState('')
+  const [serviceDescription, setServiceDescription] = useState('')
   const [serviceQty, setServiceQty] = useState(0)
   const [servicePrice, setServicePrice] = useState(0)
 
@@ -105,9 +109,20 @@ export default function NewItemDialog(props) {
     }
 
     if (helpers.price === "" && helpers.qty === "" && helpers.type === "") {
-      addOrderItem({ name: serviceType.name, quantity: parseInt(serviceQty) || 0, price: parseFloat(servicePrice) || 0 })
+      addOrderItem({
+        name: serviceType.name,
+        quantity: parseInt(serviceQty) || 0,
+        price: parseFloat(servicePrice) || 0,
+        description: serviceDescription
+      })
       handleClose()
     }
+  }
+
+  const onLimpoUnitSelect = (e) =>{
+    let limpoUnit = limpoUnits.find(el=>el.name===e.target.value)
+    setServiceType({name:limpoUnit.name})
+    setServiceDescription(limpoUnit.description)
   }
 
   return (
@@ -122,14 +137,17 @@ export default function NewItemDialog(props) {
 
             <FormControl className={classes.inl} fullWidth>
               <InputLabel id="dialog-select-label">Избери Услуга</InputLabel>
-              {limpoUnits === undefined ? "Услугите се зареждат" :
+              {limpoUnits === undefined ? "Услугите се зареждат..." :
                 <Select
-                  style={{ width: "30em" }}
+                  className={classes.select}
                   error={helpers.type !== ""}
                   id="dialog-select"
                   value={serviceType.name ? serviceType.name : ""}
-                  onChange={(e) => (setServiceType(limpoUnits.find(el => el.name === e.target.value)))}>
-                  {limpoUnits.map((el, idx) => (<MenuItem key={idx} value={el.name}>{el.name}</MenuItem>))}
+                  onChange={onLimpoUnitSelect}>
+                  {
+                    limpoUnits
+                      .map((el, idx) => (<MenuItem key={idx} value={el.name}>{el.name}</MenuItem>))
+                  }
                 </Select>}
               <FormHelperText>{helpers.type}</FormHelperText>
             </FormControl>
@@ -139,7 +157,6 @@ export default function NewItemDialog(props) {
                 error={helpers.qty !== ""}
                 id="number-helper"
                 value={serviceQty || ""}
-
                 onChange={(e) => (setServiceQty(e.target.value))}
                 aria-describedby="component-helper-text"
                 type="number"

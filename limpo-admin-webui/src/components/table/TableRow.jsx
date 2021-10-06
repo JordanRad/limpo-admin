@@ -50,6 +50,7 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(0, 3),
     }
 
+
 }));
 
 const getStatus = (status) => {
@@ -70,14 +71,14 @@ const TableRow = (props) => {
     const [isShown, setIsShown] = useState(false)
     let { order, type } = props
 
-    let cellSizes = type === "archive" ? [4, 4, 3, 0, 1] : [3, 4, 2, 2, 1]
+    let cellSizes = type === "archive" ? [4, 4, 3, 0, 1] : [3, 3, 3, 2, 1]
 
     useEffect(() => setIsShown(false), [props])
 
     const onClickHandler = (e) => setIsShown(!isShown)
 
     let total = order.orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
-    
+
     let clientName = order.client.type === "Некорпоративен" ? `${order.client.firstName} ${order.client.lastName}` : order.client.corporateName
     return (
         <div>
@@ -90,7 +91,7 @@ const TableRow = (props) => {
                     {clientName}
                 </Grid>
                 <Grid item xs={cellSizes[2]}>
-                    {order.createdAt.split("/")[0]}
+                    {`${order.scheduledAtString.split(" ")[0]} в ${order.scheduledAtString.split(" ")[1]}`}
                 </Grid>
                 {type !== "archive" ?
                     <Grid item xs={cellSizes[3]}>
@@ -109,7 +110,7 @@ const TableRow = (props) => {
             {/* Order Details */}
             <Grid container className={`${classes.details} ${classes.primary} ${isShown ? "" : classes.hide}`}>
                 <ListItem className={classes.orderDetails}>
-                    <ClientDetails client={order.client} />
+                    <ClientDetails scheduledAtString={order.scheduledAtString} client={order.client} />
                     <OrderItemsList items={order.orderItems} />
                     <ListItemText className={classes.total}>
                         <strong>ОБЩО: {total.toFixed(2)} лв.</strong>

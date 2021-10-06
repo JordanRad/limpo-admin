@@ -36,7 +36,7 @@ const OrderItem = (props) => {
                 
             </Typography>
             <Typography className={classes.price}>
-                {item.quantity} x {item.price} = {`${item.quantity * item.price} лв.`}
+                {item.quantity} x {item.price.toFixed(2)} лв. = {`${(item.quantity * item.price).toFixed(2)} лв.`}
             </Typography>
         </Container>
     );
