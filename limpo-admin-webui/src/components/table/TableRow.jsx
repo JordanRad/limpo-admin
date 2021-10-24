@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, ListItem, ListItemText, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import OrderActions from './row-elements/OrderActions';
-import ClientDetails from './row-elements/ClientDetails';
-import OrderItemsList from './row-elements/OrderItemsList';
+import OrderActions from './details-tab/OrderActions';
+import ClientDetails from './details-tab/ClientDetails';
+import OrderItemsList from './details-tab/OrderItemsList';
+import TableRowDetails from './TableRowDetails';
 
 const useStyles = makeStyles(theme => ({
     row: {
@@ -69,6 +70,7 @@ const TableRow = (props) => {
     const classes = useStyles()
 
     const [isShown, setIsShown] = useState(false)
+
     let { order, type } = props
 
     let cellSizes = type === "archive" ? [4, 4, 3, 0, 1] : [3, 3, 3, 2, 1]
@@ -119,6 +121,9 @@ const TableRow = (props) => {
                 {type !== "archive" ? <OrderActions order={order} /> : ""}
             </Grid>
             {/* END Order Details */}
+
+            {isShown ? <TableRowDetails order={order}/> : ""}
+
         </div>
     );
 

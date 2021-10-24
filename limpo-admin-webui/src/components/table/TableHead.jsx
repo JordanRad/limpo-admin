@@ -3,6 +3,7 @@ import { Grid, IconButton, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import PersonIcon from '@material-ui/icons/Person'
 const useStyles = makeStyles(theme => ({
     head: {
         backgroundColor: theme.palette.primary.light,
@@ -14,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
     icon: {
         color: theme.palette.primary.dark,
+        margin: theme.spacing(0,1),
     },
     item: {
         display: "flex",
@@ -37,6 +39,8 @@ const TableHeadCell = (props) => {
                     <IconButton className={classes.icon} onClick={onFilterChangeHandler}><ArrowUpwardIcon /></IconButton>
                     : <IconButton className={classes.icon} onClick={onFilterChangeHandler}> <ArrowDownwardIcon /> </IconButton>
                 : ""}
+            
+            <PersonIcon className={classes.icon}/>
         </Grid>
     )
 }

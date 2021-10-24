@@ -18,7 +18,7 @@ import LimpoUnitsPage from "./pages/LimpoUnitsPage.jsx";
 import OrdersArchive from './pages/OrdersArchive.jsx';
 import { GlobalStateProvider, initialState, useGlobalStateValue } from './context/GlobalStateProvider';
 import { reducer } from './context/reducer';
-
+import 'tachyons';
 function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)

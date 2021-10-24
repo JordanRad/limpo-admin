@@ -52,11 +52,11 @@ const useStyles = makeStyles(theme => ({
 // ]
 
 const tableHeadCells = [
-    { name: "Номер на поръчка", hasOrderByFilter: false },
-    { name: "Име на клиент", hasOrderByFilter: false },
-    { name: "Дата и час", hasOrderByFilter: false },
-    { name: "Статус", hasOrderByFilter: false },
-    { name: "Детайли", hasOrderByFilter: false }
+    { id:"orderNumber", name: "Номер на поръчка", hasOrderByFilter: false },
+    { id:"name", name: "Име на клиент", hasOrderByFilter: false },
+    { id:"date", name: "Дата и час", hasOrderByFilter: false },
+    { id:"status", name: "Статус", hasOrderByFilter: false },
+    { id: "details",name: "Детайли", hasOrderByFilter: false }
 ]
 const OrdersTable = (props) => {
     const classes = useStyles()
