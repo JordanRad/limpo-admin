@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import { FormControl, FormControlLabel, InputLabel, Input, FormHelperText, Switch } from '@material-ui/core'
+import { Alert } from '@material-ui/lab'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import NewItemDialog from './NewItemDialog'
 import { Redirect } from 'react-router-dom';
@@ -95,27 +96,44 @@ export default function NewOrderDialog(props) {
   const [selectedDate, handleDateChange] = useState(null);
 
 
+  const validateInputs = () => {
+    let clientProperties = isCorporateClient ? ["name", "email", "phone", "address", "bulstat", "vatNumber", "type"] : ["firstName", "lastName", "email", "phone", "type", "address"]
+    clientProperties = clientProperties.sort()
+    console.log(clientProperties)
+    console.log(Object.getOwnPropertyNames(client).sort()) 
+    console.log(Object.getOwnPropertyNames(client).sort()===clientProperties) 
+    // First check if the checksum is valid
+    if (JSON.stringify(clientProperties) === JSON.stringify(Object.getOwnPropertyNames(client).sort())) {
+
+      // Then check if there are some empty values
+      let emptyFields = Object.getOwnPropertyNames(client).filter(item => client[item].trim().length === 0)
+      console.log(emptyFields)
+    }
+    return Object.getOwnPropertyNames(client)
+    //.map(item => client[item])
+  }
+
   const saveData = async (e, reason) => {
     let clientDetails = client
     clientDetails.type = isCorporateClient ? "Корпоративен" : "Некорпоративен"
     // let scheduledAt = selectedDate !== null ? selectedDate.format("L") + "/" + selectedDate.format("LT") : ""
-    let timestamp = selectedDate.toDate().getTime()
+    let timestamp = selectedDate !== null ? selectedDate.toDate().getTime():new Date().getTime()
     let data = {
       timestamp: timestamp,
       orderItems: orderItems,
       client: client
     }
-    
-
+ 
     let response = await OrderService.post("/orders/",data)
-    console.log(response)
+
     if(response === undefined){
-      alert("Телефонният номер и/или имейл адресът вече са вписани на друг клиент")
+      alert("Телефонният номер и/или имейл адресът вече са вписани на друг клиент.")
     }
+
     handleClose()
   };
 
-  const handleClose = (e) =>{
+  const handleClose = (e) => {
     setDialogOpen(false);
     setHasToRedirect(true)
   }
@@ -129,7 +147,7 @@ export default function NewOrderDialog(props) {
     updatedOrderItems.splice(deleteIndex, 1);
     setOrderItems(updatedOrderItems)
   }
-  
+
   const addOrderItem = (datas) => {
     let updatedItems = [...orderItems]
     updatedItems.push(datas)
@@ -181,7 +199,13 @@ export default function NewOrderDialog(props) {
             </Toolbar>
           </AppBar>
           <form className={classes.form} noValidate autoComplete="off">
-            <Typography>Въведи данни за поръчка</Typography>
+            <Typography variant="h6">Въведи данни за поръчка</Typography>
+            
+            {/* <Typography variant="body2">Моля, не оставяйте празни полета!</Typography> */}
+            
+            <Alert>
+              Моля, попълнете всички полета и добавете поне една услуга!
+            </Alert>
 
             <FormControlLabel
               control={<Switch color="primary" className={classes.switch} checked={isCorporateClient} onChange={(e) => setIsCorporateClient(!isCorporateClient)} name="checkedA" />}

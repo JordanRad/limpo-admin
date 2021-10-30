@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
         width: "70%",
         margin: "auto",
         zIndex: "100",
-        position: "relative"
+        position: "relative",
     },
     filters: {
         display: "flex",

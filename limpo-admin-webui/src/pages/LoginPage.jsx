@@ -103,16 +103,16 @@ function LoginPage() {
       await AuthService.login(email.current, password.current)
         .then((response) => user = response)
         .catch((e) => console.log(e))
-     
+
       if (user === undefined) {
         setWrongCredentials(true)
       } else {
-        dispatch({type:"user authenticated"}) 
-        localStorage.setItem("refreshToken",JSON.stringify(user.refreshToken))
+        dispatch({ type: "user authenticated" })
+        localStorage.setItem("refreshToken", JSON.stringify(user.refreshToken))
 
-        sessionStorage.setItem("user",JSON.stringify(user))
-        
-        
+        sessionStorage.setItem("user", JSON.stringify(user))
+
+
 
         history.push("./dashboard")
       }

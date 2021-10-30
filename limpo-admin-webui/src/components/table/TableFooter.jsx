@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, IconButton, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -41,8 +41,7 @@ const TableFooter = (props) => {
         }
         
     }
-    
-    
+
     return (
         <Grid container alignItems="center" justifyContent="space-between" className={classes.head}>
             <Grid item>

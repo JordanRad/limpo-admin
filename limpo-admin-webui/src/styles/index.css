@@ -25,7 +25,8 @@ code {
 }
 
 .MuiButton-root:hover{
-  box-shadow: 4px 6px black;
+  box-shadow: 0 0 11px rgb(158, 158, 158);
+  color: white !important
 }
 
 .MuiDialog-paperScrollPaper {

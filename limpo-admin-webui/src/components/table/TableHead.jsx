@@ -40,7 +40,7 @@ const TableHeadCell = (props) => {
                     : <IconButton className={classes.icon} onClick={onFilterChangeHandler}> <ArrowDownwardIcon /> </IconButton>
                 : ""}
             
-            <PersonIcon className={classes.icon}/>
+            {/* <PersonIcon className={classes.icon}/> */}
         </Grid>
     )
 }

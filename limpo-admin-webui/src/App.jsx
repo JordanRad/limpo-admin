@@ -18,7 +18,8 @@ import LimpoUnitsPage from "./pages/LimpoUnitsPage.jsx";
 import OrdersArchive from './pages/OrdersArchive.jsx';
 import { GlobalStateProvider, initialState, useGlobalStateValue } from './context/GlobalStateProvider';
 import { reducer } from './context/reducer';
-import 'tachyons';
+import RegisterPage from './pages/RegisterPage.jsx';
+
 function App() {
 
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -57,6 +58,9 @@ function App() {
             </Route>
             <Route path="/archive">
               <OrdersArchive />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
             </Route>
             <Route path="/limpoUnits">
               <LimpoUnitsPage />

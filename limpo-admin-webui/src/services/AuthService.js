@@ -18,6 +18,16 @@ export default class AuthService {
         return result;
     }
 
+    static async register(user) {
+
+        let result;
+
+        result = await axios.post(this.URL + "/register", user).then(response => result = response.data).catch((e) => console.log(e))
+
+        return result;
+    }
+
+
     static async refreshToken(refreshToken) {
         // Get new JWT
         // Save response to Session Storage

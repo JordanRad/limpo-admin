@@ -86,21 +86,21 @@ const TableRow = (props) => {
         <div>
             {/* Order Row */}
             <Grid className={classes.row} container alignItems="center">
-                <Grid item xs={cellSizes[0]}>
+                <Grid item xs={4} md={cellSizes[0]}>
                     <strong>{order.orderNumber}</strong>
                 </Grid>
-                <Grid item xs={cellSizes[1]} className={classes.bold}>
+                <Grid item xs={4} md={cellSizes[1]} className={classes.bold}>
                     {clientName}
                 </Grid>
-                <Grid item xs={cellSizes[2]}>
+                <Grid item xs={false} md={cellSizes[2]}>
                     {`${order.scheduledAtString.split(" ")[0]} в ${order.scheduledAtString.split(" ")[1]}`}
                 </Grid>
                 {type !== "archive" ?
-                    <Grid item xs={cellSizes[3]}>
+                    <Grid item xs={false} md={cellSizes[3]}>
                         {getStatus(order.status)}
                     </Grid> : ""
                 }
-                <Grid item xs={cellSizes[4]}>
+                <Grid item xs={4} md={cellSizes[4]}>
                     <Button
                         id={order.orderNumber}
                         onClick={onClickHandler}
@@ -109,8 +109,8 @@ const TableRow = (props) => {
             </Grid>
             {/* END Order Row */}
 
-            {/* Order Details */}
-            <Grid container className={`${classes.details} ${classes.primary} ${isShown ? "" : classes.hide}`}>
+           
+            {/* <Grid container className={`${classes.details} ${classes.primary} ${isShown ? "" : classes.hide}`}>
                 <ListItem className={classes.orderDetails}>
                     <ClientDetails scheduledAtString={order.scheduledAtString} client={order.client} />
                     <OrderItemsList items={order.orderItems} />
@@ -119,8 +119,8 @@ const TableRow = (props) => {
                     </ListItemText>
                 </ListItem>
                 {type !== "archive" ? <OrderActions order={order} /> : ""}
-            </Grid>
-            {/* END Order Details */}
+            </Grid> */}
+           
 
             {isShown ? <TableRowDetails order={order}/> : ""}
 

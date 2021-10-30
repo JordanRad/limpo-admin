@@ -1,15 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Grid } from '@material-ui/core';
+import { Typography, Container, Grid, Button } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import AccessTimeFilledIcon from '@material-ui/icons/AccessTime';
 import DescriptionIcon from '@material-ui/icons/Description';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { styled } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
     column: {
         color: theme.palette.primary.dark,
         display: "flex",
         flexDirection: "column",
+        flexWrap:"wrap"
     },
     line: {
         display: "flex",
@@ -17,13 +19,7 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1, 0),
         color: theme.palette.primary.dark,
     },
-    orderItem: {
-        display: "flex",
-        justifyContent: "space-between",
-        margin: theme.spacing(1, 0),
-        color: theme.palette.primary.dark,
-        alignItems: "center",
-    }
+    
 }));
 
 const Fields = (props) => {
@@ -47,7 +43,7 @@ const OrderItems = (props) => {
 
     return orderItems.map((item, index) => {
         return (
-            <Grid className={classes.orderItem} key={index}>
+            <Grid className={classes.orderItemLine} key={index}>
                 <span className={classes.orderItem}>
                     <CheckCircleIcon /> &nbsp; {index + 1}. {item.name}
                 </span>
@@ -56,18 +52,17 @@ const OrderItems = (props) => {
         )
     })
 }
+
 const OrderDetails = (props) => {
     const classes = useStyles()
     let { order } = props
 
-    const Total = order.orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+    
     return (
         <Grid className={classes.column}>
             <Fields order={order} />
-            <Typography className={classes.line}><DescriptionIcon /> &nbsp; <strong>Поръчката включва:</strong></Typography>
-            <OrderItems orderItems={order.orderItems} />
-            <Typography className={classes.line}><DescriptionIcon /> &nbsp; <strong>Общо:</strong> &nbsp; {Total.toFixed(2)} лв.</Typography>
+            
         </Grid>
-    );
+    ); 
 }
 export default OrderDetails;
