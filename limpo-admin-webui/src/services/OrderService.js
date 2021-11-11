@@ -2,7 +2,8 @@ import axios from 'axios'
 import AuthService from './AuthService'
 export default class OrderService {
 
-    static URL = 'http://localhost:8080/order-service/api/v1'
+    //static URL = 'http://localhost:8080/order-service/api/v1'
+    static URL = 'https://api.limpo.bg/order-service/api/v1'
 
     /**
      * Logout when the API returns 401. 

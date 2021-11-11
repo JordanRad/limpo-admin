@@ -2,7 +2,8 @@ import {clear} from './SessionStorage';
 import axios from 'axios';
 export default class AuthService {
 
-    static URL = 'http://localhost:8080/auth-service/api/v1'
+    // static URL = 'http://localhost:8080/auth-service/api/v1'
+    static URL = 'https://api.limpo.bg/auth-service/api/v1'
 
     static async login(email, password) {
 
